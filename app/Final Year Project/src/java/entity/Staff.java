@@ -13,6 +13,12 @@ import java.util.ArrayList;
  */
 public class Staff {
     private String email;
+    private String employeeID;
+    private boolean isAdmin;
+    private double currentSalary;
+    private double cpf;
+    private String bankAccount;
+    private String nric;
     private String name;
     private String position;
     private ArrayList<Job> currentJobs;
@@ -51,4 +57,6 @@ public class Staff {
     public String getDepartment(){
         return department;
     }
+    
+    
 }

@@ -21,6 +21,8 @@ public class Job {
     private Date completionDate;
     private String priorityLevel;
     private ArrayList<Staff> staffAssignedTo;
+    private String status;
+    private ArrayList<Task> taskList;
     
     /**
      *
@@ -32,7 +34,7 @@ public class Job {
      * @param priorityLevel
      * @param staffAssignedTo
      */
-    public Job(String jobID, String clientID, String jobTitle, String jobDescription, Date dueDate, Date completionDate, String priorityLevel, ArrayList<Staff> staffAssignedTo){
+    public Job(String jobID, String clientID, String jobTitle, String jobDescription, Date dueDate, Date completionDate, String priorityLevel, ArrayList<Staff> staffAssignedTo, String status, ArrayList<Task> taskList){
         this.jobID = jobID;
         this.clientID = clientID;
         this.jobTitle = jobTitle;
@@ -41,6 +43,8 @@ public class Job {
         this.completionDate = completionDate;
         this.priorityLevel = priorityLevel;
         this.staffAssignedTo = staffAssignedTo;
+        this.status = status;
+        this.taskList = taskList;
     }
         
     public String getJobID(){
@@ -73,5 +77,13 @@ public class Job {
     
     public ArrayList<Staff> getStaffAssignedTo(){
          return staffAssignedTo;
+    }
+    
+    public String getStatus(){
+        return status;
+    }
+    
+    public ArrayList<Task> getTaskList(){
+        return taskList;
     }
 }

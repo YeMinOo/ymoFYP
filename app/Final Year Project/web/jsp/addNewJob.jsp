@@ -22,16 +22,16 @@
                     </select>
                     </br>
                     <label>Job Title: </label>
-                    <input type="text" name='jobTitle' id="inputJobTitle" class="form-control" placeholder="jobTitle" required autofocus>
+                    <input type="text" name='jobTitle' id="inputJobTitle" class="form-control" placeholder="Job Title" required autofocus>
                     </br>
                     <label>Job Description: </label>
-                    <textarea name='jobDescription' id='jobDescription'></textarea>
+                    <textarea name='jobDescription' id='jobDescription' placeholder="Job Description"></textarea>
                     <br />
                     <label>Due Date: </label>
-                    <input type="date" name='dueDate' id="inputDueDate" class="form-control" placeholder="dueDate" required autofocus>
+                    <input type="date" name='dueDate' id="inputDueDate" class="form-control" placeholder="Due Date of Project" required autofocus>
                      </br>                   
                     <label>Completion Date: </label>
-                    <input type="date" name='completionDate' id="inputCompletionDate" class="form-control" placeholder="completionDate" required autofocus>
+                    <input type="date" name='completionDate' id="inputCompletionDate" class="form-control" placeholder="Completion Date of Project" required autofocus>
                     </br>
                     <label>Job Priority: </label>
                     <select name='priorityLevel'>
@@ -42,7 +42,7 @@
                     </select>
                     </br>
                     <label>Employees Assigned: </label>
-                    <input type="text" name='employeeAssigned' id='inputEmployeeAssigned' class ='form-control' placeholder='employeeAssigned' required autofocus>
+                    <input type="text" name='staffAssignedTo' id='inputEmployeeAssigned' class ='form-control' placeholder='Staff Assigned To' required autofocus>
                     </br>
                     <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Create New Job!</button>
                 </form>

@@ -6,6 +6,7 @@
 package dao;
 import entity.Job;
 import entity.Staff;
+import entity.Task;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +20,8 @@ import utility.ConnectionManager;
  */
 public class JobDAO {
     private static String getJobStatement = "SELECT * FROM PROJECT WHERE project_id = ? AND client_id = ?";
+    private static String addJobStatement = "INSERT INTO PROJECT(jobID, clientID, jobTitle, jobDescription, dueDate, completionDate, priorityLevel, staffAssignedTo, taskList) VALUES (?,?,?,?,?,?,?,?,?)";
+    
     public static Job getJob (String project_id, String client_id) throws SQLException{
         try (Connection conn = ConnectionManager.getConnection()){
             PreparedStatement stmt = conn.prepareStatement(getJobStatement);
@@ -38,13 +41,32 @@ public class JobDAO {
             Date completionDate = rs.getDate(6);
             String priorityLevel = rs.getString(7);
             ArrayList<Staff> staffAssignedTo = (ArrayList<Staff>) rs.getArray(8);
-            return new Job(jobID, clientID, jobTitle, jobDescription, dueDate, completionDate, priorityLevel, staffAssignedTo);
+            ArrayList<Task> taskList = (ArrayList<Task>)rs.getArray(9);
+            String status = rs.getString(10);
+            return new Job(jobID, clientID, jobTitle, jobDescription, dueDate, completionDate, priorityLevel, staffAssignedTo, status, taskList);
         } catch (SQLException e){
             e.printStackTrace();
             //Returns empty Job, so that Login page can determine that its
             //a database error!
             //Will be checked by .getJobId method!
-            return new Job(null,null,null,null,null,null,null,null);
+            return new Job(null,null,null,null,null,null,null,null,null,null);
         }
+    }
+
+    /**
+     *
+     * @param project_id
+     * @param client_id
+     * @param jobTitle
+     * @param jobDescription
+     * @param dueDate
+     * @param completionDate
+     * @param priorityLevel
+     * @param staffAssignedTo
+     * @param taskList
+     * @param status
+     */
+    public static addJob(String project_id, String client_id, String jobTitle, String jobDescription, Date dueDate, Date completionDate, String priorityLevel, ArrayList<Staff> staffAssignedTo, ArrayList<Task> taskList, String status){
+        
     }
 }
