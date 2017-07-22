@@ -67,6 +67,21 @@ public class JobDAO {
      * @param status
      */
     public static addJob(String project_id, String client_id, String jobTitle, String jobDescription, Date dueDate, Date completionDate, String priorityLevel, ArrayList<Staff> staffAssignedTo, ArrayList<Task> taskList, String status){
-        
+        try (Connection conn = ConnectionManager.getConnection()){
+            PreparedStatement stmt = conn.prepareStatement(addJobStatement);
+            stmt.setString(1, project_id);
+            stmt.setString(2, client_id);
+            stmt.setString(3, jobTitle);
+            stmt.setString(4, jobDescription);
+            stmt.setDate(5, (java.sql.Date) dueDate);
+            stmt.setDate(6, (java.sql.Date) completionDate);
+            stmt.setString(7, priorityLevel);
+            stmt.setString(8, client_id);
+            stmt.setString(9, client_id);
+            stmt.setString(10, status);
+            ResultSet rs = stmt.executeQuery();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }
