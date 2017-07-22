@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import dao.StaffDAO;
 import entity.Staff;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -61,7 +62,8 @@ public class AddNewJobServlet extends HttpServlet {
         Date completionDate; 
         completionDate = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("completionDate"));
         String priorityLevel = request.getParameter("priorityLevel");
-        ArrayList<Staff> staffAssigned = new ArrayList<>();
+        String staffAssignedString = request.getParameter("staffAssignedTo");
+        Staff staffAssigned = StaffDAO.getStaff(staffAssignedString);
         //staffAssigned = request.getParameter("staffAssignedTo");
     }
 
