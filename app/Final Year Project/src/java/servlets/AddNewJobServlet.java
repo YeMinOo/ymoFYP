@@ -53,12 +53,16 @@ public class AddNewJobServlet extends HttpServlet {
         // Gets job information
         String jobType = request.getParameter("jobType");
         String jobTitle = request.getParameter("jobTitle");
+        String jobDescription = request.getParameter("jobDescription");
+        String client = request.getParameter("clientName");
+        String clientID = request.getParameter("clientID");
         Date dueDate;
         dueDate = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("dueDate"));
-        Date completionDate;
+        Date completionDate; 
         completionDate = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("completionDate"));
         String priorityLevel = request.getParameter("priorityLevel");
-        ArrayList<Staff> staffAssigned = ArrayList<Staff>(request.getParameter("staffAssigned"));
+        ArrayList<Staff> staffAssigned = new ArrayList<>();
+        //staffAssigned = request.getParameter("staffAssignedTo");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
