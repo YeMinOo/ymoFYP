@@ -11,5 +11,5 @@ package entity;
  */
 public class Task {
     private String taskId;
-    private String 
+    private String taskName; 
 }

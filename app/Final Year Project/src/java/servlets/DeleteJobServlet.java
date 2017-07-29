@@ -18,7 +18,8 @@ import utility.ConnectionManager;
  */
 public class DeleteJobServlet {
     private static String deleteJobStatement = "DELETE FROM JOB WHERE ";
-    private static String deleteAllJobsStatemnet = ""
+    private static String deleteAllJobsStatement = "";
+    private static String getStaffFromNameStatement = "";
     
     public static Staff getStaff (String name){
         try (Connection conn = ConnectionManager.getConnection()){
@@ -40,15 +41,15 @@ public class DeleteJobServlet {
             double cpf = rs.getDouble(4);
             String bankAccount = rs.getString(5);
             String nric = rs.getString(6);
-            String name = rs.getString(7);
+            //String name = rs.getString(7);
             String position = rs.getString(8);
             String department = rs.getString(9);
-            ArrayList<Job> currentJobs = rs.
+            //ArrayList<Job> currentJobs = rs.
             
             
-            ArrayList<Job> currentJobs, ArrayList<Job> pastJobs, String department
+            //ArrayList<Job> currentJobs, ArrayList<Job> pastJobs, String department
                     
-            return new Staff(email, pw, isAdmin);
+            //return new Staff(email, pw, isAdmin);
             
         } catch (SQLException e){
             e.printStackTrace();
@@ -57,5 +58,6 @@ public class DeleteJobServlet {
             //Will be checked by .getUserId method!
             return new Staff(null, null, false, 0, 0, null, null, null, null, null, null, null);
         }
+        return new Staff(null, null, false, 0, 0, null, null, null, null, null, null, null);
     }
 }

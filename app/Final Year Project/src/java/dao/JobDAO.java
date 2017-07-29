@@ -66,7 +66,7 @@ public class JobDAO {
      * @param taskList
      * @param status
      */
-    public static addJob(String project_id, String client_id, String jobTitle, String jobDescription, Date dueDate, Date completionDate, String priorityLevel, ArrayList<Staff> staffAssignedTo, ArrayList<Task> taskList, String status){
+    public static void addJob(String project_id, String client_id, String jobTitle, String jobDescription, Date dueDate, Date completionDate, String priorityLevel, ArrayList<Staff> staffAssignedTo, ArrayList<Task> taskList, String status){
         try (Connection conn = ConnectionManager.getConnection()){
             PreparedStatement stmt = conn.prepareStatement(addJobStatement);
             stmt.setString(1, project_id);
