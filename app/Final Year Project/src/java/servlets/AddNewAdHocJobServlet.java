@@ -28,8 +28,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Bernitatowyg
  */
-@WebServlet(name = "AddNewJobServlet", urlPatterns = {"/Source Packages/servlets/AddNewJobServlet"})
-public class AddNewJobServlet extends HttpServlet {
+@WebServlet(name = "AddNewAdHocJobServlet", urlPatterns = {"/Source Packages/servlets/AddNewAdHocJobServlet"})
+public class AddNewAdHocJobServlet extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -52,13 +52,18 @@ public class AddNewJobServlet extends HttpServlet {
         }
 
         // Gets job information
-        String jobType = request.getParameter("jobType");
-        if (jobType.contains("Recurring")){
-            response.sendRedirect("AddNewJob [AdHoc].jsp");
-        }else{
-            response.sendRedirect("AddNewJob [Recurring].jsp");
-        }
+        String jobTitle = request.getParameter("jobTitle");
+        String jobDescription = request.getParameter("jobDescription");
+        String client = request.getParameter("clientName");
+        String clientID = request.getParameter("clientID");
+        Date startDate = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("startDate"));
+        Date completionDate = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("completionDate"));
+        Date finalDate = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("finalDate"));
+        String jobPriority = request.getParameter("priorityLevel");
+        String staffAssignedString = request.getParameter("staffAssignedTo");
+        Staff staffAssigned = StaffDAO.getStaff(staffAssignedString);
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -97,4 +102,5 @@ public class AddNewJobServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

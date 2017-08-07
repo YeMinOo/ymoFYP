@@ -12,6 +12,15 @@
         <title>Delete Jobs</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        Please indicate Job ID of Job to be deleted:
+        <br>
+         <form action='DeleteJobServlet' method='post'>
+            <label>Client Id </label>
+            <input type ="text" name="clientId" id="clientId" class="form-control" placeholder="Client ID" required autofocus>
+            </br>
+            <label>Job Id </label>
+            <input type ="text" name="jobId" id="jobId" class="form-control" placeholder="Job ID" required autofocus>
+            </br>
+         </form>
     </body>
 </html>

@@ -1,6 +1,6 @@
 <%-- 
     Document   : ViewJob
-    Created on : Jul 22, 2017, 12:02:44 PM
+    Created on : Aug 7, 2017, 5:36:29 PM
     Author     : Bernitatowyg
 --%>
 
@@ -12,6 +12,11 @@
         <title>View Job</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Please select the job id of the job you will like to view:</h1>
+        <form action="viewJobServlet" method="post">
+            <input type="text" name='jobId' id="jobId" class="form-control" placeholder="Job ID" required autofocus>
+            </br>
+            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">View Job!</button>
+        </form>
     </body>
 </html>

@@ -5,59 +5,127 @@
  */
 package servlets;
 
+import dao.JobDAO;
+import entity.Job;
 import entity.Staff;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.io.IOException;
 import java.sql.SQLException;
-import utility.ConnectionManager;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Bernitatowyg
  */
-public class DeleteJobServlet {
-    private static String deleteJobStatement = "DELETE FROM JOB WHERE ";
-    private static String deleteAllJobsStatement = "";
-    private static String getStaffFromNameStatement = "";
-    
-    public static Staff getStaff (String name){
-        try (Connection conn = ConnectionManager.getConnection()){
-            PreparedStatement stmt = conn.prepareStatement(getStaffFromNameStatement);
-            stmt.setString(1, name);
-            
-            ResultSet rs = stmt.executeQuery();
-            
-            // returns null if no records are returned
-            if (!rs.next()){
-                return null;
-            }
-            
-            // else returns result
-            String email = rs.getString(1);
-            String employeeID = rs.getString(2);
-            boolean isAdmin = false;
-            double currentSalary = rs.getDouble(3);
-            double cpf = rs.getDouble(4);
-            String bankAccount = rs.getString(5);
-            String nric = rs.getString(6);
-            //String name = rs.getString(7);
-            String position = rs.getString(8);
-            String department = rs.getString(9);
-            //ArrayList<Job> currentJobs = rs.
-            
-            
-            //ArrayList<Job> currentJobs, ArrayList<Job> pastJobs, String department
-                    
-            //return new Staff(email, pw, isAdmin);
-            
-        } catch (SQLException e){
-            e.printStackTrace();
-            //Returns empty staff, so that add new job can determine that the staff does note exist and it's a database error
-            //a database error!
-            //Will be checked by .getUserId method!
-            return new Staff(null, null, false, 0, 0, null, null, null, null, null, null, null);
+@WebServlet(name = "DeleteJobServlet", urlPatterns = {"DeleteJobServlet"})
+public class DeleteJobServlet extends HttpServlet {
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ParseException, SQLException {
+        HttpSession session = request.getSession(true);
+
+        Staff currentStaff = (Staff) session.getAttribute("_loggedInStaff");
+        ArrayList<String> addNewJob = new ArrayList<String>();
+        // Returns user to login page if not logged in
+        if (currentStaff == null) {
+            response.sendRedirect("Login.jsp");
+            return;
         }
-        return new Staff(null, null, false, 0, 0, null, null, null, null, null, null, null);
+
+        // Gets job information
+        String jobId = request.getParameter("jobId");
+        String clientId = request.getParameter("clientId");
+        Job job = JobDAO.getJob(clientId, jobId);
+        
+        if(job==null){
+            //if job == null then send error that job does not exists
+            response.sendRedirect("ErrorJob.jsp");
+        }else{
+            // get all the info to display about the job and then send over to displayjobtodelete
+            String jobID = job.getJobID();
+            String jobTitle = job.getJobTitle();
+            String jobDescription = job.getJobDescription();
+            String clientName = job.getClientName();
+            String clientID = job.getClientID();
+            Date startDate = job.getStartDate();
+            Date completionDate = job.getCompletionDate();
+            Date finalDate = job.getFinalDate();
+            String priorityLevel = job.getPriorityLevel();
+            Staff staffAssignedTo = job.getStaffAssignedTo();
+            String status = job.getStatus();
+            String jobtype = job.getJobType();
+            String interval = job.getInterval();
+            
+            request.setAttribute("jobId", jobID);
+            request.setAttribute("jobTitle", jobTitle);
+            request.setAttribute("jobDescription", jobDescription);
+            request.setAttribute("clientName", clientName);
+            request.setAttribute("clientID", clientID);
+            request.setAttribute("startDate", startDate);
+            request.setAttribute("completionDate", completionDate);
+            request.setAttribute("finalDate", finalDate);
+            request.setAttribute("priorityLevel", priorityLevel);
+            request.setAttribute("staffAssignedTo", staffAssignedTo);
+            request.setAttribute("status", status);
+            request.setAttribute("jobtype", jobtype);
+            request.setAttribute("interval", interval);
+            
+            RequestDispatcher rd = request.getRequestDispatcher("DisplayJobToDelete.jsp");
+            rd.forward(request, (ServletResponse) response);
+            
+            response.sendRedirect("DisplayJobToDelete.jsp");
+        }
     }
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        //processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        //processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 }

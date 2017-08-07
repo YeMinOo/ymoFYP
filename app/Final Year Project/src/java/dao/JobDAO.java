@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import utility.ConnectionManager;
@@ -19,37 +21,39 @@ import utility.ConnectionManager;
  * @author Bernitatowyg
  */
 public class JobDAO {
-    private static String getJobStatement = "SELECT * FROM PROJECT WHERE project_id = ? AND client_id = ?";
+    private static String getJobStatement = "SELECT * FROM PROJECT WHERE client_id = ? AND job_id = ?";
     private static String addJobStatement = "INSERT INTO PROJECT(jobID, clientID, jobTitle, jobDescription, dueDate, completionDate, priorityLevel, staffAssignedTo, taskList) VALUES (?,?,?,?,?,?,?,?,?)";
     
-    public static Job getJob (String project_id, String client_id) throws SQLException{
+    public static Job getJob (String client_id, String job_id) throws SQLException, ParseException{
         try (Connection conn = ConnectionManager.getConnection()){
             PreparedStatement stmt = conn.prepareStatement(getJobStatement);
-            stmt.setString(1, project_id);
-            stmt.setString(2, client_id);
+            stmt.setString(1, client_id);
+            stmt.setString(2, job_id);
             ResultSet rs = stmt.executeQuery();
             // returns null if no records are returned
             if (!rs.next()){
                 return null;
             }
             // else returns result*
-            String jobID = rs.getString(1);
-            String clientID = rs.getString(2);
-            String jobTitle = rs.getString(3);
-            String jobDescription = rs.getString(4);
-            Date dueDate = rs.getDate(5);
-            Date completionDate = rs.getDate(6);
+            String jobTitle = rs.getString(1);
+            String jobDescription = rs.getString(2);
+            String clientName = rs.getString(3);
+            Date startDate = new SimpleDateFormat("dd/MM/yyyy").parse(rs.getString(4));
+            Date completionDate = new SimpleDateFormat("dd/MM/yyyy").parse(rs.getString(5));
+            Date finalDate = new SimpleDateFormat("dd/MM/yyyy").parse(rs.getString(6));
             String priorityLevel = rs.getString(7);
-            ArrayList<Staff> staffAssignedTo = (ArrayList<Staff>) rs.getArray(8);
-            ArrayList<Task> taskList = (ArrayList<Task>)rs.getArray(9);
-            String status = rs.getString(10);
-            return new Job(jobID, clientID, jobTitle, jobDescription, dueDate, completionDate, priorityLevel, staffAssignedTo, status, taskList);
+            String staffAssignedToString = rs.getString(8);
+            Staff staffAssignedTo = StaffDAO.getStaff(staffAssignedToString);
+            String status = rs.getString(9);
+            String jobtype = rs.getString(10);
+            String interval = rs.getString(11);
+            return new Job(job_id, jobTitle, jobDescription, clientName, client_id, startDate, completionDate, finalDate, priorityLevel, staffAssignedTo, status, jobtype, interval);
         } catch (SQLException e){
             e.printStackTrace();
             //Returns empty Job, so that Login page can determine that its
             //a database error!
             //Will be checked by .getJobId method!
-            return new Job(null,null,null,null,null,null,null,null,null,null);
+            return null;
         }
     }
 
@@ -83,5 +87,9 @@ public class JobDAO {
         } catch (SQLException e){
             e.printStackTrace();
         }
+    }
+
+    public static void deleteJob(String clientId, String jobId) {
+        
     }
 }

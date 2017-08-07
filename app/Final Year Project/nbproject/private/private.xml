@@ -3,22 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/jsp/AddNewJob.jsp</file>
-            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/src/java/servlets/EditJobServlet.java</file>
-            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/src/java/entity/Task.java</file>
-            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/src/java/servlets/AddNewJobServlet.java</file>
-            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/jsp/DisplayJobToEdit.jsp</file>
-            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/src/java/entity/Client.java</file>
-            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/src/java/dao/ClientDAO.java</file>
-            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/jsp/EditJob.jsp</file>
-            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/jsp/ViewJob.jsp</file>
-            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/src/java/dao/TaskDAO.java</file>
-            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/src/java/dao/JobDAO.java</file>
-            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/jsp/DeleteJob.jsp</file>
-            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/src/java/servlets/ViewJobServlet.java</file>
-            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/src/java/entity/Staff.java</file>
-            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/src/java/servlets/DeleteJobServlet.java</file>
-            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/src/java/dao/StaffDAO.java</file>
+            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/jsp/Project%20Tracker%20Module/DisplayJobToDelete.jsp</file>
+            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/jsp/Project%20Tracker%20Module/ViewJob.jsp</file>
+            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/jsp/Project%20Tracker%20Module/DisplayViewJob.jsp</file>
         </group>
     </open-files>
 </project-private>

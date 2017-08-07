@@ -8,15 +8,10 @@ package servlets;
 import dao.StaffDAO;
 import entity.Staff;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,8 +23,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Bernitatowyg
  */
-@WebServlet(name = "AddNewJobServlet", urlPatterns = {"/Source Packages/servlets/AddNewJobServlet"})
-public class AddNewJobServlet extends HttpServlet {
+@WebServlet(name = "AddNewRecurringJobServlet", urlPatterns = {"/Source Packages/servlets/AddNewRecurringJobServlet"})
+public class AddNewRecurringJobServlet extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -50,15 +45,21 @@ public class AddNewJobServlet extends HttpServlet {
             response.sendRedirect("Login.jsp");
             return;
         }
-
+        
         // Gets job information
-        String jobType = request.getParameter("jobType");
-        if (jobType.contains("Recurring")){
-            response.sendRedirect("AddNewJob [AdHoc].jsp");
-        }else{
-            response.sendRedirect("AddNewJob [Recurring].jsp");
-        }
+        String jobTitle = request.getParameter("jobTitle");
+        String jobDescription = request.getParameter("jobDescription");
+        String client = request.getParameter("clientName");
+        String clientID = request.getParameter("clientID");
+        Date startDate = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("startDate"));
+        Date completionDate = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("completionDate"));
+        Date finalDate = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("finalDate"));
+        String interval = request.getParameter("interval");
+        String jobPriority = request.getParameter("priorityLevel");
+        String staffAssignedString = request.getParameter("staffAssignedTo");
+        Staff staffAssigned = StaffDAO.getStaff(staffAssignedString);
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -97,4 +98,5 @@ public class AddNewJobServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

@@ -5,31 +5,21 @@
  */
 package servlets;
 
-import dao.StaffDAO;
+import dao.JobDAO;
 import entity.Staff;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Bernitatowyg
  */
-@WebServlet(name = "AddNewJobServlet", urlPatterns = {"/Source Packages/servlets/AddNewJobServlet"})
-public class AddNewJobServlet extends HttpServlet {
+@WebServlet(name = "DeleteJobConfirmationServlet", urlPatterns = {"/DeleteJobConfirmationServlet"})
+public class DeleteJobConfirmationServlet extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,7 +30,8 @@ public class AddNewJobServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ParseException {
+            throws ServletException, IOException {
+        //response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(true);
 
         Staff currentStaff = (Staff) session.getAttribute("_loggedInStaff");
@@ -50,15 +41,13 @@ public class AddNewJobServlet extends HttpServlet {
             response.sendRedirect("Login.jsp");
             return;
         }
-
-        // Gets job information
-        String jobType = request.getParameter("jobType");
-        if (jobType.contains("Recurring")){
-            response.sendRedirect("AddNewJob [AdHoc].jsp");
-        }else{
-            response.sendRedirect("AddNewJob [Recurring].jsp");
-        }
+        
+        String clientId = (String)request.getParameter("clientId");
+        String jobId = (String)request.getParameter("jobId");
+        
+        JobDAO.deleteJob(clientId, jobId);
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -68,10 +57,9 @@ public class AddNewJobServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -82,10 +70,9 @@ public class AddNewJobServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -93,8 +80,8 @@ public class AddNewJobServlet extends HttpServlet {
      *
      * @return a String containing servlet description
      */
-    @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 }
+

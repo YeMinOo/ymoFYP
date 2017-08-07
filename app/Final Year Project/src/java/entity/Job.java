@@ -14,15 +14,18 @@ import java.util.Date;
  */
 public class Job {
     private String jobID;
-    private String clientID;
     private String jobTitle;
     private String jobDescription;
-    private Date dueDate;
+    private String clientName;
+    private String clientID;
+    private Date startDate;
     private Date completionDate;
+    private Date finalDate;
     private String priorityLevel;
-    private ArrayList<Staff> staffAssignedTo;
+    private Staff staffAssignedTo;
     private String status;
-    private ArrayList<Task> taskList;
+    private String jobtype;
+    private String interval;
     
     /**
      *
@@ -34,19 +37,39 @@ public class Job {
      * @param priorityLevel
      * @param staffAssignedTo
      */
-    public Job(String jobID, String clientID, String jobTitle, String jobDescription, Date dueDate, Date completionDate, String priorityLevel, ArrayList<Staff> staffAssignedTo, String status, ArrayList<Task> taskList){
+    public Job(String jobID, String jobTitle, String jobDescription, String clientname, String clientId, Date startDate, Date completionDate, Date finalDate, String priorityLevel, Staff staffAssignedTo, String status, String jobType){
         this.jobID = jobID;
-        this.clientID = clientID;
         this.jobTitle = jobTitle;
         this.jobDescription = jobDescription;
-        this.dueDate = dueDate;
+        this.clientName = clientname;
+        this.clientID = clientId;
+        this.startDate = startDate;
         this.completionDate = completionDate;
+        this.finalDate = finalDate;
         this.priorityLevel = priorityLevel;
         this.staffAssignedTo = staffAssignedTo;
         this.status = status;
-        this.taskList = taskList;
+        this.jobtype = jobType;
+        this.interval = null;
     }
-        
+    
+    public Job(String jobID, String jobTitle, String jobDescription, String clientname, String clientId, Date startDate, Date completionDate, Date finalDate, String priorityLevel, Staff staffAssignedTo, String status, String jobType, String interval){
+        //for recurring jobs
+        this.jobID = jobID;
+        this.jobTitle = jobTitle;
+        this.jobDescription = jobDescription;
+        this.clientName = clientname;
+        this.clientID = clientId;
+        this.startDate = startDate;
+        this.completionDate = completionDate;
+        this.finalDate = finalDate;
+        this.priorityLevel = priorityLevel;
+        this.staffAssignedTo = staffAssignedTo;
+        this.status = status;
+        this.jobtype = jobType;
+        this.interval = interval;
+    }
+    
     public String getJobID(){
         return jobID;
     }
@@ -63,10 +86,22 @@ public class Job {
          return jobDescription;
     }
     
-    public Date getDueDate(){
-         return dueDate;
+    public String getClientName(){
+         return clientName;
     }
     
+    public String getClientId(){
+         return clientID;
+    }
+
+    public Date getStartDate(){
+         return startDate;
+    }      
+    
+    public Date getFinalDate(){
+         return finalDate;
+    }   
+
     public Date getCompletionDate(){
          return completionDate;
     }
@@ -75,7 +110,7 @@ public class Job {
          return priorityLevel;
     }
     
-    public ArrayList<Staff> getStaffAssignedTo(){
+    public Staff getStaffAssignedTo(){
          return staffAssignedTo;
     }
     
@@ -83,7 +118,11 @@ public class Job {
         return status;
     }
     
-    public ArrayList<Task> getTaskList(){
-        return taskList;
+    public String getJobType(){
+        return jobtype;
+    }
+    
+    public String getInterval(){
+        return interval;
     }
 }
