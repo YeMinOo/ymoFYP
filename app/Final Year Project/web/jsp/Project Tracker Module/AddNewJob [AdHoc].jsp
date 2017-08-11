@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="Protect.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,7 +15,7 @@
     <body>
         <div class="container">
             <p>
-                <form action='AddNewJobServlet[Adhoc]' method='post'>
+                <form action='AddNewAdHocJobServlet' method='post'>
                     <label>Job Title: </label>
                     <input type="text" name='jobTitle' id="inputJobTitle" class="form-control" placeholder="Job Title" required autofocus>
                     </br>

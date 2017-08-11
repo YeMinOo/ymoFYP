@@ -28,7 +28,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Bernitatowyg
  */
-@WebServlet(name = "AddNewJobServlet", urlPatterns = {"/Source Packages/servlets/AddNewJobServlet"})
+@WebServlet(name = "AddNewJobServlet", urlPatterns = {"/AddNewJobServlet"})
 public class AddNewJobServlet extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
