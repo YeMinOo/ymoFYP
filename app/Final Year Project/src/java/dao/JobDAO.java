@@ -22,7 +22,8 @@ import utility.ConnectionManager;
  */
 public class JobDAO {
     private static String getJobStatement = "SELECT * FROM PROJECT WHERE client_id = ? AND job_id = ?";
-    private static String addJobStatement = "INSERT INTO PROJECT(jobID, clientID, jobTitle, jobDescription, dueDate, completionDate, priorityLevel, staffAssignedTo, taskList) VALUES (?,?,?,?,?,?,?,?,?)";
+    private static String addJobStatement = "INSERT INTO PROJECT(client_id, job_id, jobTitle, jobDescription, clientName, startDate, completionDate, finalDate, priorityLevel, staffAssignedTo, status, jobType, interval) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static String deleteJobStatement = "DELETE * FROM PROJECT WHERE client_id= ? AND job_id = ? ";
     
     public static Job getJob (String client_id, String job_id) throws SQLException, ParseException{
         try (Connection conn = ConnectionManager.getConnection()){
@@ -70,19 +71,29 @@ public class JobDAO {
      * @param taskList
      * @param status
      */
-    public static void addJob(String project_id, String client_id, String jobTitle, String jobDescription, Date dueDate, Date completionDate, String priorityLevel, ArrayList<Staff> staffAssignedTo, ArrayList<Task> taskList, String status){
+    public static void addJob(String client_id, String jobTitle, String jobDescription, String clientName, Date startDate, Date completionDate, Date finalDate, String priorityLevel, Staff staffAssignedTo, String status, String jobType, String interval){
         try (Connection conn = ConnectionManager.getConnection()){
             PreparedStatement stmt = conn.prepareStatement(addJobStatement);
-            stmt.setString(1, project_id);
-            stmt.setString(2, client_id);
+            // need to check how we're going to assign the jobid
+            //client_id, job_id, jobTitle, jobDescription, clientName, startDate, completionDate, finalDate, priorityLevel, staffAssignedTo, status, jobType, interval
+            stmt.setString(1, client_id);
+//########################### to decide how we're going to assign the job id##############################
+            stmt.setString(2, client_id + jobTitle);
+            
             stmt.setString(3, jobTitle);
             stmt.setString(4, jobDescription);
-            stmt.setDate(5, (java.sql.Date) dueDate);
-            stmt.setDate(6, (java.sql.Date) completionDate);
-            stmt.setString(7, priorityLevel);
-            stmt.setString(8, client_id);
-            stmt.setString(9, client_id);
-            stmt.setString(10, status);
+            stmt.setString(5, clientName);
+            stmt.setString(6, jobDescription);
+            stmt.setString(7, clientName);
+            stmt.setDate(8, (java.sql.Date) startDate);
+            stmt.setDate(9, (java.sql.Date) completionDate);
+            stmt.setDate(10, (java.sql.Date) finalDate);
+            stmt.setString(11, priorityLevel);
+            String staffAssignedName = staffAssignedTo.getName();
+            stmt.setString(12, staffAssignedName);
+            stmt.setString(13, status);
+            stmt.setString(14, jobType);
+            stmt.setString(15, interval);
             ResultSet rs = stmt.executeQuery();
         } catch (SQLException e){
             e.printStackTrace();
@@ -90,6 +101,14 @@ public class JobDAO {
     }
 
     public static void deleteJob(String clientId, String jobId) {
-        
+        try (Connection conn = ConnectionManager.getConnection()){
+            PreparedStatement stmt = conn.prepareStatement(deleteJobStatement);
+            // need to check how we're going to assign the jobid
+            stmt.setString(1, clientId);
+            stmt.setString(2, jobId);
+            ResultSet rs = stmt.executeQuery();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }

@@ -45,6 +45,7 @@ public class DeleteJobConfirmationServlet extends HttpServlet {
         String clientId = (String)request.getParameter("clientId");
         String jobId = (String)request.getParameter("jobId");
         
+        //to update fullcalendar and db
         JobDAO.deleteJob(clientId, jobId);
     }
 

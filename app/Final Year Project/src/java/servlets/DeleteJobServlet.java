@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Bernitatowyg
  */
-@WebServlet(name = "DeleteJobServlet", urlPatterns = {"DeleteJobServlet"})
+@WebServlet(name = "DeleteJobServlet", urlPatterns = {"/DeleteJobServlet"})
 public class DeleteJobServlet extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,7 +51,8 @@ public class DeleteJobServlet extends HttpServlet {
         // Gets job information
         String jobId = request.getParameter("jobId");
         String clientId = request.getParameter("clientId");
-        Job job = JobDAO.getJob(clientId, jobId);
+        JobDAO jobDao = new JobDAO();
+        Job job = jobDao.getJob(clientId, jobId);
         
         if(job==null){
             //if job == null then send error that job does not exists

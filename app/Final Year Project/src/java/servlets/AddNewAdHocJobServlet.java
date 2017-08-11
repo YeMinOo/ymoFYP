@@ -62,6 +62,8 @@ public class AddNewAdHocJobServlet extends HttpServlet {
         String jobPriority = request.getParameter("priorityLevel");
         String staffAssignedString = request.getParameter("staffAssignedTo");
         Staff staffAssigned = StaffDAO.getStaff(staffAssignedString);
+        
+        //to update db and fullcalendar
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

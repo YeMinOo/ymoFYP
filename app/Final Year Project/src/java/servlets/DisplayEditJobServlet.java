@@ -6,13 +6,11 @@
 package servlets;
 
 import dao.JobDAO;
-import dao.StaffDAO;
 import entity.Job;
 import entity.Staff;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.servlet.RequestDispatcher;
@@ -26,8 +24,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Bernitatowyg
  */
-@WebServlet(name = "EditJobServlet", urlPatterns = {"/EditJobServlet"})
-public class EditJobServlet extends HttpServlet {
+@WebServlet(name = "DisplayEditJobServlet", urlPatterns = {"/DisplayEditJobServlet"})
+public class DisplayEditJobServlet extends HttpServlet {
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -50,25 +48,48 @@ public class EditJobServlet extends HttpServlet {
             return;
         }
         
-        String jobID = (String)request.getParameter("jobId");
-        String jobTitle = (String)request.getParameter("jobTitle");
-        String jobDescription = (String)request.getParameter("jobDescription");
-        String clientName = (String)request.getParameter("clientName");
-        String clientID = (String)request.getParameter("clientID");
-        Date startDate = new SimpleDateFormat("dd/MM/yyyy").parse("startDate");
-        Date completionDate = new SimpleDateFormat("dd/MM/yyyy").parse("completionDate");
-        Date finalDate = new SimpleDateFormat("dd/MM/yyyy").parse("finalDate");
-        String priorityLevel = (String)request.getParameter("priorityLevel");
-        StaffDAO staffDao = new StaffDAO();
-        Staff staffAssignedTo = staffDao.getStaff((String)request.getParameter("staffAssignedTo"));
-        String status = (String)request.getParameter("status");
-        String jobtype = (String)request.getParameter("jobtype");
-        String interval = (String)request.getParameter("interval");
-
-        // update database and fullcalendar based on jobID and then redirect to success page
+        String jobId = (String)request.getParameter("jobId");
+        String clientId = (String)request.getParameter("clientId");
         JobDAO jobDao = new JobDAO();
-        jobDao.deleteJob(clientID, jobID);
-        jobDao.addJob(clientID, jobTitle, jobDescription, clientName, startDate, completionDate, finalDate, priorityLevel, staffAssignedTo, status, jobtype, interval);
+        Job job = JobDAO.getJob(clientId, jobId);
+        
+        if(job==null){
+            //if job == null then send error that job does not exists
+            response.sendRedirect("ErrorJob.jsp");
+        }else{
+            // get all the info to display about the job and then send over to displayjobtodelete
+            String jobID = job.getJobID();
+            String jobTitle = job.getJobTitle();
+            String jobDescription = job.getJobDescription();
+            String clientName = job.getClientName();
+            String clientID = job.getClientID();
+            Date startDate = job.getStartDate();
+            Date completionDate = job.getCompletionDate();
+            Date finalDate = job.getFinalDate();
+            String priorityLevel = job.getPriorityLevel();
+            Staff staffAssignedTo = job.getStaffAssignedTo();
+            String status = job.getStatus();
+            String jobtype = job.getJobType();
+            String interval = job.getInterval();
+            
+            request.setAttribute("jobId", jobID);
+            request.setAttribute("jobTitle", jobTitle);
+            request.setAttribute("jobDescription", jobDescription);
+            request.setAttribute("clientName", clientName);
+            request.setAttribute("clientID", clientID);
+            request.setAttribute("startDate", startDate);
+            request.setAttribute("completionDate", completionDate);
+            request.setAttribute("finalDate", finalDate);
+            request.setAttribute("priorityLevel", priorityLevel);
+            request.setAttribute("staffAssignedTo", staffAssignedTo);
+            request.setAttribute("status", status);
+            request.setAttribute("jobtype", jobtype);
+            request.setAttribute("interval", interval);
+            
+            RequestDispatcher rd = request.getRequestDispatcher("DisplayJobToEdit.jsp");
+            rd.forward(request, (ServletResponse) response);
+            response.sendRedirect("DisplayJobToEdit.jsp");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
