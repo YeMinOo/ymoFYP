@@ -25,7 +25,7 @@
 
     //Redirects user to Login page if user session is null
     if (user == null) {
-      response.sendRedirect("Login.jsp");
+      response.sendRedirect("login.jsp");
       return;
     }
 %>

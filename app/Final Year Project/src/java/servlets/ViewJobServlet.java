@@ -7,7 +7,7 @@ package servlets;
 
 import dao.JobDAO;
 import entity.Job;
-import entity.Staff;
+import entity.Employee;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -40,7 +40,7 @@ public class ViewJobServlet extends HttpServlet {
         //response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(true);
 
-        Staff currentStaff = (Staff) session.getAttribute("_loggedInStaff");
+        Employee currentStaff = (Employee) session.getAttribute("_loggedInStaff");
         ArrayList<String> addNewJob = new ArrayList<String>();
         // Returns user to login page if not logged in
         if (currentStaff == null) {
@@ -67,7 +67,7 @@ public class ViewJobServlet extends HttpServlet {
             Date completionDate = job.getCompletionDate();
             Date finalDate = job.getFinalDate();
             String priorityLevel = job.getPriorityLevel();
-            Staff staffAssignedTo = job.getStaffAssignedTo();
+            Employee staffAssignedTo = job.getStaffAssignedTo();
             String status = job.getStatus();
             String jobtype = job.getJobType();
             String interval = job.getInterval();

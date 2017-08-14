@@ -5,8 +5,8 @@
  */
 package servlets;
 
-import dao.StaffDAO;
-import entity.Staff;
+import dao.EmployeeDAO;
+import entity.Employee;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -43,7 +43,7 @@ public class AddNewAdHocJobServlet extends HttpServlet {
             throws ServletException, IOException, ParseException {
         HttpSession session = request.getSession(true);
 
-        Staff currentStaff = (Staff) session.getAttribute("_loggedInStaff");
+        Employee currentStaff = (Employee) session.getAttribute("_loggedInStaff");
         ArrayList<String> addNewJob = new ArrayList<String>();
         // Returns user to login page if not logged in
         if (currentStaff == null) {
@@ -60,8 +60,8 @@ public class AddNewAdHocJobServlet extends HttpServlet {
         Date completionDate = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("completionDate"));
         Date finalDate = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("finalDate"));
         String jobPriority = request.getParameter("priorityLevel");
-        String staffAssignedString = request.getParameter("staffAssignedTo");
-        Staff staffAssigned = StaffDAO.getStaff(staffAssignedString);
+        String employeeAssignedString = request.getParameter("staffAssignedTo");
+        Employee employeeAssigned = EmployeeDAO.getEmployee(employeeAssignedString);
         
         //to update db and fullcalendar
     }

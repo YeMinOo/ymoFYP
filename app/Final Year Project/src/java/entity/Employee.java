@@ -11,10 +11,10 @@ import java.util.ArrayList;
  *
  * @author Bernitatowyg
  */
-public class Staff {
+public class Employee {
     private String email;
     private String employeeID;
-    private boolean isAdmin;
+    private int isAdmin;
     private double currentSalary;
     private double cpf;
     private String bankAccount;
@@ -25,7 +25,7 @@ public class Staff {
     private ArrayList<Job> pastJobs;
     private String department;
     
-    public Staff(String email, String employeeID, Boolean isAdmin, double currentSalary, double cpf, String bankAccount, String nric, String name, String position, ArrayList<Job> currentJobs, ArrayList<Job> pastJobs, String department){
+    public Employee(String email, String employeeID, int isAdmin, double currentSalary, double cpf, String bankAccount, String nric, String name, String position, ArrayList<Job> currentJobs, ArrayList<Job> pastJobs, String department){
         this.email = email;
         this.employeeID = employeeID;
         this.isAdmin = isAdmin;
@@ -44,11 +44,11 @@ public class Staff {
         return email;
     }
     
-    public Boolean getisAdmin(){
-        return isAdmin;
+    public String getEmployeeId() {
+        return employeeID;
     }
     
-    public Boolean getIsAdmin(){
+    public int getIsAdmin(){
         return isAdmin;
     }
     

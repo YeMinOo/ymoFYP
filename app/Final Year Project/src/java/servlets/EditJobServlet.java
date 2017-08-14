@@ -6,9 +6,9 @@
 package servlets;
 
 import dao.JobDAO;
-import dao.StaffDAO;
+import dao.EmployeeDAO;
 import entity.Job;
-import entity.Staff;
+import entity.Employee;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -42,7 +42,7 @@ public class EditJobServlet extends HttpServlet {
         //response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(true);
 
-        Staff currentStaff = (Staff) session.getAttribute("_loggedInStaff");
+        Employee currentStaff = (Employee) session.getAttribute("_loggedInStaff");
         ArrayList<String> addNewJob = new ArrayList<String>();
         // Returns user to login page if not logged in
         if (currentStaff == null) {
@@ -59,8 +59,8 @@ public class EditJobServlet extends HttpServlet {
         Date completionDate = new SimpleDateFormat("dd/MM/yyyy").parse("completionDate");
         Date finalDate = new SimpleDateFormat("dd/MM/yyyy").parse("finalDate");
         String priorityLevel = (String)request.getParameter("priorityLevel");
-        StaffDAO staffDao = new StaffDAO();
-        Staff staffAssignedTo = staffDao.getStaff((String)request.getParameter("staffAssignedTo"));
+        EmployeeDAO staffDao = new EmployeeDAO();
+        Employee employeeAssignedTo = staffDao.getEmployee((String)request.getParameter("employeeAssignedTo"));
         String status = (String)request.getParameter("status");
         String jobtype = (String)request.getParameter("jobtype");
         String interval = (String)request.getParameter("interval");
@@ -68,7 +68,7 @@ public class EditJobServlet extends HttpServlet {
         // update database and fullcalendar based on jobID and then redirect to success page
         JobDAO jobDao = new JobDAO();
         jobDao.deleteJob(clientID, jobID);
-        jobDao.addJob(clientID, jobTitle, jobDescription, clientName, startDate, completionDate, finalDate, priorityLevel, staffAssignedTo, status, jobtype, interval);
+        jobDao.addJob(clientID, jobTitle, jobDescription, clientName, startDate, completionDate, finalDate, priorityLevel, employeeAssignedTo, status, jobtype, interval);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

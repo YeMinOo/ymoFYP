@@ -22,7 +22,7 @@ public class Job {
     private Date completionDate;
     private Date finalDate;
     private String priorityLevel;
-    private Staff staffAssignedTo;
+    private Employee staffAssignedTo;
     private String status;
     private String jobtype;
     private String interval;
@@ -37,7 +37,7 @@ public class Job {
      * @param priorityLevel
      * @param staffAssignedTo
      */
-    public Job(String jobID, String jobTitle, String jobDescription, String clientname, String clientId, Date startDate, Date completionDate, Date finalDate, String priorityLevel, Staff staffAssignedTo, String status, String jobType){
+    public Job(String jobID, String jobTitle, String jobDescription, String clientname, String clientId, Date startDate, Date completionDate, Date finalDate, String priorityLevel, Employee staffAssignedTo, String status, String jobType){
         this.jobID = jobID;
         this.jobTitle = jobTitle;
         this.jobDescription = jobDescription;
@@ -53,7 +53,7 @@ public class Job {
         this.interval = null;
     }
     
-    public Job(String jobID, String jobTitle, String jobDescription, String clientname, String clientId, Date startDate, Date completionDate, Date finalDate, String priorityLevel, Staff staffAssignedTo, String status, String jobType, String interval){
+    public Job(String jobID, String jobTitle, String jobDescription, String clientname, String clientId, Date startDate, Date completionDate, Date finalDate, String priorityLevel, Employee staffAssignedTo, String status, String jobType, String interval){
         //for recurring jobs
         this.jobID = jobID;
         this.jobTitle = jobTitle;
@@ -110,7 +110,7 @@ public class Job {
          return priorityLevel;
     }
     
-    public Staff getStaffAssignedTo(){
+    public Employee getStaffAssignedTo(){
          return staffAssignedTo;
     }
     

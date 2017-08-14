@@ -1,6 +1,6 @@
 <%-- 
     Document   : index
-    Created on : Aug 14, 2017, 9:37:58 PM
+    Created on : Aug 14, 2017, 4:37:59 PM
     Author     : yemin
 --%>
 
@@ -12,8 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <%
-            response.sendRedirect("login.jsp");
-        %>
+        <h1>Hello World!</h1>
     </body>
 </html>

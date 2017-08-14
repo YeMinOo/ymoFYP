@@ -6,7 +6,7 @@
 package servlets;
 
 import dao.JobDAO;
-import entity.Staff;
+import entity.Employee;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -34,7 +34,7 @@ public class DeleteJobConfirmationServlet extends HttpServlet {
         //response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(true);
 
-        Staff currentStaff = (Staff) session.getAttribute("_loggedInStaff");
+        Employee currentStaff = (Employee) session.getAttribute("_loggedInStaff");
         ArrayList<String> addNewJob = new ArrayList<String>();
         // Returns user to login page if not logged in
         if (currentStaff == null) {

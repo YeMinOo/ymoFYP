@@ -5,7 +5,7 @@
  */
 package dao;
 import entity.Job;
-import entity.Staff;
+import entity.Employee;
 import entity.Task;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -44,7 +44,7 @@ public class JobDAO {
             Date finalDate = new SimpleDateFormat("dd/MM/yyyy").parse(rs.getString(6));
             String priorityLevel = rs.getString(7);
             String staffAssignedToString = rs.getString(8);
-            Staff staffAssignedTo = StaffDAO.getStaff(staffAssignedToString);
+            Employee staffAssignedTo = EmployeeDAO.getEmployee(staffAssignedToString);
             String status = rs.getString(9);
             String jobtype = rs.getString(10);
             String interval = rs.getString(11);
@@ -71,7 +71,7 @@ public class JobDAO {
      * @param taskList
      * @param status
      */
-    public static void addJob(String client_id, String jobTitle, String jobDescription, String clientName, Date startDate, Date completionDate, Date finalDate, String priorityLevel, Staff staffAssignedTo, String status, String jobType, String interval){
+    public static void addJob(String client_id, String jobTitle, String jobDescription, String clientName, Date startDate, Date completionDate, Date finalDate, String priorityLevel, Employee staffAssignedTo, String status, String jobType, String interval){
         try (Connection conn = ConnectionManager.getConnection()){
             PreparedStatement stmt = conn.prepareStatement(addJobStatement);
             // need to check how we're going to assign the jobid

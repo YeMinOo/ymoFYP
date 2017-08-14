@@ -5,13 +5,17 @@
  */
 package servlets;
 
+import dao.EmployeeDAO;
+import entity.Employee;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -31,13 +35,33 @@ public class loginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("UserId");
+        String userId = request.getParameter("UserId");
         String password = request.getParameter("Password");
         
-        if(username.equals("user")) {
-            if(password.equals("pwd")) {
-                response.sendRedirect("index.jsp");
-            }
+        System.out.println(userId);
+        System.out.println(password);
+        
+        EmployeeDAO empDAO = new EmployeeDAO();
+        Employee emp = empDAO.getEmployeeByID(userId);
+        
+        HttpSession session = request.getSession();
+
+        System.out.println(emp.getIsAdmin());
+        System.out.println("Name: "+ emp.getName());
+        
+        if(emp == null) {
+            System.out.println("THE EMPLOYEE IS NULL");
+            request.setAttribute("InvalidLogin", "Login failed! Please try again.");
+            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+            rd.forward(request,response);
+        } else if (emp.getIsAdmin()== 1) {
+            //this means that the user is not an admin
+            session.setAttribute("userId", emp.getEmployeeId());
+            response.sendRedirect("EmployeeHome.jsp");
+        } else {
+            //if user is an admin
+            session.setAttribute("userId", emp.getEmployeeId());
+            response.sendRedirect("AdminHome.jsp");
         }
     }
 

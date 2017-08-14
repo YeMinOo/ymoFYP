@@ -5,8 +5,8 @@
  */
 package servlets;
 
-import dao.StaffDAO;
-import entity.Staff;
+import dao.EmployeeDAO;
+import entity.Employee;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -43,7 +43,7 @@ public class AddNewJobServlet extends HttpServlet {
             throws ServletException, IOException, ParseException {
         HttpSession session = request.getSession(true);
 
-        Staff currentStaff = (Staff) session.getAttribute("_loggedInStaff");
+        Employee currentStaff = (Employee) session.getAttribute("_loggedInStaff");
         ArrayList<String> addNewJob = new ArrayList<String>();
         // Returns user to login page if not logged in
         if (currentStaff == null) {

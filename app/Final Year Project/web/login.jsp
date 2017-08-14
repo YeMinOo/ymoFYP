@@ -171,9 +171,11 @@
     </head>
     <body>
         <nav class="navbar navbar-default navbar-static-top">
-            <div class="container" length="100%" width="100%">
+            <div class="container">
                 <div class='col-md-4' style='margin-top:20px'>
-                    <h1 style="color:#0000A0; margin-top:10px;">Abundant Accounting Management System</h1>
+                    <h1 style="color:#0000A0; margin-top:10px;">
+                        Abundant Accounting Management System
+                    </h1>
                 </div>
             </div>
         </nav>
@@ -194,15 +196,13 @@
                 <p id="profile-name" class="profile-name-card"></p>
                 <form class="form-signin" id ="formtype" role="form" action="loginServlet" method="post">
                     <span id="reauth-email" class="reauth-email"></span>
-                    <input type="text" name='UserId' id="Username" class="form-control" placeholder="Username" required autofocus>
+                    <input type="text" name='UserId' id="UserId" class="form-control" placeholder="Username" required autofocus>
                     <input type="password" name='Password' id="Password" class="form-control" placeholder="Password" required>
                     
                     <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
                 </form><!-- /form -->
             </div><!-- /card-container -->
         </div><!-- /container -->
-
-    </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 

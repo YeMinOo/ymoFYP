@@ -14,7 +14,6 @@
     </head>
     <body>
         <div class="container">
-            <p>
                 <form action='AddNewRecurringJobServlet' method='post'>
                     <label>Job Title: </label>
                     <input type="text" name='jobTitle' id="inputJobTitle" class="form-control" placeholder="Job Title" required autofocus>
@@ -41,7 +40,7 @@
                     <input type="date" name='finalDate' id="finalDate" class="form-control" placeholder="Final Date of Job" required autofocus>
                     </br>
                     <label>Interval: </label>
-                    <select type="String" name="interval" id="interval" class="form-control" placeholder="Interval between recurring jobs" required autofocus>
+                    <select name="interval" placeholder="Interval between recurring jobs" required autofocus>
                         <option value="daily">Daily</option>
                         <option value="Weekly">Weekly</option>
                         <option value="Monthly">Monthly</option>
@@ -61,7 +60,6 @@
                     </br>
                     <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Create New Job!</button>
                 </form>
-            </p>
         </div>
     </body>
 </html>

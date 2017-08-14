@@ -15,7 +15,7 @@
     <body>
         <div class="container">
             <p> Please select type of job you want to add!</p>
-            <form action="../.././Source_Packages/servlets/AddNewJobServlet" method="post">
+            <form action="AddNewJobServlet" method="post">
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" id="Recurring">Recurring</button>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" id="AdHoc">AdHoc</button>
             </form>
