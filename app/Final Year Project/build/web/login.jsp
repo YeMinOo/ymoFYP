@@ -182,14 +182,16 @@
         </nav>
         
         <%
-            //generate error message if login fails
-            String login_fail = (String) request.getAttribute("loginFailed");
-            if (login_fail != null) {
+            String isInvalidLogin = (String)request.getAttribute("InvalidLogin");
+            if(isInvalidLogin!=null && isInvalidLogin.equals("Login failed! Please try again.")){
+                // print error at the top
         %>
                 <div class="alert alert-danger">
-                    <strong>ERROR</strong> <%= login_fail%>
+                  <strong>Error</strong> Login Failed. Invalid Username or Password. Please try again.
                 </div>
-            <%}%>
+        <%
+            }
+        %>
         
         <div class="container">
             <div class="card card-container">
@@ -205,8 +207,8 @@
             </div><!-- /card-container -->
         </div><!-- /container -->
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
 
-<script sec='js/bootstrap.js'></script>
+<script src='js/bootstrap.js'></script>
 </html>
 

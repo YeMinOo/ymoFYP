@@ -38,19 +38,12 @@ public class loginServlet extends HttpServlet {
         String userId = request.getParameter("UserId");
         String password = request.getParameter("Password");
         
-        System.out.println(userId);
-        System.out.println(password);
-        
         EmployeeDAO empDAO = new EmployeeDAO();
         Employee emp = empDAO.getEmployeeByID(userId);
         
         HttpSession session = request.getSession();
-
-        System.out.println(emp.getIsAdmin());
-        System.out.println("Name: "+ emp.getName());
         
         if(emp == null) {
-            System.out.println("THE EMPLOYEE IS NULL");
             request.setAttribute("InvalidLogin", "Login failed! Please try again.");
             RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
             rd.forward(request,response);
