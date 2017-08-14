@@ -1,3 +1,9 @@
+<%-- 
+    Document   : login
+    Created on : Aug 14, 2017, 4:17:31 PM
+    Author     : yemin
+--%>
+
 <%--
     Document   : Login
     Created on : Jun 24, 2017, 1:00:55 PM
@@ -186,10 +192,10 @@
             <div class="card card-container">
                 <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
                 <p id="profile-name" class="profile-name-card"></p>
-                <form class="form-signin" action='LoginProcessServlet' method='post'>
+                <form class="form-signin" id ="formtype" role="form" action="loginServlet" method="post">
                     <span id="reauth-email" class="reauth-email"></span>
-                    <input type="text" name='UserId' id="inputUsername" class="form-control" placeholder="Username" required autofocus>
-                    <input type="password" name='Password' id="inputPassword" class="form-control" placeholder="Password" required>
+                    <input type="text" name='UserId' id="Username" class="form-control" placeholder="Username" required autofocus>
+                    <input type="password" name='Password' id="Password" class="form-control" placeholder="Password" required>
                     
                     <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
                 </form><!-- /form -->
@@ -202,3 +208,4 @@
 
 <script sec='js/bootstrap.js'></script>
 </html>
+
