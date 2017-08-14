@@ -4,6 +4,7 @@
     Author     : yemin
 --%>
 
+<%@page import="entity.User"%>
 <%--
     Document   : Login
     Created on : Jun 24, 2017, 1:00:55 PM
@@ -13,20 +14,20 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<%--
+<%
     //Checks session if user is already logged in.
     User user = (User) session.getAttribute("_loggedInUser");
 
     //after log in, to check if user is admin or employee
     if (user != null && user.getUserId() != null) {
-        if (user.isIsAdmin()) {
+        if (user.getIsAdmin()==1) {
             response.sendRedirect("EmployeeHome.jsp");
         } else {
             response.sendRedirect("AdminHome.jsp");
         }
         return;
     }
---%>
+%>
 
 <html>
     <head>
