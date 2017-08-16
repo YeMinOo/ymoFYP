@@ -207,6 +207,13 @@
             </div><!-- /card-container -->
         </div><!-- /container -->
 </body>
+<footer class="bs-docs-footer" role="contentinfo">
+        <div class="container" style="text-align: center">
+        <p style="color:#949494">Abundant Accounting PTE LTD, 69 Ubi Road 1 (Oxley Bizhub)#08-16, Singapore 408731</p>
+        <p style="color:#949494">Copyright© 2017 Abundant Accounting, Singapore. All rights reserved.</p>
+        </div>
+</footer>
+
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
 
 <script src='js/bootstrap.js'></script>
