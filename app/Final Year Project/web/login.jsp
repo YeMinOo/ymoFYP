@@ -44,8 +44,71 @@
         <!-- for IE -->
         <link rel="icon" type="image/x-icon" href="/Images/Abundant Accounting Logo.ico" >
         <link rel="shortcut icon" type="image/x-icon" href="/Images/Abundant Accounting Logo.ico"/>
+        <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/fullcalendar.css" rel="stylesheet" type="text/css"/>
+        <link href="css/master.css" rel="stylesheet" type="text/css"/>
+        <link href="css/orangetable.css" rel="stylesheet" type="text/css"/>
+        <link href="css/calendarExtender.css" rel="stylesheet" type="text/css"/>
+        <link href="css/gridview.css" rel="stylesheet" type="text/css"/>
+        <link href="css/offcanvas.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="script/prevent-iframe.js"></script>
+        <script src="script/jquery.min.js" type="text/javascript"></script>
+        <script src="script/bootstrap.min.js" type="text/javascript"></script>
+        <script src="script/fullcalendar.min.js" type="text/javascript"></script>
+        <script src="script/moment.js" type="text/javascript"></script>
         
-        <style>
+        <style type="text/css">
+            .bs-docs-featurette + .bs-docs-footer {
+                margin-top: 0;
+                border-top: 0;
+            }
+
+            .bs-docs-footer {
+                margin-top: 100px;
+                color: #777;
+                text-align: center;
+                border-top: 1px solid #e5e5e5;
+            }
+
+            #hr {
+                position: absolute;
+                top: 25%;
+                left: 35%;
+            }
+
+            .form-control {
+                margin: 10px 0;
+            }
+
+            .well {
+                padding: 10px 15px;
+            }
+
+            .alignsentence {
+                padding: 15px;
+            }
+
+            .labelpadding {
+                margin-left: 155px;
+            }
+
+            .notoppadding {
+                padding-top: 1px;
+            }
+
+            .buttonmargin {
+                margin-top: 11px;
+            }
+
+            .margin-right-5 {
+                margin-right: 5px;
+            }
+
+            .nobgcl {
+                background-color: #FFFFFF;
+            }
+        
             body, html {
                 height: 100%;
                 background-repeat: no-repeat;
@@ -213,9 +276,7 @@
         <p style="color:#949494">Copyright© 2017 Abundant Accounting, Singapore. All rights reserved.</p>
         </div>
 </footer>
-
 <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-
 <script src='js/bootstrap.js'></script>
 </html>
 

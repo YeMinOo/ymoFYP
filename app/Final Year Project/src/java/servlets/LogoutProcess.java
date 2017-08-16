@@ -33,7 +33,7 @@ public class LogoutProcess extends HttpServlet {
         // Obtains session variable from request.
         HttpSession session = request.getSession(true);
         session.invalidate();
-        response.sendRedirect("Login.jsp");
+        response.sendRedirect("login.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
