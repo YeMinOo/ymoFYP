@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class Employee {
     private String email;
+    private String password;
     private String employeeID;
     private int isAdmin;
     private double currentSalary;
@@ -25,8 +26,9 @@ public class Employee {
     private ArrayList<Job> pastJobs;
     private String department;
     
-    public Employee(String email, String employeeID, int isAdmin, double currentSalary, double cpf, String bankAccount, String nric, String name, String position, ArrayList<Job> currentJobs, ArrayList<Job> pastJobs, String department){
+    public Employee(String email, String password, String employeeID, int isAdmin, double currentSalary, double cpf, String bankAccount, String nric, String name, String position, ArrayList<Job> currentJobs, ArrayList<Job> pastJobs, String department){
         this.email = email;
+        this.password = password;
         this.employeeID = employeeID;
         this.isAdmin = isAdmin;
         this.currentSalary = currentSalary;
@@ -42,6 +44,10 @@ public class Employee {
     
     public String getEmail(){
         return email;
+    }
+    
+    public String getPassword(){
+        return password;
     }
     
     public String getEmployeeId() {

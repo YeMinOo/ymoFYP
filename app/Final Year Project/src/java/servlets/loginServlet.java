@@ -49,12 +49,24 @@ public class loginServlet extends HttpServlet {
             rd.forward(request,response);
         } else if (emp.getIsAdmin()== 1) {
             //this means that the user is not an admin
-            session.setAttribute("userId", emp.getEmployeeId());
-            response.sendRedirect("EmployeeHome.jsp");
+            if(emp.getPassword() == password){
+                session.setAttribute("userId", emp.getEmployeeId());
+                response.sendRedirect("EmployeeHome.jsp");
+            }else{
+                request.setAttribute("InvalidLogin", "Login failed! Please try again.");
+                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                rd.forward(request,response);
+            }
         } else {
             //if user is an admin
-            session.setAttribute("userId", emp.getEmployeeId());
-            response.sendRedirect("AdminHome.jsp");
+            if(emp.getPassword() == password){
+                session.setAttribute("userId", emp.getEmployeeId());
+                response.sendRedirect("EmployeeHome.jsp");
+            }else{
+                request.setAttribute("InvalidLogin", "Login failed! Please try again.");
+                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                rd.forward(request,response);
+            }
         }
     }
 

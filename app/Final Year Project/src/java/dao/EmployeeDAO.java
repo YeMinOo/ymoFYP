@@ -36,6 +36,7 @@ public class EmployeeDAO {
             
             // else returns result
             String email = rs.getString(3);
+            String password = rs.getString(2);
             String employeeID = rs.getString(1);
             int isAdmin = Integer.parseInt(rs.getString(4));
             double currentSalary = rs.getDouble(5);
@@ -44,7 +45,7 @@ public class EmployeeDAO {
             String nric = rs.getString(11);
             String empName = rs.getString(12);
             String position = rs.getString(6);
-            return new Employee(email, employeeID, isAdmin, currentSalary, cpf, bankAccount, nric, empName, position, null, null, null);
+            return new Employee(email, password, employeeID, isAdmin, currentSalary, cpf, bankAccount, nric, empName, position, null, null, null);
         } catch (SQLException e){
             e.printStackTrace();
             //Returns empty staff, so that add new job can determine that the staff does note exist and it's a database error
@@ -68,6 +69,7 @@ public class EmployeeDAO {
             
             // else returns result
             String email = rs.getString(3);
+            String password = rs.getString(2);
             String employeeID = rs.getString(1);
             int isAdmin = Integer.parseInt(rs.getString(4));
             double currentSalary = rs.getDouble(5);
@@ -83,7 +85,7 @@ public class EmployeeDAO {
             //ArrayList<Job> currentJobs, ArrayList<Job> pastJobs, String department
                     
             //return new Staff(email, pw, isAdmin);
-            return new Employee(email, employeeID, isAdmin, currentSalary, cpf, bankAccount, nric, empName, position, null, null, null);
+            return new Employee(email, password, employeeID, isAdmin, currentSalary, cpf, bankAccount, nric, empName, position, null, null, null);
         } catch (SQLException e){
             e.printStackTrace();
             //Returns empty staff, so that add new job can determine that the staff does note exist and it's a database error
@@ -92,4 +94,5 @@ public class EmployeeDAO {
             return null;
         }
     }
+    
 }
