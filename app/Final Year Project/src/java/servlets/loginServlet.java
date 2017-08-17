@@ -39,7 +39,7 @@ public class loginServlet extends HttpServlet {
         String password = request.getParameter("Password");
         
         EmployeeDAO empDAO = new EmployeeDAO();
-        Employee emp = empDAO.getEmployeeByID(userId);
+        Employee emp = empDAO.getEmployeebyIDandPassword(userId, password);
         
         HttpSession session = request.getSession();
         
@@ -52,24 +52,16 @@ public class loginServlet extends HttpServlet {
             if(emp.getPassword() == password){
                 session.setAttribute("userId", emp.getEmployeeId());
                 response.sendRedirect("EmployeeHome.jsp");
-            }else{
-                request.setAttribute("InvalidLogin", "Login failed! Please try again.");
-                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-                rd.forward(request,response);
-            }
         } else {
             //if user is an admin
             if(emp.getPassword() == password){
                 session.setAttribute("userId", emp.getEmployeeId());
                 response.sendRedirect("EmployeeHome.jsp");
-            }else{
-                request.setAttribute("InvalidLogin", "Login failed! Please try again.");
-                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-                rd.forward(request,response);
             }
         }
     }
-
+        
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

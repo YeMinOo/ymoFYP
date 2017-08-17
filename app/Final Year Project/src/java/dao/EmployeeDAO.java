@@ -18,6 +18,7 @@ import utility.ConnectionManager;
  */
 public class EmployeeDAO {
     private static String getEmployeeStatement = "SELECT * FROM EMPLOYEE WHERE employee_ID = ? ";
+    private static String getEmployeeStatementwithPassword = "SELECT * FROM EMPLOYEE WHERE employee_ID = ?, password = ? ";
     private static String getAllEmployeeStatement = "SELECT * FROM EMPLOYEE";
     private static String getEmployeeFromNameStatement = "SELECT * FROM EMPLOYEE WHERE name = ?";
     
@@ -59,6 +60,47 @@ public class EmployeeDAO {
         try (Connection conn = ConnectionManager.getConnection()){
             PreparedStatement stmt = conn.prepareStatement(getEmployeeStatement);
             stmt.setString(1, userId);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            // returns null if no records are returned
+            if (!rs.next()){
+                return null;
+            }
+            
+            // else returns result
+            String email = rs.getString(3);
+            String password = rs.getString(2);
+            String employeeID = rs.getString(1);
+            int isAdmin = Integer.parseInt(rs.getString(4));
+            double currentSalary = rs.getDouble(5);
+            double cpf = rs.getDouble(8);
+            String bankAccount = rs.getString(10);
+            String nric = rs.getString(11);
+            String empName = rs.getString(12);
+            String position = rs.getString(6);
+           //String department = rs.getString(9);
+            //ArrayList<Job> currentJobs = rs.
+            
+            
+            //ArrayList<Job> currentJobs, ArrayList<Job> pastJobs, String department
+                    
+            //return new Staff(email, pw, isAdmin);
+            return new Employee(email, password, employeeID, isAdmin, currentSalary, cpf, bankAccount, nric, empName, position, null, null, null);
+        } catch (SQLException e){
+            e.printStackTrace();
+            //Returns empty staff, so that add new job can determine that the staff does note exist and it's a database error
+            //a database error!
+            //Will be checked by .getUserId method!
+            return null;
+        }
+    }
+    
+    public static Employee getEmployeebyIDandPassword(String userId, String enteredPassword){
+        try (Connection conn = ConnectionManager.getConnection()){
+            PreparedStatement stmt = conn.prepareStatement(getEmployeeStatementwithPassword);
+            stmt.setString(1, userId);
+            stmt.setString(2, enteredPassword);
             
             ResultSet rs = stmt.executeQuery();
             
