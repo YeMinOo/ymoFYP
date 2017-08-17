@@ -35,6 +35,7 @@ public class loginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         String userId = request.getParameter("UserId");
         String password = request.getParameter("Password");
         
@@ -47,21 +48,20 @@ public class loginServlet extends HttpServlet {
             request.setAttribute("InvalidLogin", "Login failed! Please try again.");
             RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
             rd.forward(request,response);
-        } else if (emp.getIsAdmin()== 1) {
+        }
+        if (emp != null && emp.getPassword().equals(password)) {
             //this means that the user is not an admin
-            if(emp.getPassword() == password){
+            if(emp.getIsAdmin() == 1){
                 session.setAttribute("userId", emp.getEmployeeId());
                 response.sendRedirect("EmployeeHome.jsp");
-        } else {
+             } else {
             //if user is an admin
-            if(emp.getPassword() == password){
                 session.setAttribute("userId", emp.getEmployeeId());
-                response.sendRedirect("EmployeeHome.jsp");
+                response.sendRedirect("AdminHome.jsp");
             }
         }
     }
-        
-    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

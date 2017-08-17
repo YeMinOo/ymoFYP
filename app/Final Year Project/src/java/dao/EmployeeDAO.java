@@ -18,7 +18,7 @@ import utility.ConnectionManager;
  */
 public class EmployeeDAO {
     private static String getEmployeeStatement = "SELECT * FROM EMPLOYEE WHERE employee_ID = ? ";
-    private static String getEmployeeStatementwithPassword = "SELECT * FROM EMPLOYEE WHERE employee_ID = ?, password = ? ";
+    private static String getEmployeeStatementwithPassword = "SELECT * FROM EMPLOYEE WHERE employee_ID = ? AND password = ? ";
     private static String getAllEmployeeStatement = "SELECT * FROM EMPLOYEE";
     private static String getEmployeeFromNameStatement = "SELECT * FROM EMPLOYEE WHERE name = ?";
     
