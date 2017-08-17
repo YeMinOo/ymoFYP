@@ -268,7 +268,7 @@
                 <div class="container-fluid" style="text-align: center">
                     <h2 style="color:#777">Your Calendar</h2>
                     <div class="container-fluid">
-                        <!-- insert calendar here -->
+                        <!--Calendar here-->
                     </div>
                 </div>
             </nav>
@@ -281,5 +281,5 @@
             </div>
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script sec='js/bootstrap.js'></script>
+    <script src='js/bootstrap.js'></script>
 </html>

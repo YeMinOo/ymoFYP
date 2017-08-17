@@ -21,9 +21,9 @@
     //after log in, to check if user is admin or employee
     if (user != null && user.getUserId() != null) {
         if (user.getIsAdmin()==1) {
-            response.sendRedirect("EmployeeHome.jsp");
+            response.sendRedirect("Calendar.jsp");
         } else {
-            response.sendRedirect("AdminHome.jsp");
+            response.sendRedirect("Calendar.jsp");
         }
         return;
     }

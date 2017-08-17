@@ -3,26 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package JSONWebService;
 
-import dao.EmployeeDAO;
-import entity.Employee;
+import static Formatter.JsonFormatter.convertObjectToElement;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import utility.ConnectionManager;
 
 /**
  *
- * @author yemin
+ * @author jagdishps.2014
  */
-@WebServlet(name = "loginServlet", urlPatterns = {"/loginServlet"})
-public class loginServlet extends HttpServlet {
+@WebServlet(name = "UpdateEvent", urlPatterns = {"/UpdateEvent"})
+public class UpdateEvent extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,29 +46,34 @@ public class loginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String userId = request.getParameter("UserId");
-        String password = request.getParameter("Password");
-        
-        EmployeeDAO empDAO = new EmployeeDAO();
-        Employee emp = empDAO.getEmployeebyIDandPassword(userId, password);
-        
-        HttpSession session = request.getSession();
-        
-        if(emp == null) {
-            request.setAttribute("InvalidLogin", "Login failed! Please try again.");
-            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-            rd.forward(request,response);
-        }
-        if (emp != null && emp.getPassword().equals(password)) {
-            //this means that the user is not an admin
-            if(emp.getIsAdmin() == 1){
-                session.setAttribute("userId", emp.getEmployeeId());
-                response.sendRedirect("Calendar.jsp");
-             } else {
-            //if user is an admin
-                session.setAttribute("userId", emp.getEmployeeId());
-                response.sendRedirect("Calendar.jsp");
-            }
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+           
+            JsonObject outputRequest = new JsonObject();
+            
+            JsonArray events = new JsonArray();
+            
+            ArrayList<String> list = new ArrayList<String>();
+            String title = request.getParameter("title");
+            String start = request.getParameter("start");
+            String end = request.getParameter("end");
+            String id = request.getParameter("id");
+            
+            
+            
+            Connection conn = ConnectionManager.getConnection();
+            String statement = "UPDATE project SET title=?, start=?, end=? WHERE id=?";
+            PreparedStatement stmt = conn.prepareStatement(statement);
+            stmt.setString(1, title);
+            stmt.setString(2, start);
+            stmt.setString(3, end);
+            stmt.setString(4,id);
+            stmt.executeUpdate();
+            
+            
+           
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -89,6 +104,8 @@ public class loginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+        
     }
 
     /**

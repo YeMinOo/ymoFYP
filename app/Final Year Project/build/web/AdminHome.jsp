@@ -272,7 +272,9 @@
                     <h2 style="color:#777">Your Calendar</h2>
                     <div class="container-fluid">
                         <!-- insert calendar here -->
-                        
+                        <%
+                            response.sendRedirect("CalendarProcess");
+                        %>
                     </div>
                 </div>
             </nav>

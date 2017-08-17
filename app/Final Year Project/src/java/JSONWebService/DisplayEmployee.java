@@ -3,26 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package JSONWebService;
 
-import dao.EmployeeDAO;
-import entity.Employee;
+import static Formatter.JsonFormatter.convertObjectToElement;
+import static Formatter.JsonFormatter.printJSON;
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import utility.ConnectionManager;
 
 /**
  *
  * @author yemin
  */
-@WebServlet(name = "loginServlet", urlPatterns = {"/loginServlet"})
-public class loginServlet extends HttpServlet {
+@WebServlet(name = "DisplayEmployee", urlPatterns = {"/DisplayEmployee"})
+public class DisplayEmployee extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,30 +40,28 @@ public class loginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String userId = request.getParameter("UserId");
-        String password = request.getParameter("Password");
-        
-        EmployeeDAO empDAO = new EmployeeDAO();
-        Employee emp = empDAO.getEmployeebyIDandPassword(userId, password);
-        
-        HttpSession session = request.getSession();
-        
-        if(emp == null) {
-            request.setAttribute("InvalidLogin", "Login failed! Please try again.");
-            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-            rd.forward(request,response);
-        }
-        if (emp != null && emp.getPassword().equals(password)) {
-            //this means that the user is not an admin
-            if(emp.getIsAdmin() == 1){
-                session.setAttribute("userId", emp.getEmployeeId());
-                response.sendRedirect("Calendar.jsp");
-             } else {
-            //if user is an admin
-                session.setAttribute("userId", emp.getEmployeeId());
-                response.sendRedirect("Calendar.jsp");
+        response.setContentType("application/json;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            JsonObject outputRequest = new JsonObject();
+            ArrayList<String> list = new ArrayList<String>();
+            
+            Connection conn = ConnectionManager.getConnection();
+            String statement = "SELECT * FROM EMPLOYEE WHERE employee_ID = ? ";
+            PreparedStatement stmt = conn.prepareStatement(statement);
+            stmt.setString(1,"employeeA");
+            
+            ResultSet rs = stmt.executeQuery();
+            if(!rs.next()) {
+                outputRequest.add("status", convertObjectToElement("error"));
+                list.add("null");
+            } else {
+                outputRequest.add("EmployeeID", convertObjectToElement(rs.getString(1)));
+                outputRequest.add("Email", convertObjectToElement(rs.getString(3)));
             }
+            printJSON(outputRequest, out);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

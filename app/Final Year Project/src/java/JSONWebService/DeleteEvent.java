@@ -3,26 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package JSONWebService;
 
-import dao.EmployeeDAO;
-import entity.Employee;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import utility.ConnectionManager;
 
 /**
  *
- * @author yemin
+ * @author jagdishps.2014
  */
-@WebServlet(name = "loginServlet", urlPatterns = {"/loginServlet"})
-public class loginServlet extends HttpServlet {
+@WebServlet(name = "DeleteEvent", urlPatterns = {"/DeleteEvent"})
+public class DeleteEvent extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,30 +39,28 @@ public class loginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String userId = request.getParameter("UserId");
-        String password = request.getParameter("Password");
-        
-        EmployeeDAO empDAO = new EmployeeDAO();
-        Employee emp = empDAO.getEmployeebyIDandPassword(userId, password);
-        
-        HttpSession session = request.getSession();
-        
-        if(emp == null) {
-            request.setAttribute("InvalidLogin", "Login failed! Please try again.");
-            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-            rd.forward(request,response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+             JsonObject outputRequest = new JsonObject();
+            
+            JsonArray events = new JsonArray();
+            
+            ArrayList<String> list = new ArrayList<String>();
+            String id = request.getParameter("id");
+            Connection conn = ConnectionManager.getConnection();
+            String statement = "DELETE from project WHERE id=? ";
+            PreparedStatement stmt = conn.prepareStatement(statement);
+            stmt.setString(1, id);
+            
+            stmt.executeUpdate();
+            
+            
+           
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        if (emp != null && emp.getPassword().equals(password)) {
-            //this means that the user is not an admin
-            if(emp.getIsAdmin() == 1){
-                session.setAttribute("userId", emp.getEmployeeId());
-                response.sendRedirect("Calendar.jsp");
-             } else {
-            //if user is an admin
-                session.setAttribute("userId", emp.getEmployeeId());
-                response.sendRedirect("Calendar.jsp");
-            }
-        }
+        
+      
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -89,6 +90,8 @@ public class loginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
+       
     }
 
     /**
