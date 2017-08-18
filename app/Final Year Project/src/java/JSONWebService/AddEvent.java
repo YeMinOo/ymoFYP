@@ -56,14 +56,21 @@ public class AddEvent extends HttpServlet {
             String title = request.getParameter("title");
             String start = request.getParameter("start");
             String end = request.getParameter("end");
+            String remarks = request.getParameter("remarks");
+            String assignedPeople = request.getParameter("assignedPeople");
+            String repeat = request.getParameter("repeat");
             Connection conn = ConnectionManager.getConnection();
-            String statement = "Insert into project values(?,?,?,?)";
+            String statement = "Insert into project values(?,?,?,?,?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(statement);
            
             stmt.setInt(1,getCounter());
             stmt.setString(2, title);
             stmt.setString(3, start);
             stmt.setString(4, end);
+            stmt.setString(5, remarks);
+            stmt.setString(6, assignedPeople);
+            stmt.setBoolean(7,false);
+            stmt.setString(8,repeat);
             
             stmt.executeUpdate();
             

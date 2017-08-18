@@ -11,7 +11,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    
         <%-- this is for tab name --%>
-        <title>Admin Home Page</title>
+        <title>Employee Home Page</title>
         <link href="css/bootstrap.css" rel="stylesheet">
         
         <link rel='stylesheet' href='lib/fullcalendar.min.css' />
@@ -49,7 +49,16 @@
   var y = date.getFullYear();
  
   var calendar = $('#calendar').fullCalendar({
-   editable: true,
+    businessHours: {
+    // days of week. an array of zero-based day of week integers (0=Sunday)
+    dow: [ 1, 2, 3, 4,5 ], // Monday - Friday
+
+    start: '09:00', // a start time (10am )
+    end: '17:00', // an end time (5pm)
+    },
+    displayEventTime: false,  
+      
+   
    header: {
     left: 'prev,next today',
     center: 'title',
@@ -69,14 +78,16 @@
    selectHelper: true,
    select: function(start, end, allDay) {
    var title = prompt('Project Title:');
-   
+   var remarks = prompt('Remarks:');
+   var assignedPeople = prompt('Assigned People:');
+   var repeat = prompt('How often does this repeat?');
 
    if (title) {
    var start = $.fullCalendar.formatDate(start, "YYYY-MM-DD HH:mm:ss");
    var end = $.fullCalendar.formatDate(end, "YYYY-MM-DD HH:mm:ss");
    $.ajax({
      url: 'AddEvent',
-     data: 'title='+ title+'&'+'start='+ start +'&'+'end='+ end,
+     data: 'title='+ title+'&'+'start='+ start +'&'+'end='+ end + '&'+'remarks='+remarks+ '&'+ 'assignedPeople='+assignedPeople + '&'+'repeat='+repeat,
      type: 'POST',
      success: function(data) {
      alert("Added Successfully");
@@ -110,7 +121,7 @@
      }
    });
    },
-   eventClick: function(event) {
+   /*eventClick: function(event) {
   var decision = confirm("Are you sure you want to delete this project?"); 
   if (decision) {
   $.ajax({
@@ -122,7 +133,7 @@
         alert("Deleted Successfully");}
   });
   }
-    },
+    },*/
    eventResize: function(event) {
      var start = $.fullCalendar.formatDate(event.start, "yyyy-MM-dd HH:mm:ss");
      var end = $.fullCalendar.formatDate(event.end, "yyyy-MM-dd HH:mm:ss");
@@ -362,6 +373,7 @@
                               <li><a href="AddNewJob.jsp">Add New Job</a></li>
                               <li><a href="EditJob.jsp">Edit Job</a></li>
                               <li><a href="DeleteJob.jsp">Delete Job</a></li>
+                              <li><a href="ViewTask.jsp">View Tasks</a></li>
                             </ul>
                         </div>
                         <div class="align-buttons">

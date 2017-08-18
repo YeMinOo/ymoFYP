@@ -3,20 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package JSONWebService;
+package servlets;
 
-import static Formatter.JsonFormatter.convertObjectToElement;
-import static Formatter.JsonFormatter.printJSON;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,8 +26,8 @@ import utility.ConnectionManager;
  *
  * @author yemin
  */
-@WebServlet(name = "DisplayEvent", urlPatterns = {"/DisplayEvent"})
-public class DisplayEvent extends HttpServlet {
+@WebServlet(name = "ViewTaskServlet", urlPatterns = {"/ViewTaskServlet"})
+public class ViewTaskServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,39 +40,55 @@ public class DisplayEvent extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        
+        List<String> titleList = new ArrayList();
+        List<String> statusList = new ArrayList();
+        List<String> idList = new ArrayList();
+        List<String> endDateList = new ArrayList();
+
+        List<String> returnEndDateList = new ArrayList();
+        List<String> returnTitleList = new ArrayList();
+
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-                        
-            JsonArray events = new JsonArray();
+            HttpSession session = request.getSession();
             
-            ArrayList<String> list = new ArrayList<String>();
-            
+            String employeeID = (String)session.getAttribute("userId");
+
             Connection conn = ConnectionManager.getConnection();
-            String statement = "SELECT * FROM project";
+            String statement = "SELECT * FROM PROJECT WHERE ASSIGNED_EMPLOYEE=?";
             PreparedStatement stmt = conn.prepareStatement(statement);
-            
+            stmt.setString(1, employeeID);
+
             ResultSet rs = stmt.executeQuery();
-            ResultSetMetaData rsmd = rs.getMetaData();
-            if(!rs.next()) {
-                //outputRequest.add("status", convertObjectToElement("error"));
-                list.add("error");
-            } else {
-                do {
-                    int numColumns = rsmd.getColumnCount();
-                    JsonObject outputRequest = new JsonObject();
-                    for(int i =1; i<=numColumns; i++) {
-                        String column_name = rsmd.getColumnName(i);
-                        outputRequest.add(column_name,convertObjectToElement(rs.getObject(column_name)));
-                    }
-                    events.add(outputRequest);
-                }while(rs.next());
-                out.print(events);
-            }    
-           //out.print(events);
+            
+            while (rs.next()) {
+                titleList.add(rs.getString(2));
+                idList.add(rs.getString(6));
+                statusList.add(rs.getString(7));
+                endDateList.add(rs.getString(4));
+            }
+
+            for (int i = 0; i < statusList.size(); i++) {
+                String status = statusList.get(i);
+                if (status.equals("1")) {
+                    returnTitleList.add(titleList.get(i));
+                    returnEndDateList.add(endDateList.get(i));
+                }
+            }
+            request.setAttribute("title", returnTitleList);
+
+            request.setAttribute("endDate", returnEndDateList);
+
+//            System.out.println("TEST---------------------" + request.getAttribute("title"));
+//            System.out.println("TEST---------------------" + request.getAttribute("endDate"));
+            RequestDispatcher rd = request.getRequestDispatcher("ViewTask.jsp");
+            rd.forward(request, response);
+
         } catch (SQLException e) {
             e.printStackTrace();
-        } 
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

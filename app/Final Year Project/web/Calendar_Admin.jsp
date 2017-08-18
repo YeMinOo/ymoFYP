@@ -49,6 +49,16 @@
   var y = date.getFullYear();
  
   var calendar = $('#calendar').fullCalendar({
+      
+    businessHours: {
+    // days of week. an array of zero-based day of week integers (0=Sunday)
+    dow: [ 1, 2, 3, 4,5 ], // Monday - Friday
+
+    start: '09:00', // a start time (10am )
+    end: '17:00', // an end time (6pm)
+    },
+    displayEventTime: false,
+    
    editable: true,
    header: {
     left: 'prev,next today',
@@ -69,6 +79,9 @@
    selectHelper: true,
    select: function(start, end, allDay) {
    var title = prompt('Project Title:');
+   var remarks = prompt('Remarks:');
+   var assignedPeople = prompt('Assigned People:');
+   var repeat = prompt('How often does this project repeat?');
    
 
    if (title) {
@@ -76,7 +89,7 @@
    var end = $.fullCalendar.formatDate(end, "YYYY-MM-DD HH:mm:ss");
    $.ajax({
      url: 'AddEvent',
-     data: 'title='+ title+'&'+'start='+ start +'&'+'end='+ end,
+     data: 'title='+ title+'&'+'start='+ start +'&'+'end='+ end + '&'+'remarks='+remarks+ '&'+ 'assignedPeople='+assignedPeople + '&'+'repeat='+repeat,
      type: 'POST',
      success: function(data) {
      alert("Added Successfully");
@@ -362,6 +375,7 @@
                               <li><a href="AddNewJob.jsp">Add New Job</a></li>
                               <li><a href="EditJob.jsp">Edit Job</a></li>
                               <li><a href="DeleteJob.jsp">Delete Job</a></li>
+                              <li><a href="ViewTask.jsp">View Tasks</a></li>
                             </ul>
                         </div>
                         <div class="align-buttons">
