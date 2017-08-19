@@ -9,25 +9,26 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
+import java.util.Calendar;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import utility.ConnectionManager;
 
 /**
  *
  * @author yemin
  */
-@WebServlet(name = "ViewTaskServlet", urlPatterns = {"/ViewTaskServlet"})
-public class ViewTaskServlet extends HttpServlet {
+@WebServlet(name = "UpdateRecur", urlPatterns = {"/UpdateRecur"})
+public class UpdateRecur extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,64 +42,56 @@ public class ViewTaskServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        List<String> titleList = new ArrayList();
-        List<String> statusList = new ArrayList();
-        List<String> idList = new ArrayList();
-        List<String> startDateList = new ArrayList();
-        List<String> endDateList = new ArrayList();
-
-        List<String> returnStartDateList = new ArrayList();
-        List<String> returnEndDateList = new ArrayList();
-        List<String> returnTitleList = new ArrayList();
-        List<String> returnIdList = new ArrayList();
 
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession session = request.getSession();
-            
-            String employeeID = (String)session.getAttribute("userId");
+            ArrayList<String> list = new ArrayList<String>();
+            String id = request.getParameter("id");
+            String start = request.getParameter("startDate");
+            String end = request.getParameter("endDate");
+
+            //System.out.println("STAT=========="+id);
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Date startDate = (Date) df.parse(start);
+            Date endDate = (Date) df.parse(end);
+
+            System.out.println("START===================" + startDate);
+
+            Calendar c = Calendar.getInstance();
+            c.setTime(startDate);
+            c.add(Calendar.MONTH, 1);
+            startDate = (Date) c.getTime();
+
+            c.setTime(endDate);
+            c.add(Calendar.MONTH, 1);
+            endDate = (Date) c.getTime();
+
+            String newStart = df.format(startDate);
+            String newEnd = df.format(endDate);
+
+            System.out.println("START===================" + newStart);
+            System.out.println("END==================" + newEnd);
 
             Connection conn = ConnectionManager.getConnection();
-            String statement = "SELECT * FROM PROJECT WHERE ASSIGNED_EMPLOYEE=?";
+            String statement = "UPDATE project SET project_status=?, start=?, end=? WHERE id=?";
             PreparedStatement stmt = conn.prepareStatement(statement);
-            stmt.setString(1, employeeID);
 
-            ResultSet rs = stmt.executeQuery();
-            
-            while (rs.next()) {
-                titleList.add(rs.getString(2));
-                idList.add(rs.getString(1));
-                statusList.add(rs.getString(7));
-                startDateList.add(rs.getString(3));
-                endDateList.add(rs.getString(4));
-            }
+            stmt.setInt(1, 0);
+            stmt.setString(2, newStart);
+            stmt.setString(3, newEnd);
+            stmt.setString(4, id);
 
-            for (int i = 0; i < statusList.size(); i++) {
-                String status = statusList.get(i);
-                if (status.equals("1")) {
-                    returnTitleList.add(titleList.get(i));
-                    returnStartDateList.add(startDateList.get(i));
-                    returnEndDateList.add(endDateList.get(i));
-                    returnIdList.add(idList.get(i));
-                }
-            }
-            request.setAttribute("title", returnTitleList);
-            request.setAttribute("id", returnIdList);
-            request.setAttribute("startDate", returnStartDateList);
-            request.setAttribute("endDate", returnEndDateList);
-//
-//            System.out.println("TEST---------------------" + request.getAttribute("id"));
-//            System.out.println("TEST---------------------" + request.getAttribute("endDate"));
-            RequestDispatcher rd = request.getRequestDispatcher("ViewTask.jsp");
-            rd.forward(request, response);
+            stmt.executeUpdate();
+            response.sendRedirect("Calendar_Employee.jsp");
 
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

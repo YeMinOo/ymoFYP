@@ -43,16 +43,16 @@ public class AddEvent extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-         try (PrintWriter out = response.getWriter()) {
+
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-           
+
             JsonObject outputRequest = new JsonObject();
-            
+
             JsonArray events = new JsonArray();
-            
+
             ArrayList<String> list = new ArrayList<String>();
-            
+
             String title = request.getParameter("title");
             String start = request.getParameter("start");
             String end = request.getParameter("end");
@@ -62,21 +62,18 @@ public class AddEvent extends HttpServlet {
             Connection conn = ConnectionManager.getConnection();
             String statement = "Insert into project values(?,?,?,?,?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(statement);
-           
-            stmt.setInt(1,getCounter());
+
+            stmt.setInt(1, getCounter());
             stmt.setString(2, title);
             stmt.setString(3, start);
             stmt.setString(4, end);
             stmt.setString(5, remarks);
             stmt.setString(6, assignedPeople);
-            stmt.setBoolean(7,false);
-            stmt.setString(8,repeat);
-            
+            stmt.setBoolean(7, false);
+            stmt.setString(8, repeat);
+
             stmt.executeUpdate();
-            
-            
-            
-           
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -109,8 +106,7 @@ public class AddEvent extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-       
+
     }
 
     /**
@@ -122,21 +118,18 @@ public class AddEvent extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-    public int getCounter() throws SQLException{
-        
-        
-            Connection conn = ConnectionManager.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("Select * from project");
-            ResultSet rs = stmt.executeQuery();
-            rs.last();
-            
-            int counter = rs.getRow()+ 1; 
-            
-            
-         
-            return counter;
-       
+
+    public int getCounter() throws SQLException {
+
+        Connection conn = ConnectionManager.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("Select max(id) from project");
+        ResultSet rs = stmt.executeQuery();
+        rs.last();
+        int temp = rs.getInt("max(id)");
+        //Integer tempCount = Integer.parseInt(temp);
+        int counter = temp + 1;
+
+        return counter;
     }
 
 }

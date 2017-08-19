@@ -7,13 +7,13 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-   
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
         <%-- this is for tab name --%>
         <title>Admin Home Page</title>
         <link href="css/bootstrap.css" rel="stylesheet">
-        
+
         <link rel='stylesheet' href='lib/fullcalendar.min.css' />
         <!-- for FF, Chrome, Opera -->
         <link rel="icon" type="image/png" href="/Images/Abundant Accounting Logo.png" sizes="16x16">
@@ -37,129 +37,130 @@
         <!--<script src="script/moment.js" type="text/javascript"></script>-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src='lib/jquery.min.js'></script>
-<script src='lib/moment.min.js'></script>
-<script src='lib/fullcalendar.min.js'></script>
-<script>
- 
- $(document).ready(function() {
-  var date = new Date();
-  var d = date.getDate();
-  var m = date.getMonth();
-  var y = date.getFullYear();
- 
-  var calendar = $('#calendar').fullCalendar({
-      
-    businessHours: {
-    // days of week. an array of zero-based day of week integers (0=Sunday)
-    dow: [ 1, 2, 3, 4,5 ], // Monday - Friday
+        <script src='lib/jquery.min.js'></script>
+        <script src='lib/moment.min.js'></script>
+        <script src='lib/fullcalendar.min.js'></script>
+        <script>
 
-    start: '09:00', // a start time (10am )
-    end: '17:00', // an end time (6pm)
-    },
-    displayEventTime: false,
-    
-   editable: true,
-   header: {
-    left: 'prev,next today',
-    center: 'title',
-    right: 'month,agendaWeek,agendaDay'
-   },
-   eventLimit: true,
-   events:  'DisplayEvent',
+            $(document).ready(function () {
+                var date = new Date();
+                var d = date.getDate();
+                var m = date.getMonth();
+                var y = date.getFullYear();
 
-   eventRender: function(event, element, view) {
-    if (event.allDay === 'true') {
-     event.allDay = true;
-    } else {
-     event.allDay = false;
-    }
-   },
-   selectable: true,
-   selectHelper: true,
-   select: function(start, end, allDay) {
-   var title = prompt('Project Title:');
-   var remarks = prompt('Remarks:');
-   var assignedPeople = prompt('Assigned People:');
-   var repeat = prompt('How often does this project repeat?');
-   
+                var calendar = $('#calendar').fullCalendar({
 
-   if (title) {
-   var start = $.fullCalendar.formatDate(start, "YYYY-MM-DD HH:mm:ss");
-   var end = $.fullCalendar.formatDate(end, "YYYY-MM-DD HH:mm:ss");
-   $.ajax({
-     url: 'AddEvent',
-     data: 'title='+ title+'&'+'start='+ start +'&'+'end='+ end + '&'+'remarks='+remarks+ '&'+ 'assignedPeople='+assignedPeople + '&'+'repeat='+repeat,
-     type: 'POST',
-     success: function(data) {
-     alert("Added Successfully");
-           //$('#somediv').text(responseText);
-     }
-   });
-   
-   calendar.fullCalendar('renderEvent',
-   {
-     title: title,
-     start: start,
-     end: end,
-     allDay: allDay
-   },
-   true
-   );
-   }
-   calendar.fullCalendar('unselect');
-   },
+                    businessHours: {
+                        // days of week. an array of zero-based day of week integers (0=Sunday)
+                        dow: [1, 2, 3, 4, 5], // Monday - Friday
 
-   editable: true,
-   eventDrop: function(event, delta) {
-   var start = $.fullCalendar.formatDate(event.start, "YYYY-MM-DD HH:mm:ss");
-   var end = $.fullCalendar.formatDate(event.end, "YYYY-MM-DD HH:mm:ss");
-   $.ajax({
-     url: 'UpdateEvent',
-     data: 'title='+ event.title+'&start='+ start +'&end='+ end +'&id='+ event.id ,
-     type: "POST",
-     success: function(data) {
-      alert("Updated Successfully");
-     }
-   });
-   },
-   eventClick: function(event) {
-  var decision = confirm("Are you sure you want to delete this project?"); 
-  if (decision) {
-  $.ajax({
-    type: "POST",
-    url: "DeleteEvent",
-    data: "&id=" + event.id,
-     success: function(data) {
-       $('#calendar').fullCalendar('removeEvents', event.id);
-        alert("Deleted Successfully");}
-  });
-  }
-    },
-   eventResize: function(event) {
-     var start = $.fullCalendar.formatDate(event.start, "yyyy-MM-dd HH:mm:ss");
-     var end = $.fullCalendar.formatDate(event.end, "yyyy-MM-dd HH:mm:ss");
-     $.ajax({
-      url: 'UpdateEvent',
-      data: 'title='+ event.title+'&start='+ start +'&end='+ end +'&id='+ event.id ,
-      type: "POST",
-      success: function(data) {
-       alert("Updated Successfully");
-      }
-     });
-  }
-   
-  });
-  
- });
+                        start: '09:00', // a start time (10am )
+                        end: '17:00', // an end time (6pm)
+                    },
+                    displayEventTime: false,
 
-</script>
-<style type="text/css">
+                    editable: true,
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay,listMonth'
+                    },
+                    eventLimit: true,
+                    events: 'DisplayEvent',
+
+                    eventRender: function (event, element, view) {
+                        if (event.allDay === 'true') {
+                            event.allDay = true;
+                        } else {
+                            event.allDay = false;
+                        }
+                    },
+                    selectable: true,
+                    selectHelper: true,
+                    select: function (start, end, allDay) {
+                        var title = prompt('Project Title:');
+                        var remarks = prompt('Remarks:');
+                        var assignedPeople = prompt('Assigned People:');
+                        var repeat = prompt('How often does this project repeat?');
+
+
+                        if (title) {
+                            var start = $.fullCalendar.formatDate(start, "YYYY-MM-DD HH:mm:ss");
+                            var end = $.fullCalendar.formatDate(end, "YYYY-MM-DD HH:mm:ss");
+                            $.ajax({
+                                url: 'AddEvent',
+                                data: 'title=' + title + '&' + 'start=' + start + '&' + 'end=' + end + '&' + 'remarks=' + remarks + '&' + 'assignedPeople=' + assignedPeople + '&' + 'repeat=' + repeat,
+                                type: 'POST',
+                                success: function (data) {
+                                    alert("Added Successfully");
+                                    //$('#somediv').text(responseText);
+                                }
+                            });
+
+                            calendar.fullCalendar('renderEvent',
+                                    {
+                                        title: title,
+                                        start: start,
+                                        end: end,
+                                        allDay: allDay
+                                    },
+                                    true
+                                    );
+                        }
+                        calendar.fullCalendar('unselect');
+                    },
+
+                    editable: true,
+                    eventDrop: function (event, delta) {
+                        var start = $.fullCalendar.formatDate(event.start, "YYYY-MM-DD HH:mm:ss");
+                        var end = $.fullCalendar.formatDate(event.end, "YYYY-MM-DD HH:mm:ss");
+                        $.ajax({
+                            url: 'UpdateEvent',
+                            data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.id,
+                            type: "POST",
+                            success: function (data) {
+                                alert("Updated Successfully");
+                            }
+                        });
+                    },
+                    eventClick: function (event) {
+                        var decision = confirm("Are you sure you want to delete this project?");
+                        if (decision) {
+                            $.ajax({
+                                type: "POST",
+                                url: "DeleteEvent",
+                                data: "&id=" + event.id,
+                                success: function (data) {
+                                    $('#calendar').fullCalendar('removeEvents', event.id);
+                                    alert("Deleted Successfully");
+                                }
+                            });
+                        }
+                    },
+                    eventResize: function (event) {
+                        var start = $.fullCalendar.formatDate(event.start, "yyyy-MM-dd HH:mm:ss");
+                        var end = $.fullCalendar.formatDate(event.end, "yyyy-MM-dd HH:mm:ss");
+                        $.ajax({
+                            url: 'UpdateEvent',
+                            data: 'title=' + event.title + '&start=' + start + '&end=' + end + '&id=' + event.id,
+                            type: "POST",
+                            success: function (data) {
+                                alert("Updated Successfully");
+                            }
+                        });
+                    }
+
+                });
+
+            });
+
+        </script>
+        <style type="text/css">
             .bs-docs-featurette + .bs-docs-footer {
                 margin-top: 0;
                 border-top: 0;
             }
-            
+
             .align-buttons{
                 display: inline;
                 bottom: 0;
@@ -167,7 +168,7 @@
             .overall-margin {
                 margin: 10%, 10%, 10%, 10%;
             }
-            
+
             .bs-docs-footer {
                 margin-top: 100px;
                 color: #777;
@@ -212,7 +213,7 @@
             .nobgcl {
                 background-color: #FFFFFF;
             }
-        
+
             body, html {
                 height: 100%;
                 background-repeat: no-repeat;
@@ -336,17 +337,17 @@
                 margin: 0;
             }
         </style>
-          
-</head>
-<body>
-       <% 
-            String empId = (String)session.getAttribute("userId");
+
+    </head>
+    <body>
+        <%
+            String empId = (String) session.getAttribute("userId");
             EmployeeDAO empDAO = new EmployeeDAO();
             Employee emp = empDAO.getEmployeeByID(empId);
             String employeeName = "";
-            if(emp==null){
+            if (emp == null) {
                 employeeName = "No User";
-            }else{
+            } else {
                 employeeName = emp.getName();
             }
         %>
@@ -367,15 +368,15 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                              <li><a href="#">Home</a></li>
-                              <li><a href="SearchStaff.jsp">Search Staff</a></li>
-                              <li><a href="SearchClient.jsp">Search Client</a></li>
-                              <li><a href="SearchJob.jsp">Search Job</a></li>
-                              <li><a href="ViewJob.jsp">View Job</a></li>
-                              <li><a href="AddNewJob.jsp">Add New Job</a></li>
-                              <li><a href="EditJob.jsp">Edit Job</a></li>
-                              <li><a href="DeleteJob.jsp">Delete Job</a></li>
-                              <li><a href="Task_Assigned_Table.jsp">View Assigned Tasks Table</a></li>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="SearchStaff.jsp">Search Staff</a></li>
+                                <li><a href="SearchClient.jsp">Search Client</a></li>
+                                <li><a href="SearchJob.jsp">Search Job</a></li>
+                                <li><a href="ViewJob.jsp">View Job</a></li>
+                                <li><a href="AddNewJob.jsp">Add New Job</a></li>
+                                <li><a href="EditJob.jsp">Edit Job</a></li>
+                                <li><a href="DeleteJob.jsp">Delete Job</a></li>
+                                <li><a href="Task_Assigned_Table.jsp">View Assigned Tasks Table</a></li>
                             </ul>
                         </div>
                         <div class="align-buttons">
@@ -395,11 +396,11 @@
                 </div>
             </nav>
         </nav>
-</body>
-<footer class="bs-docs-footer" role="contentinfo">
-            <div class="container" style="text-align: center">
+    </body>
+    <footer class="bs-docs-footer" role="contentinfo">
+        <div class="container" style="text-align: center">
             <p style="color:#949494">Abundant Accounting PTE LTD, 69 Ubi Road 1 (Oxley Bizhub)#08-16, Singapore 408731</p>
             <p style="color:#949494">Copyright© 2017 Abundant Accounting, Singapore. All rights reserved.</p>
-            </div>
+        </div>
     </footer>
 </html>
