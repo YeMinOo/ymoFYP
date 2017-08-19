@@ -18,7 +18,42 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>View Tasks</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
 
+            #myInput {
+                background-image: url('/css/searchicon.png');
+                background-position: 10px 10px;
+                background-repeat: no-repeat;
+                width: 100%;
+                font-size: 16px;
+                padding: 12px 20px 12px 40px;
+                border: 1px solid #ddd;
+                margin-bottom: 12px;
+            }
+
+            #myTable {
+                border-collapse: collapse;
+                width: 100%;
+                border: 1px solid #ddd;
+                font-size: 18px;
+            }
+
+            #myTable th, #myTable td {
+                text-align: left;
+                padding: 12px;
+            }
+
+            #myTable tr {
+                border-bottom: 1px solid #ddd;
+            }
+
+            #myTable tr.header, #myTable tr:hover {
+                background-color: #f1f1f1;
+            }
+        </style>
     </head>
     <body>
         <%
@@ -30,9 +65,9 @@
             List<String> titleList = (List<String>) request.getAttribute("title");
             List<String> endDateList = (List<String>) request.getAttribute("endDate");
         %>
-        <table>
+        <table id="myTable">
             <thead>
-                Taks Assigned
+                Overview of Assigned Tasks
                 <tr>
                     <th>
                         Task To Complete
@@ -57,9 +92,9 @@
                 %>
             </thead>
         </table>
-        <table>
+        <table id="myTable">
             <thead>
-                Overdue Tasks
+                Tasks Overdue
                 <tr>
                     <th>
                         Task To Complete
