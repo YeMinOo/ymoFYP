@@ -47,11 +47,13 @@ public class ViewTaskServlet extends HttpServlet {
         List<String> idList = new ArrayList();
         List<String> startDateList = new ArrayList();
         List<String> endDateList = new ArrayList();
+        List<String> recurList = new ArrayList();
 
         List<String> returnStartDateList = new ArrayList();
         List<String> returnEndDateList = new ArrayList();
         List<String> returnTitleList = new ArrayList();
         List<String> returnIdList = new ArrayList();
+        List<String> returnRecurList =new ArrayList();
 
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -72,6 +74,7 @@ public class ViewTaskServlet extends HttpServlet {
                 statusList.add(rs.getString(7));
                 startDateList.add(rs.getString(3));
                 endDateList.add(rs.getString(4));
+                recurList.add(rs.getString(8));
             }
 
             for (int i = 0; i < statusList.size(); i++) {
@@ -81,12 +84,14 @@ public class ViewTaskServlet extends HttpServlet {
                     returnStartDateList.add(startDateList.get(i));
                     returnEndDateList.add(endDateList.get(i));
                     returnIdList.add(idList.get(i));
+                    returnRecurList.add(recurList.get(i));
                 }
             }
             request.setAttribute("title", returnTitleList);
             request.setAttribute("id", returnIdList);
             request.setAttribute("startDate", returnStartDateList);
             request.setAttribute("endDate", returnEndDateList);
+            request.setAttribute("recur", returnRecurList);
 //
 //            System.out.println("TEST---------------------" + request.getAttribute("id"));
 //            System.out.println("TEST---------------------" + request.getAttribute("endDate"));

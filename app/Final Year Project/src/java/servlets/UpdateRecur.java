@@ -49,25 +49,87 @@ public class UpdateRecur extends HttpServlet {
             String id = request.getParameter("id");
             String start = request.getParameter("startDate");
             String end = request.getParameter("endDate");
+            String recur = request.getParameter("recur");
+            
+            final String YEAR = "1"; //for year 
+            final String HALF = "2"; //HALF YEAR
+            final String QUARTER = "4"; //QUARTER 
+            final String MONTH = "12"; //MONTHLY
+            final String WEEK  = "52"; //weekly
 
             //System.out.println("STAT=========="+id);
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             Date startDate = (Date) df.parse(start);
             Date endDate = (Date) df.parse(end);
+            String newStart = "";
+            String newEnd = "";
+            //System.out.println("START===================" + startDate);
+            if(recur.equals(YEAR)){
+                Calendar c = Calendar.getInstance();
+                c.setTime(startDate);
+                c.add(Calendar.MONTH, 12);
+                startDate = (Date) c.getTime();
 
-            System.out.println("START===================" + startDate);
+                c.setTime(endDate);
+                c.add(Calendar.MONTH, 12);
+                endDate = (Date) c.getTime();
 
-            Calendar c = Calendar.getInstance();
-            c.setTime(startDate);
-            c.add(Calendar.MONTH, 1);
-            startDate = (Date) c.getTime();
+                newStart = df.format(startDate);
+                newEnd = df.format(endDate);
+            } 
+            if(recur.equals(HALF)){
+                Calendar c = Calendar.getInstance();
+                c.setTime(startDate);
+                c.add(Calendar.MONTH, 6);
+                startDate = (Date) c.getTime();
 
-            c.setTime(endDate);
-            c.add(Calendar.MONTH, 1);
-            endDate = (Date) c.getTime();
+                c.setTime(endDate);
+                c.add(Calendar.MONTH, 6);
+                endDate = (Date) c.getTime();
 
-            String newStart = df.format(startDate);
-            String newEnd = df.format(endDate);
+                newStart = df.format(startDate);
+                newEnd = df.format(endDate);
+            } 
+            if(recur.equals(QUARTER)){
+                Calendar c = Calendar.getInstance();
+                c.setTime(startDate);
+                c.add(Calendar.MONTH, 3);
+                startDate = (Date) c.getTime();
+
+                c.setTime(endDate);
+                c.add(Calendar.MONTH, 3);
+                endDate = (Date) c.getTime();
+
+                newStart = df.format(startDate);
+                newEnd = df.format(endDate);
+            } 
+            if(recur.equals(MONTH)){
+                Calendar c = Calendar.getInstance();
+                c.setTime(startDate);
+                c.add(Calendar.MONTH, 1);
+                startDate = (Date) c.getTime();
+
+                c.setTime(endDate);
+                c.add(Calendar.MONTH, 1);
+                endDate = (Date) c.getTime();
+
+                newStart = df.format(startDate);
+                newEnd = df.format(endDate);
+            } 
+             if(recur.equals(WEEK)){
+                Calendar c = Calendar.getInstance();
+                c.setTime(startDate);
+                c.add(Calendar.DATE, 7);
+                startDate = (Date) c.getTime();
+
+                c.setTime(endDate);
+                c.add(Calendar.DATE, 7);
+                endDate = (Date) c.getTime();
+
+                newStart = df.format(startDate);
+                newEnd = df.format(endDate);
+            } 
+           
 
             System.out.println("START===================" + newStart);
             System.out.println("END==================" + newEnd);

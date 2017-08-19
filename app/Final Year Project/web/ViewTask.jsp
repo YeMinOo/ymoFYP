@@ -58,7 +58,8 @@
     <body>
         <%
             if (request.getAttribute("title") == null || request.getAttribute("endDate") == null
-                    || request.getAttribute("id") == null || request.getAttribute("startDate") == null) {
+                    || request.getAttribute("id") == null || request.getAttribute("startDate") == null
+                    || request.getAttribute("recur") == null) {
         %>
         <jsp:forward page="ViewTaskServlet"/>
         <%
@@ -67,6 +68,7 @@
             List<String> endDateList = (List<String>) request.getAttribute("endDate");
             List<String> idList = (List<String>) request.getAttribute("id");
             List<String> startDateList = (List<String>) request.getAttribute("startDate");
+            List<String> recurList = (List<String>) request.getAttribute("recur");
         %>
         <table id="myTable">
             <thead>
@@ -98,6 +100,7 @@
                     <input type="hidden" value="<%=idList.get(i)%>" name="id">
                     <input type="hidden" value="<%=startDateList.get(i)%>" name="startDate">
                     <input type="hidden" value="<%=endDateList.get(i)%>" name="endDate">
+                    <input type="hidden" value="<%=recurList.get(i)%>" name="recur">
                     <input type="submit" value="Complete">
                 </form>
             </td>
