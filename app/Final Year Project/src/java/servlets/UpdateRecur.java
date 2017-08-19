@@ -68,10 +68,22 @@ public class UpdateRecur extends HttpServlet {
                 Calendar c = Calendar.getInstance();
                 c.setTime(startDate);
                 c.add(Calendar.MONTH, 12);
+                int dayOfStartWeek = c.get(Calendar.DAY_OF_WEEK);
+                if(dayOfStartWeek == Calendar.SATURDAY){
+                    c.add(Calendar.DATE,2);
+                } else if(dayOfStartWeek == Calendar.SUNDAY){
+                    c.add(Calendar.DATE,1);
+                }
                 startDate = (Date) c.getTime();
 
                 c.setTime(endDate);
                 c.add(Calendar.MONTH, 12);
+                int dayOfEndWeek = c.get(Calendar.DAY_OF_WEEK);
+                if(dayOfEndWeek == Calendar.SATURDAY){
+                    c.add(Calendar.DATE,2);
+                } else if(dayOfEndWeek == Calendar.SUNDAY){
+                    c.add(Calendar.DATE,1);
+                }
                 endDate = (Date) c.getTime();
 
                 newStart = df.format(startDate);
@@ -81,10 +93,22 @@ public class UpdateRecur extends HttpServlet {
                 Calendar c = Calendar.getInstance();
                 c.setTime(startDate);
                 c.add(Calendar.MONTH, 6);
+                int dayOfStartWeek = c.get(Calendar.DAY_OF_WEEK);
+                if(dayOfStartWeek == Calendar.SATURDAY){
+                    c.add(Calendar.DATE,2);
+                } else if(dayOfStartWeek == Calendar.SUNDAY){
+                    c.add(Calendar.DATE,1);
+                }
                 startDate = (Date) c.getTime();
 
                 c.setTime(endDate);
                 c.add(Calendar.MONTH, 6);
+                int dayOfEndWeek = c.get(Calendar.DAY_OF_WEEK);
+                if(dayOfEndWeek == Calendar.SATURDAY){
+                    c.add(Calendar.DATE,2);
+                } else if(dayOfEndWeek == Calendar.SUNDAY){
+                    c.add(Calendar.DATE,1);
+                }
                 endDate = (Date) c.getTime();
 
                 newStart = df.format(startDate);
@@ -94,10 +118,22 @@ public class UpdateRecur extends HttpServlet {
                 Calendar c = Calendar.getInstance();
                 c.setTime(startDate);
                 c.add(Calendar.MONTH, 3);
+                int dayOfStartWeek = c.get(Calendar.DAY_OF_WEEK);
+                if(dayOfStartWeek == Calendar.SATURDAY){
+                    c.add(Calendar.DATE,2);
+                } else if(dayOfStartWeek == Calendar.SUNDAY){
+                    c.add(Calendar.DATE,1);
+                }
                 startDate = (Date) c.getTime();
 
                 c.setTime(endDate);
                 c.add(Calendar.MONTH, 3);
+                int dayOfEndWeek = c.get(Calendar.DAY_OF_WEEK);
+                if(dayOfEndWeek == Calendar.SATURDAY){
+                    c.add(Calendar.DATE,2);
+                } else if(dayOfEndWeek == Calendar.SUNDAY){
+                    c.add(Calendar.DATE,1);
+                }
                 endDate = (Date) c.getTime();
 
                 newStart = df.format(startDate);
@@ -107,10 +143,22 @@ public class UpdateRecur extends HttpServlet {
                 Calendar c = Calendar.getInstance();
                 c.setTime(startDate);
                 c.add(Calendar.MONTH, 1);
+                int dayOfStartWeek = c.get(Calendar.DAY_OF_WEEK);
+                if(dayOfStartWeek == Calendar.SATURDAY){
+                    c.add(Calendar.DATE,2);
+                } else if(dayOfStartWeek == Calendar.SUNDAY){
+                    c.add(Calendar.DATE,1);
+                }
                 startDate = (Date) c.getTime();
 
                 c.setTime(endDate);
                 c.add(Calendar.MONTH, 1);
+                int dayOfEndWeek = c.get(Calendar.DAY_OF_WEEK);
+                if(dayOfEndWeek == Calendar.SATURDAY){
+                    c.add(Calendar.DATE,2);
+                } else if(dayOfEndWeek == Calendar.SUNDAY){
+                    c.add(Calendar.DATE,1);
+                }
                 endDate = (Date) c.getTime();
 
                 newStart = df.format(startDate);
@@ -120,10 +168,22 @@ public class UpdateRecur extends HttpServlet {
                 Calendar c = Calendar.getInstance();
                 c.setTime(startDate);
                 c.add(Calendar.DATE, 7);
-                startDate = (Date) c.getTime();
+                int dayOfStartWeek = c.get(Calendar.DAY_OF_WEEK);
+                if(dayOfStartWeek == Calendar.SATURDAY){
+                    c.add(Calendar.DATE,2);
+                } else if(dayOfStartWeek == Calendar.SUNDAY){
+                    c.add(Calendar.DATE,1);
+                }
+                 startDate = (Date) c.getTime();
 
                 c.setTime(endDate);
                 c.add(Calendar.DATE, 7);
+                int dayOfEndWeek = c.get(Calendar.DAY_OF_WEEK);
+                if(dayOfEndWeek == Calendar.SATURDAY){
+                    c.add(Calendar.DATE,2);
+                } else if(dayOfEndWeek == Calendar.SUNDAY){
+                    c.add(Calendar.DATE,1);
+                }
                 endDate = (Date) c.getTime();
 
                 newStart = df.format(startDate);

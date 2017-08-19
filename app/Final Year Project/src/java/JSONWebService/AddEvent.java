@@ -69,7 +69,7 @@ public class AddEvent extends HttpServlet {
             stmt.setString(4, end);
             stmt.setString(5, remarks);
             stmt.setString(6, assignedPeople);
-            stmt.setBoolean(7, false);
+            stmt.setInt(7, 1);
             stmt.setString(8, repeat);
 
             stmt.executeUpdate();
