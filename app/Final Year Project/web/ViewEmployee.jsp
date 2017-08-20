@@ -62,68 +62,74 @@
             List<String> isAdminList = (List<String>) request.getAttribute("isAdmin");
         %>
         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Employee" title="Type in Employee Name">
-        <table id="myTable">
-            <thead>
-                <tr class="header">
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Email
-                    </th>
-                    <th>
-                        Position
-                    </th>
-                    <th>
-                        Admin Access
-                    </th>
-                </tr>
+            <table id="myTable">
+                <thead>
+                    <tr class="header">
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Position
+                        </th>
+                        <th>
+                            Admin Access
+                        </th>
+                    </tr>
+                    <%
+                        for (int i = 0; i < nameList.size(); i++) {
+                            out.print("<tr>");
+                            out.print("<td>");
+                            out.print(nameList.get(i));
+                            out.print("</td>");
+                            out.print("<td>");
+                            out.print(emailList.get(i));
+                            out.print("</td>");
+                            out.print("<td>");
+                            out.print(positionList.get(i));
+                            out.print("</td>");
+                            out.print("<td>");
+                            out.print(isAdminList.get(i));
+                            out.print("</td>");
+                    %>
+                <td>
+                    <form method="post" action="UpdateEmployee.jsp">
+                        <input type="hidden" value="<%=nameList.get(i)%>" name="name">
+                        <input type="submit" value="UpdateEmployeeInfo">
+                    </form>
+                </td>
                 <%
-                    for (int i = 0; i < nameList.size(); i++) {
-                        out.print("<tr>");
-                        out.print("<td>");
-                        out.print(nameList.get(i));
-                        out.print("</td>");
-                        out.print("<td>");
-                        out.print(emailList.get(i));
-                        out.print("</td>");
-                        out.print("<td>");
-                        out.print(positionList.get(i));
-                        out.print("</td>");
-                        out.print("<td>");
-                        out.print(isAdminList.get(i));
-                        out.print("</td>");
+                        out.print("</tr>");
+                    }
                 %>
-            <td>
-                <form method="post" action="UpdateEmployee.jsp">
-                    <input type="hidden" value="<%=nameList.get(i)%>" name="name">
-                    <input type="submit" value="UpdateEmployeeInfo">
-                </form>
-            </td>
-            <%
-                    out.print("</tr>");
-                }
-            %>
-        </thead>
-    </table>
-    <script>
-        function myFunction() {
-            var input, filter, table, tr, td, i;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0];
-                if (td) {
-                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
+            </thead>
+        </table>
+        <script>
+            function myFunction() {
+                var input, filter, table, tr, td, i;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("myTable");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
                     }
                 }
             }
-        }
-    </script>
-</body>
+        </script>
+    </body>
+    <footer class="bs-docs-footer" role="contentinfo">
+        <div class="container" style="text-align: center">
+            <p style="color:#949494">Abundant Accounting PTE LTD, 69 Ubi Road 1 (Oxley Bizhub)#08-16, Singapore 408731</p>
+            <p style="color:#949494">Copyright© 2017 Abundant Accounting, Singapore. All rights reserved.</p>
+        </div>
+    </footer>
 </html>

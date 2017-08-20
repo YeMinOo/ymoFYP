@@ -24,4 +24,10 @@
             <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">View Job!</button>
         </form>
     </body>
+    <footer class="bs-docs-footer" role="contentinfo">
+        <div class="container" style="text-align: center">
+            <p style="color:#949494">Abundant Accounting PTE LTD, 69 Ubi Road 1 (Oxley Bizhub)#08-16, Singapore 408731</p>
+            <p style="color:#949494">Copyright© 2017 Abundant Accounting, Singapore. All rights reserved.</p>
+        </div>
+    </footer>
 </html>
