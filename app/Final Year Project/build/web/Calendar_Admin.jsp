@@ -389,7 +389,6 @@
             </nav>
             <nav class="navbar navbar-default navbar-center">
                 <div class="container-fluid" style="text-align: center">
-                    <h2 style="color:#777">Your Calendar</h2>
                     <div class="container-fluid">
                         <!-- insert calendar here -->
                         <div id='calendar'></div>

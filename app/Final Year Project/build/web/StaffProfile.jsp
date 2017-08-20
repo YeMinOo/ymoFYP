@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Update Employee</title>
+        <title>Profile</title>
         <link href="css/bootstrap.css" rel="stylesheet">
 
         <link rel='stylesheet' href='lib/fullcalendar.min.css' />

@@ -5,10 +5,14 @@
  */
 package dao;
 
+import entity.Client;
+
 /**
  *
  * @author Bernitatowyg
  */
 public class ClientDAO {
-    
+    public static Client getClientByID (String userId){
+        return null;
+    }
 }
