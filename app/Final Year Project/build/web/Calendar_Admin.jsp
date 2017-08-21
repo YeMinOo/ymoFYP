@@ -353,13 +353,22 @@
         <!--
         ###########################################################################################################################
         -->
-        <nav class="container-fluid">
-            <nav class="navbar navbar-default navbar-static-top">
-                <div class="container-fluid" style="margin: auto">
+        <nav class="container-fluid" width="100%" height="100%">
+            <nav class="header navbar navbar-default navbar-static-top">
+                <div class="container-fluid">
                     <div class="navbar-header">
                         <div>
-                            <img src="images/Abundant Accounting Logo - Copy.png" width="30%" height="30%"/>
-                        </div><a class="navbar-brand" href="http://www.abaccounting.com.sg/">Abundant Accounting</a>
+                            <table>
+                                <tr>
+                                    <td style="white-space: nowrap">
+                                        <a href="http://www.abaccounting.com.sg/"><img src="images/Abundant Accounting Logo - Copy.png" width="30%" height="30%"/></a>
+                                    </td>
+                                    <td style="white-space: nowrap">
+                                        <a class="navbar-brand" href="http://www.abaccounting.com.sg/">Abundant Accounting</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                     <div class="navbar-right" style="position: relative">
                         <div class="dropdown align-buttons">
@@ -367,7 +376,7 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Home</a></li>
+                            <!--
                                 <li><a href="SearchStaff.jsp">Search Staff</a></li>
                                 <li><a href="SearchClient.jsp">Search Client</a></li>
                                 <li><a href="SearchJob.jsp">Search Job</a></li>
@@ -375,13 +384,14 @@
                                 <li><a href="AddNewJob.jsp">Add New Job</a></li>
                                 <li><a href="EditJob.jsp">Edit Job</a></li>
                                 <li><a href="DeleteJob.jsp">Delete Job</a></li>
-                                <li><a href="Task_Assigned_Table.jsp">View Assigned Tasks Table</a></li>
-                                <li><a href="ViewEmployee.jsp">View Employee</a></li>
+                            -->
+                                <li><a href="ViewTask.jsp">View Tasks</a></li>
                             </ul>
                         </div>
                         <div class="align-buttons">
-                            <a href="StaffProfile.jsp"><span class="glyphicon glyphicon-user"></span><%=employeeName%></a>
-                            <a href="LogoutProcess"><span class="glyphicon glyphicon-log-out"></span>Logout</a>
+                            <a href="#"><span class="glyphicon glyphicon-home"</span>Home</a>
+                            <a href="StaffProfile.jsp"><span class="glyphicon glyphicon-user"></span> <%=employeeName%></a>
+                            <a href="LogoutProcess"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
                         </div>
                     </div>
                 </div>
@@ -389,8 +399,8 @@
             <nav class="navbar navbar-default navbar-center">
                 <div class="container-fluid" style="text-align: center">
                     <div class="container-fluid">
-                        <h3></h3>
                         <!-- insert calendar here -->
+                        <h3></h3>
                         <div id='calendar'></div>
                     </div>
                 </div>
