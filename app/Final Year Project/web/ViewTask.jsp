@@ -342,7 +342,7 @@
                     </div>
                 </div>
             </nav>
-            <nav class="navbar navbar-default navbar-center">
+            <nav class="navbar navbar-default navbar-center" style="padding-bottom: 20px">
                 <div class="container-fluid" style="text-align: center">
                     <div class="container-fluid">
                         <h3></h3>
@@ -380,6 +380,13 @@
                                 }
                             %>
                         </table>
+                    </div>
+                </div>
+            </nav>
+            <nav class="navbar navbar-default navbar-center" style="padding-bottom: 20px">
+                <div class="container-fluid" style="text-align: center">
+                    <div class="container-fluid">
+                        <h3></h3>
                         <h2>Overdue Tasks</h2>
                         <table id="myTable">
                             <tr>

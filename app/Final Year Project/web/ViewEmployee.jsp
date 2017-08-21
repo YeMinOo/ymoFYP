@@ -6,6 +6,7 @@
 
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page autoFlush="true" buffer="1094kb"%>
 <!DOCTYPE html>
 <html>
     <head>

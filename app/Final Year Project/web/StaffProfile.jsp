@@ -7,6 +7,7 @@
 <%@page import="entity.Employee"%>
 <%@page import="dao.EmployeeDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page autoFlush="true" buffer="1094kb"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -227,6 +228,7 @@
                 padding-top: 20px;
                 padding-right: 20px;
             }
+            
             * {
                 box-sizing: border-box;
             }
@@ -264,8 +266,19 @@
         </style>
     </head>
     <body>
-        <!-- ########################################################## header ########################################################## -->
+        <!-- ########################################################## header ############################################################### -->
+        <%  
+        if (request.getAttribute("name") == null || request.getAttribute("email") == null
+                    || request.getAttribute("id") == null || request.getAttribute("number") == null
+                    || request.getAttribute("position") == null) {
+            response.sendRedirect("StaffProfileServlet");
+        %>
+            
         <%
+        }
+            String email = (String) request.getAttribute("email");
+            String number = (String) request.getAttribute("number");
+            String position = (String) request.getAttribute("position");
             String empId = (String) session.getAttribute("userId");
             EmployeeDAO empDAO = new EmployeeDAO();
             Employee emp = empDAO.getEmployeeByID(empId);
@@ -276,6 +289,7 @@
                 employeeName = emp.getName();
             }
         %>
+
         <nav class="container-fluid" width="100%" height="100%">
             <nav class="header navbar navbar-default navbar-static-top">
                 <div class="container-fluid">
@@ -329,8 +343,6 @@
                         <!-- staff name -->
                         <h2><%=employeeName%></h2>
                         <!-- staff position -->
-<!-- to change!!!! ###################### -->
-                        <%String position = "random staff"; %>
                         <h4><%=position%></h4>
                     </div>
                 </div>
@@ -353,7 +365,32 @@
                             <tr>
                                 <td>
                                     <div id="descriptioncollapsible" class="collapse in">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    Email:
+                                                </td>
+                                                <td>
+                                                    <%=email%>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    ID:
+                                                </td>
+                                                <td>
+                                                    <%=empId%>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Mobile Number:
+                                                </td>
+                                                <td>
+                                                    <%=number%>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </td>
                             </tr>
@@ -379,7 +416,6 @@
                             <tr>
                                 <td>
                                     <div id="currentjobcollapsible" class="collapse in">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                                     </div>
                                 </td>
                             </tr>
@@ -405,7 +441,6 @@
                             <tr>
                                 <td>
                                     <div id="pastjobcollapsible" class="collapse in">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                                     </div>
                                 </td>
                             </tr>
