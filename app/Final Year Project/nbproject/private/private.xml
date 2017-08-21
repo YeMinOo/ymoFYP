@@ -3,16 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/JSONWebService/AddEvent.java</file>
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/web/login.jsp</file>
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/web/Calendar_Admin.jsp</file>
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/entity/Employee.java</file>
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/web/Calendar_Employee.jsp</file>
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/servlets/UpdateRecur.java</file>
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/dao/EmployeeDAO.java</file>
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/servlets/ViewTaskServlet.java</file>
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/web/ViewTask.jsp</file>
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/servlets/loginServlet.java</file>
+            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/ViewTask.jsp</file>
+            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/Task_Assigned_Table.jsp</file>
+            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/Calendar_Employee.jsp</file>
+            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/Calendar_Admin.jsp</file>
         </group>
     </open-files>
 </project-private>

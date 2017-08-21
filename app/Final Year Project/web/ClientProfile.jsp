@@ -347,10 +347,36 @@
                         <table width="100%">
                             <tr>
                                 <td align="left">
+                                    <h3>Description</h3>
+                                </td>
+                                <td align="right">
+                                    <button type="button" class="glyphicon glyphicon-minus" data-toggle="collapse" data-target="#description"></button>
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- insert description -->
+                        <table width="100%">
+                            <tr>
+                                <td>
+                                    <div id="description" class="collapse in">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </nav>
+            <nav class="navbar navbar-default navbar-center">
+                <div class="container-fluid" style="text-align: left">
+                    <div class="container-fluid">
+                        <table width="100%">
+                            <tr>
+                                <td align="left">
                                     <h3>Current Jobs</h3>
                                 </td>
                                 <td align="right">
-                                    <button type="button" class="glyphicon glyphicon-minus" data-toggle="collapse" data-target="#pastjobcollapsible"></button>
+                                    <button type="button" class="glyphicon glyphicon-minus" data-toggle="collapse" data-target="#currentjobcollapsible"></button>
                                 </td>
                             </tr>
                         </table>
@@ -358,7 +384,7 @@
                         <table width="100%">
                             <tr>
                                 <td>
-                                    <div id="pastjobcollapsible" class="collapse in">
+                                    <div id="currentjobcollapsible" class="collapse in">
                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                                     </div>
                                 </td>
