@@ -10,11 +10,11 @@
     </servlet>
     <servlet>
         <servlet-name>DeleteEmployee</servlet-name>
-        <servlet-class>servlets.DeleteEmployee</servlet-class>
+        <servlet-class>servlets.DeleteEmployeeServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateEmployee</servlet-name>
-        <servlet-class>servlets.UpdateEmployee</servlet-class>
+        <servlet-class>servlets.UpdateEmployeeInfoServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ViewEmployeeServlet</servlet-name>

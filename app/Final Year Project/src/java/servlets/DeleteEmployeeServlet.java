@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +24,8 @@ import utility.ConnectionManager;
  *
  * @author jagdishps.2014
  */
-@WebServlet(name = "DeleteEmployee", urlPatterns = {"/DeleteEmployee"})
-public class DeleteEmployee extends HttpServlet {
+@WebServlet(name = "DeleteEmployeeServlet", urlPatterns = {"/DeleteEmployeeServlet"})
+public class DeleteEmployeeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,16 +42,18 @@ public class DeleteEmployee extends HttpServlet {
          try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             
-            String employeeID = (String) request.getAttribute("employeeID");
+            String name = (String) request.getAttribute("name");
             
             Connection conn = ConnectionManager.getConnection();
-            String statement = "Delete from employee WHERE employeeID=?";
+            String statement = "Delete from employee WHERE name=?";
             PreparedStatement stmt = conn.prepareStatement(statement);
-            stmt.setString(1, employeeID);
+            stmt.setString(1, name);
 
             stmt.executeUpdate();
+            request.setAttribute("isSuccessfullyDeleted", "success");
             
-            
+            RequestDispatcher rd = request.getRequestDispatcher("ViewEmployee.jsp");
+            rd.forward(request, (ServletResponse) response);
             response.sendRedirect("ViewEmployee.jsp");
         } catch (SQLException e) {
             e.printStackTrace();

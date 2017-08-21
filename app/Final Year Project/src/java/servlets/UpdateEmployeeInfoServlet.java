@@ -21,8 +21,8 @@ import utility.ConnectionManager;
  *
  * @author jagdishps.2014
  */
-@WebServlet(name = "UpdateEmployee", urlPatterns = {"/UpdateEmployee"})
-public class UpdateEmployee extends HttpServlet {
+@WebServlet(name = "UpdateEmployeeInfoServlet", urlPatterns = {"/UpdateEmployeeInfoServlet"})
+public class UpdateEmployeeInfoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

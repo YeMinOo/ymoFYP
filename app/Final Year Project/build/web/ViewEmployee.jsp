@@ -4,6 +4,8 @@
     Author     : yemin
 --%>
 
+<%@page import="entity.Employee"%>
+<%@page import="dao.EmployeeDAO"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page autoFlush="true" buffer="1094kb"%>
@@ -276,51 +278,128 @@
             List<String> positionList = (List<String>) request.getAttribute("position");
             List<String> isAdminList = (List<String>) request.getAttribute("isAdmin");
         %>
-        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Employee" title="Type in Employee Name">
-            <table id="myTable">
-                <thead>
-                    <tr class="header">
-                        <th>
-                            Name
-                        </th>
-                        <th>
-                            Email
-                        </th>
-                        <th>
-                            Position
-                        </th>
-                        <th>
-                            Admin Access
-                        </th>
-                    </tr>
-                    <%
-                        for (int i = 0; i < nameList.size(); i++) {
-                            out.print("<tr>");
-                            out.print("<td>");
-                            out.print(nameList.get(i));
-                            out.print("</td>");
-                            out.print("<td>");
-                            out.print(emailList.get(i));
-                            out.print("</td>");
-                            out.print("<td>");
-                            out.print(positionList.get(i));
-                            out.print("</td>");
-                            out.print("<td>");
-                            out.print(isAdminList.get(i));
-                            out.print("</td>");
-                    %>
-                <td>
-                    <form method="post" action="UpdateEmployee.jsp">
-                        <input type="hidden" value="<%=nameList.get(i)%>" name="name">
-                        <input type="submit" value="UpdateEmployeeInfo">
-                    </form>
-                </td>
-                <%
-                        out.print("</tr>");
-                    }
-                %>
-            </thead>
-        </table>
+        
+        <!--######################################### return if successfully deleted ###########################################################
+        -->
+        <%
+            String isSuccessfullyDeleted = (String)request.getAttribute("isSuccessfullyDeleted");
+            if(isSuccessfullyDeleted!=null && isSuccessfullyDeleted.equals("success")){
+                // print error at the top
+        %>
+                <div class="alert alert-success">
+                  <strong>Success:</strong> Employee successfully deleted!
+                </div>
+        <%
+            }
+        %>
+        <!-- ########################################################## header ########################################################## -->
+        <%
+            String empId = (String) session.getAttribute("userId");
+            EmployeeDAO empDAO = new EmployeeDAO();
+            Employee emp = empDAO.getEmployeeByID(empId);
+            String employeeName = "";
+            if (emp == null) {
+                employeeName = "No User";
+            } else {
+                employeeName = emp.getName();
+            }
+        %>
+        
+        <nav class="container-fluid" width="100%" height="100%">
+            <nav class="header navbar navbar-default navbar-static-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <div>
+                            <table>
+                                <tr>
+                                    <td style="white-space: nowrap">
+                                        <a href="http://www.abaccounting.com.sg/"><img src="images/Abundant Accounting Logo - Copy.png" width="30%" height="30%"/></a>
+                                    </td>
+                                    <td style="white-space: nowrap">
+                                        <a class="navbar-brand" href="http://www.abaccounting.com.sg/">Abundant Accounting</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="navbar-right" style="position: relative">
+                        <div class="dropdown align-buttons">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Functions
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                            <!--
+                                <li><a href="SearchStaff.jsp">Search Staff</a></li>
+                                <li><a href="SearchClient.jsp">Search Client</a></li>
+                                <li><a href="SearchJob.jsp">Search Job</a></li>
+                                <li><a href="ViewJob.jsp">View Job</a></li>
+                                <li><a href="AddNewJob.jsp">Add New Job</a></li>
+                                <li><a href="EditJob.jsp">Edit Job</a></li>
+                                <li><a href="DeleteJob.jsp">Delete Job</a></li>
+                            -->
+                                <li><a href="Task_Assigned_Table.jsp">View Tasks</a></li>
+                                <li><a href="ViewEmployee.jsp">View Employee</a></li>
+                            </ul>
+                        </div>
+                        <div class="align-buttons">
+                            <a href="Calendar_Employee.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
+                            <a href="StaffProfile.jsp"><span class="glyphicon glyphicon-user"></span> <%=employeeName%></a>
+                            <a href="LogoutProcess"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <nav class="navbar navbar-default navbar-center" style="padding-bottom: 20px">
+                <div class="container-fluid" style="text-align: center">
+                    <div class="container-fluid">
+                        <h3></h3>
+                        <!-- insert assigned tasks here -->
+                        <h2>Overview of Employees</h2>
+                        <table id="myTable">
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Position</th>
+                                <th>Admin Access</th>
+                                <th>Update Details</th>
+                                <th>Delete</th>
+                            </tr>
+                            <%
+                                for (int i = 0; i < nameList.size(); i++) {
+                            %>
+                                    <tr>
+                                        <td>
+                                            <%=nameList.get(i)%>
+                                        </td>
+                                        <td>
+                                            <%=emailList.get(i)%>
+                                        </td>
+                                        <td>
+                                            <%=positionList.get(i)%>
+                                        </td>
+                                        <td>
+                                            <%=isAdminList.get(i)%>
+                                        </td>
+                                        <form method="post" action="UpdateEmployee.jsp">
+                                            <input type="hidden" value="<%=nameList.get(i)%>" name="name">
+                                            <td>
+                                                <input type="submit" id ="UpdateEmployeeInfoServlet" value="Update Employee">
+                                            </td>
+                                        </form>
+                                        <form method="post" action="DeleteEmployeeServlet">
+                                            <input type="hidden" value="<%=nameList.get(i)%>" name="name">
+                                            <td>
+                                                <input type="submit" id="DeleteEmployeeServlet" value="Delete Employee">
+                                            </td>
+                                        </form>
+                                    </tr>
+                            <%
+                                }
+                            %>
+                        </table>
+                    </div>
+                </div>
+            </nav>
         <script>
             function myFunction() {
                 var input, filter, table, tr, td, i;
