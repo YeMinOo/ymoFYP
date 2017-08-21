@@ -386,7 +386,7 @@
                                 <li><a href="DeleteJob.jsp">Delete Job</a></li>
                             -->
                                 <li><a href="Task_Assigned_Table.jsp">View Tasks</a></li>
-                                <li><a href="ViewEmployee.jsp">View Employee</a></li>
+                                <!--<li><a href="ViewEmployee.jsp">View Employee</a></li>-->
                             </ul>
                         </div>
                         <div class="align-buttons">

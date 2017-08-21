@@ -218,17 +218,17 @@
                 -webkit-transition: all 0.218s;
                 transition: all 0.218s;
             }
-            
+
             .body{
                 padding: 0;
                 margin: 0;
             }
-            
+
             .header{
                 padding-top: 20px;
                 padding-right: 20px;
             }
-            
+
             * {
                 box-sizing: border-box;
             }
@@ -267,15 +267,15 @@
     </head>
     <body>
         <!-- ########################################################## header ############################################################### -->
-        <%  
-        if (request.getAttribute("name") == null || request.getAttribute("email") == null
+        <%
+            if (request.getAttribute("name") == null || request.getAttribute("email") == null
                     || request.getAttribute("id") == null || request.getAttribute("number") == null
                     || request.getAttribute("position") == null) {
-            response.sendRedirect("StaffProfileServlet");
+                response.sendRedirect("StaffProfileServlet");
         %>
-            
+
         <%
-        }
+            }
             String email = (String) request.getAttribute("email");
             String number = (String) request.getAttribute("number");
             String position = (String) request.getAttribute("position");
@@ -293,8 +293,8 @@
         <nav class="container-fluid" width="100%" height="100%">
             <nav class="header navbar navbar-default navbar-static-top">
                 <div class="container-fluid">
-                    <div class="navbar-header">
-                        <div>
+                    <div class="navbar-header" style="padding-top: 20px">
+                        <div style="padding-top: 20px">
                             <table>
                                 <tr>
                                     <td style="white-space: nowrap">
@@ -313,20 +313,25 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                            <!--
-                                <li><a href="SearchStaff.jsp">Search Staff</a></li>
-                                <li><a href="SearchClient.jsp">Search Client</a></li>
-                                <li><a href="SearchJob.jsp">Search Job</a></li>
-                                <li><a href="ViewJob.jsp">View Job</a></li>
-                                <li><a href="AddNewJob.jsp">Add New Job</a></li>
-                                <li><a href="EditJob.jsp">Edit Job</a></li>
-                                <li><a href="DeleteJob.jsp">Delete Job</a></li>
-                            -->
+                                <!--
+                                    <li><a href="SearchStaff.jsp">Search Staff</a></li>
+                                    <li><a href="SearchClient.jsp">Search Client</a></li>
+                                    <li><a href="SearchJob.jsp">Search Job</a></li>
+                                    <li><a href="ViewJob.jsp">View Job</a></li>
+                                    <li><a href="AddNewJob.jsp">Add New Job</a></li>
+                                    <li><a href="EditJob.jsp">Edit Job</a></li>
+                                    <li><a href="DeleteJob.jsp">Delete Job</a></li>
+                                -->
                                 <li><a href="ViewTask.jsp">View Tasks</a></li>
                             </ul>
                         </div>
                         <div class="align-buttons">
+                            <% if (employeeName.equals("Mdm Ong")) {%>
+                            <a href="Calendar_Admin.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
+                            <%} else {%>
                             <a href="Calendar_Employee.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
+                            <%}
+                            %>
                             <a href="StaffProfile.jsp"><span class="glyphicon glyphicon-user"></span> <%=employeeName%></a>
                             <a href="LogoutProcess"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
                         </div>

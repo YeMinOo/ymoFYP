@@ -225,12 +225,12 @@
                 -webkit-transition: all 0.218s;
                 transition: all 0.218s;
             }
-            
+
             .body{
                 padding: 0;
                 margin: 0;
             }
-            
+
             .header{
                 padding-top: 20px;
                 padding-right: 20px;
@@ -275,9 +275,9 @@
         <%
             if (request.getAttribute("title") == null || request.getAttribute("endDate") == null
                     || request.getAttribute("id") == null || request.getAttribute("startDate") == null
-                    || request.getAttribute("recur") == null) {
+                    || request.getAttribute("recur") == null || request.getAttribute("reminder") == null) {
         %>
-                <jsp:forward page="ViewTaskServlet"/>
+        <jsp:forward page="ViewTaskServlet"/>
         <%
             }
             List<String> titleList = (List<String>) request.getAttribute("title");
@@ -285,8 +285,9 @@
             List<String> idList = (List<String>) request.getAttribute("id");
             List<String> startDateList = (List<String>) request.getAttribute("startDate");
             List<String> recurList = (List<String>) request.getAttribute("recur");
+            List<String> reminderList = (List<String>) request.getAttribute("reminder");
         %>
-        
+
         <!-- ########################################################## header ########################################################## -->
         <%
             String empId = (String) session.getAttribute("userId");
@@ -322,15 +323,15 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                            <!--
-                                <li><a href="SearchStaff.jsp">Search Staff</a></li>
-                                <li><a href="SearchClient.jsp">Search Client</a></li>
-                                <li><a href="SearchJob.jsp">Search Job</a></li>
-                                <li><a href="ViewJob.jsp">View Job</a></li>
-                                <li><a href="AddNewJob.jsp">Add New Job</a></li>
-                                <li><a href="EditJob.jsp">Edit Job</a></li>
-                                <li><a href="DeleteJob.jsp">Delete Job</a></li>
-                            -->
+                                <!--
+                                    <li><a href="SearchStaff.jsp">Search Staff</a></li>
+                                    <li><a href="SearchClient.jsp">Search Client</a></li>
+                                    <li><a href="SearchJob.jsp">Search Job</a></li>
+                                    <li><a href="ViewJob.jsp">View Job</a></li>
+                                    <li><a href="AddNewJob.jsp">Add New Job</a></li>
+                                    <li><a href="EditJob.jsp">Edit Job</a></li>
+                                    <li><a href="DeleteJob.jsp">Delete Job</a></li>
+                                -->
                                 <li><a href="ViewTask.jsp">View Tasks</a></li>
                             </ul>
                         </div>
@@ -356,25 +357,25 @@
                             </tr>
                             <%
                                 if (titleList.size() == endDateList.size()) {
-                                    for (int i = 0; i < titleList.size(); i++) {  
+                                    for (int i = 0; i < titleList.size(); i++) {
                             %>
-                                        <tr>
-                                            <td>
-                                                <%=titleList.get(i)%>
-                                            </td>
-                                            <td>
-                                                <%=endDateList.get(i)%>
-                                            </td>
-                                            <td>
-                                                <form method="post" action="UpdateRecur">
-                                                    <input type="hidden" value="<%=idList.get(i)%>" name="id">
-                                                    <input type="hidden" value="<%=startDateList.get(i)%>" name="startDate">
-                                                    <input type="hidden" value="<%=endDateList.get(i)%>" name="endDate">
-                                                    <input type="hidden" value="<%=recurList.get(i)%>" name="recur">
-                                                    <input type="submit" value="Complete">
-                                                </form>
-                                            </td>
-                                        </tr>
+                            <tr>
+                                <td>
+                                    <%=titleList.get(i)%>
+                                </td>
+                                <td>
+                                    <%=endDateList.get(i)%>
+                                </td>
+                                <td>
+                                    <form method="post" action="UpdateRecur">
+                                        <input type="hidden" value="<%=idList.get(i)%>" name="id">
+                                        <input type="hidden" value="<%=startDateList.get(i)%>" name="startDate">
+                                        <input type="hidden" value="<%=endDateList.get(i)%>" name="endDate">
+                                        <input type="hidden" value="<%=recurList.get(i)%>" name="recur">
+                                        <input type="submit" value="Complete">
+                                    </form>
+                                </td>
+                            </tr>
                             <%
                                     }
                                 }
@@ -392,43 +393,74 @@
                             <tr>
                                 <th>Task to Complete</th>
                                 <th>Completion Date</th>
-                                <%
-                                DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                                Date date = new Date();
+                                    <%
+                                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                        Date date = new Date();
 
-                                String today = dateFormat.format(date);
-                                //System.out.println("TODAY DATE==============" + today);
-                                List<String> overDueList = new ArrayList();
-                                List<String> overDueTask = new ArrayList();
+                                        String today = dateFormat.format(date);
+                                        //System.out.println("TODAY DATE==============" + today);
+                                        List<String> overDueList = new ArrayList();
+                                        List<String> overDueTask = new ArrayList();
 
-                                for (int i = 0; i < endDateList.size(); i++) {
-                                    String endDate = endDateList.get(i);
-                                    if (today.compareTo(endDate) > 0) {
-                                        overDueList.add(endDate);
-                                        overDueTask.add(titleList.get(i));
+                                        for (int i = 0; i < endDateList.size(); i++) {
+                                            String endDate = endDateList.get(i);
+                                            if (today.compareTo(endDate) > 0) {
+                                                overDueList.add(endDate);
+                                                overDueTask.add(titleList.get(i));
+                                            }
+                                        }
+                                        if (overDueList.size() == overDueTask.size()) {
+                                            for (int i = 0; i < overDueList.size(); i++) {
+                                    %>
+                            <tr bgcolor="#FF0000">
+                                <td>
+                                    <%=overDueTask.get(i)%>
+                                </td>
+                                <td>
+                                    <%=overDueList.get(i)%>
+                                </td>
+                            </tr>
+                            <%
                                     }
                                 }
-                                if (overDueList.size() == overDueTask.size()) {
-                                    for (int i = 0; i < overDueList.size(); i++) {
-                                %>
-                                        <tr bgcolor="#FF0000">
-                                            <td>
-                                                <%=overDueTask.get(i)%>
-                                            </td>
-                                            <td>
-                                                <%=overDueList.get(i)%>
-                                            </td>
-                                        </tr>
-                                <%
-                                    }
-                                }
-                                %>
+                            %>
                         </table>
                     </div>
                 </div>
             </nav>
+            <nav class="navbar navbar-default navbar-center" style="padding-bottom: 20px">
+                <div class="container-fluid" style="text-align: center">
+                    <div class="container-fluid">
+                        <h3></h3>
+                        <h2>TASKS DUE IN NEXT 7 DAYS</h2>
+                        <table id="myTable">
+                            <tr>
+                                <th>Task to Complete within 7 days</th>
+
+                                <%
+                                    List<String> reminders = new ArrayList();
+
+                                    for (int i = 0; i < reminderList.size(); i++) {
+                                        String taskToRemind = reminderList.get(i);
+
+
+                                %>
+                            <tr bgcolor="#FFFF00">
+                                <td>
+                                    <%=taskToRemind%>
+                                </td>
+
+                            </tr>
+                            <%
+
+                                }
+                            %>
+                        </table>
+                    </div>
+                </div>
+            </nav>    
         </nav>
-</body>
+    </body>
     <footer class="bs-docs-footer" role="contentinfo">
         <div class="container" style="text-align: center">
             <p style="color:#949494">Abundant Accounting PTE LTD, 69 Ubi Road 1 (Oxley Bizhub)#08-16, Singapore 408731</p>
