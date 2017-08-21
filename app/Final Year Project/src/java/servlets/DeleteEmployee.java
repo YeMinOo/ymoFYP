@@ -17,15 +17,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import utility.ConnectionManager;
 
 /**
  *
  * @author jagdishps.2014
  */
-@WebServlet(name = "ClientProfileServlet", urlPatterns = {"/ClientProfileServlet"})
-public class ClientProfileServlet extends HttpServlet {
+@WebServlet(name = "DeleteEmployee", urlPatterns = {"/DeleteEmployee"})
+public class DeleteEmployee extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,44 +38,20 @@ public class ClientProfileServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-          String name = "";
-          String email = "";
-          String id= "";
-          String number = "";
-          
-          id = (String) request.getAttribute("clientID");
-          
-
-        try (PrintWriter out = response.getWriter()) {
+         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             
-
+            String employeeID = (String) request.getAttribute("employeeID");
+            
             Connection conn = ConnectionManager.getConnection();
-            String statement = "SELECT * FROM clientele WHERE client_id=?";
+            String statement = "Delete from employee WHERE employeeID=?";
             PreparedStatement stmt = conn.prepareStatement(statement);
-            stmt.setString(1, id);
+            stmt.setString(1, employeeID);
 
-            ResultSet rs = stmt.executeQuery();
-            
-            while (rs.next()) {
-                name = rs.getString(2);
-                email = rs.getString(4);
-                id = rs.getString(1);
-                number = rs.getString(3);
-                
-            }
-
-            request.setAttribute("name", name);
-            request.setAttribute("email", email);
-            request.setAttribute("id", id);
-            request.setAttribute("number", number);
+            stmt.executeUpdate();
             
             
-           
-            
-            RequestDispatcher rd = request.getRequestDispatcher("ClientProfile.jsp");
-            rd.forward(request, response);
-            response.sendRedirect("ClientProfile.jsp");
+            response.sendRedirect("ViewEmployee.jsp");
         } catch (SQLException e) {
             e.printStackTrace();
         }

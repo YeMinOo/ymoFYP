@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,8 +26,8 @@ import utility.ConnectionManager;
  *
  * @author jagdishps.2014
  */
-@WebServlet(name = "ClientProfileServlet", urlPatterns = {"/ClientProfileServlet"})
-public class ClientProfileServlet extends HttpServlet {
+@WebServlet(name = "AddEmployee", urlPatterns = {"/AddEmployee"})
+public class AddEmployee extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,44 +41,44 @@ public class ClientProfileServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-          String name = "";
-          String email = "";
-          String id= "";
-          String number = "";
-          
-          id = (String) request.getAttribute("clientID");
-          
-
-        try (PrintWriter out = response.getWriter()) {
+          try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+            String employeeID = (String) request.getAttribute("id");
+            String password = (String) request.getAttribute("password");
+            String email = (String) request.getAttribute("email");
+            Boolean isAdmin = (Boolean) request.getAttribute("isAdmin");
+            String currentSalary = (String) request.getAttribute("currentSalary");
+            String position = (String) request.getAttribute("position");
+            Boolean supervisor = (Boolean) request.getAttribute("supervisor");
+            Double cpf = (Double) request.getAttribute("cpf");
+            int numProjects = (int) request.getAttribute("numProjects");
+            String bankAcct = (String) request.getAttribute("bankAcct");
+            String nric = (String) request.getAttribute("nric");
+            String name = (String) request.getAttribute("name");
+            String number = (String) request.getAttribute("number");
 
             Connection conn = ConnectionManager.getConnection();
-            String statement = "SELECT * FROM clientele WHERE client_id=?";
+            String statement = "INSERT INTO employee values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(statement);
-            stmt.setString(1, id);
-
-            ResultSet rs = stmt.executeQuery();
+            stmt.setString(1, employeeID);
+            stmt.setString(2, password);
+            stmt.setString(3, email);
+            stmt.setBoolean(4, isAdmin);
+            stmt.setString(5, currentSalary);
+            stmt.setString(6, position);
+            stmt.setBoolean(7, supervisor);
+            stmt.setDouble(8, cpf);
+            stmt.setInt(9, numProjects);
+            stmt.setString(10, bankAcct);
+            stmt.setString(11, nric);
+            stmt.setString(12, name);
+            stmt.setString(13, number);
             
-            while (rs.next()) {
-                name = rs.getString(2);
-                email = rs.getString(4);
-                id = rs.getString(1);
-                number = rs.getString(3);
-                
-            }
-
-            request.setAttribute("name", name);
-            request.setAttribute("email", email);
-            request.setAttribute("id", id);
-            request.setAttribute("number", number);
-            
+            stmt.executeUpdate();
             
            
-            
-            RequestDispatcher rd = request.getRequestDispatcher("ClientProfile.jsp");
-            rd.forward(request, response);
-            response.sendRedirect("ClientProfile.jsp");
+           
+            response.sendRedirect("ViewEmployee.jsp");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -120,5 +122,10 @@ public class ClientProfileServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
+  
+    
+   
+    
+  
 }
