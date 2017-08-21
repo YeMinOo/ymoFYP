@@ -390,6 +390,7 @@
             <nav class="navbar navbar-default navbar-center">
                 <div class="container-fluid" style="text-align: center">
                     <div class="container-fluid">
+                        <h3></h3>
                         <!-- insert calendar here -->
                         <div id='calendar'></div>
                     </div>

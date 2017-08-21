@@ -341,10 +341,10 @@
                         <table width="100%">
                             <tr>
                                 <td align="left">
-                                    <h3>Current Jobs</h3>
+                                    <h3>Description</h3>
                                 </td>
                                 <td align="right">
-                                    <button type="button" class="glyphicon glyphicon-minus" data-toggle="collapse" data-target="#currentjobcollapsible"></button>
+                                    <button type="button" class="glyphicon glyphicon-minus" data-toggle="collapse" data-target="#descriptioncollapsible"></button>
                                 </td>
                             </tr>
                         </table>
@@ -352,7 +352,7 @@
                         <table width="100%">
                             <tr>
                                 <td>
-                                    <div id="currentjobcollapsible" class="collapse in">
+                                    <div id="descriptioncollapsible" class="collapse in">
                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                                     </div>
                                 </td>

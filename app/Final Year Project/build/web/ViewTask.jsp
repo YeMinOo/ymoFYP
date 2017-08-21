@@ -14,12 +14,12 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@ page autoFlush="true" buffer="1094kb"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Profile</title>
+        <title>View Task</title>
         <link href="css/bootstrap.css" rel="stylesheet">
 
         <link rel='stylesheet' href='lib/fullcalendar.min.css' />
@@ -59,7 +59,7 @@
                 bottom: 0;
             }
             .overall-margin {
-                margin: 10%, 10%, 10%, 10%;
+                margin: 10% 10% 10% 10%;
             }
 
             .bs-docs-footer {
