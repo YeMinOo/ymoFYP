@@ -7,6 +7,7 @@
 <%@page import="entity.Employee"%>
 <%@page import="dao.EmployeeDAO"%>
 <%@page import="java.util.List"%>
+<%@ page autoFlush="true" buffer="1094kb"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
