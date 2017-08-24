@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import dao.JobDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -50,6 +51,13 @@ public class UpdateRecur extends HttpServlet {
             String start = request.getParameter("startDate");
             String end = request.getParameter("endDate");
             String recur = request.getParameter("recur");
+            String title = request.getParameter("title");
+            String remarks = request.getParameter("remarks");
+            String assignedEmployee = request.getParameter("assignedEmployee");
+            String companyName = request.getParameter("companyName");
+            
+            JobDAO jobDAO = new JobDAO();
+            
             
             final String YEAR = "1"; //for year 
             final String HALF = "2"; //HALF YEAR
@@ -189,25 +197,10 @@ public class UpdateRecur extends HttpServlet {
                 newStart = df.format(startDate);
                 newEnd = df.format(endDate);
             } 
-           
-
-            System.out.println("START===================" + newStart);
-            System.out.println("END==================" + newEnd);
-
-            Connection conn = ConnectionManager.getConnection();
-            String statement = "UPDATE project SET project_status=?, start=?, end=? WHERE id=?";
-            PreparedStatement stmt = conn.prepareStatement(statement);
-
-            stmt.setInt(1, 0);
-            stmt.setString(2, newStart);
-            stmt.setString(3, newEnd);
-            stmt.setString(4, id);
-
-            stmt.executeUpdate();
+          
+            jobDAO.insertRecurringTask(title, newStart, newEnd, remarks, assignedEmployee, recur, companyName);
             response.sendRedirect("Calendar_Employee.jsp");
 
-        } catch (SQLException e) {
-            e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import dao.JobDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -49,18 +50,12 @@ public class TaskAssignedTableServlet extends HttpServlet {
         List<String> startDateList = new ArrayList();
         List<String> endDateList = new ArrayList();
         List<String> projectStatusList = new ArrayList();
+        JobDAO jobDAO = new JobDAO(); 
 
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            //HttpSession session = request.getSession();
-            
-            //String employeeID = (String)session.getAttribute("userId");
-
-            Connection conn = ConnectionManager.getConnection();
-            String statement = "SELECT * FROM PROJECT";
-            PreparedStatement stmt = conn.prepareStatement(statement);
-
-            ResultSet rs = stmt.executeQuery();
+           
+            ResultSet rs = jobDAO.viewAllTasks();
             
             while (rs.next()) {
                 titleList.add(rs.getString(2));

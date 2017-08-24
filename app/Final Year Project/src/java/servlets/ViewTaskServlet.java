@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import dao.JobDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -60,6 +61,7 @@ public class ViewTaskServlet extends HttpServlet {
         List<String> returnIdList = new ArrayList();
         List<String> returnRecurList =new ArrayList();
         List<String> reminderList =new ArrayList();
+        JobDAO jobDAO = new JobDAO();
 
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -73,13 +75,8 @@ public class ViewTaskServlet extends HttpServlet {
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             
             String employeeID = (String)session.getAttribute("userId");
-
-            Connection conn = ConnectionManager.getConnection();
-            String statement = "SELECT * FROM PROJECT WHERE ASSIGNED_EMPLOYEE=?";
-            PreparedStatement stmt = conn.prepareStatement(statement);
-            stmt.setString(1, employeeID);
-
-            ResultSet rs = stmt.executeQuery();
+            
+            ResultSet rs = jobDAO.viewEmployeeTasks(employeeID);
             
             while (rs.next()) {
                 titleList.add(rs.getString(2));

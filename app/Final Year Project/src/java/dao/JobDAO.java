@@ -111,4 +111,74 @@ public class JobDAO {
             e.printStackTrace();
         }
     }
+    
+    public ResultSet viewEmployeeTasks(String employeeID){
+        ResultSet rs = null; 
+        try(Connection conn = ConnectionManager.getConnection()){
+            String statement = "SELECT * FROM PROJECT WHERE ASSIGNED_EMPLOYEE=?";
+            PreparedStatement stmt = conn.prepareStatement(statement);
+            stmt.setString(1, employeeID);
+            rs = stmt.executeQuery();
+            return rs;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return rs; 
+    }
+    
+    public void insertRecurringTask(String title, String start, String end, String remarks, String assignedEmployee, String recurring, String companyName){
+            
+            try(Connection conn = ConnectionManager.getConnection()){
+                String statement = "insert into project values (?,?,?,?,?,?,?,?,?)";
+                PreparedStatement stmt = conn.prepareStatement(statement);
+                
+                stmt.setInt(1, getCounter());
+                stmt.setString(2, title); 
+                stmt.setString(3,start);
+                stmt.setString(4, end);
+                stmt.setString(5, remarks); 
+                stmt.setString(6, assignedEmployee); 
+                stmt.setInt(7,0); 
+                stmt.setString(8, recurring);
+                stmt.setString(9, companyName);
+                
+                stmt.executeUpdate();  
+                
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+             
+    }
+    
+    public int getCounter() throws SQLException {
+        
+         
+        
+        try(Connection conn = ConnectionManager.getConnection()){
+        PreparedStatement stmt = conn.prepareStatement("Select max(id) from project");
+        ResultSet rs = stmt.executeQuery();
+        rs.last();
+        int temp = rs.getInt("max(id)");
+        int counter = temp + 1;
+        return counter;
+        
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return 0; 
+    }
+    
+    public ResultSet viewAllTasks(){
+        ResultSet rs = null; 
+        try(Connection conn = ConnectionManager.getConnection()){
+            String statement = "SELECT * FROM PROJECT";
+            PreparedStatement stmt = conn.prepareStatement(statement);
+            
+            rs = stmt.executeQuery();
+            return rs;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return rs; 
+    }
 }

@@ -13,116 +13,98 @@ import java.util.Date;
  * @author Bernitatowyg
  */
 public class Job {
-    private String jobID;
+    private int jobID;
     private String jobTitle;
-    private String jobDescription;
-    private String clientName;
-    private String clientID;
     private Date startDate;
-    private Date completionDate;
-    private Date finalDate;
-    private String priorityLevel;
-    private Employee staffAssignedTo;
-    private String status;
-    private String jobtype;
-    private String interval;
-    
-    /**
-     *
-     * @param jobID
-     * @param jobTitle
-     * @param jobDescription
-     * @param dueDate
-     * @param completionDate
-     * @param priorityLevel
-     * @param staffAssignedTo
-     */
-    public Job(String jobID, String jobTitle, String jobDescription, String clientname, String clientId, Date startDate, Date completionDate, Date finalDate, String priorityLevel, Employee staffAssignedTo, String status, String jobType){
+    private Date endDate;
+    private String remarks;
+    private String assignedEmployee;
+    private boolean status;
+    private String recurring; 
+    private String companyName;
+
+    public Job(int jobID, String jobTitle, Date startDate, Date endDate, String remarks, String assignedEmployee, boolean status, String recurring, String companyName) {
         this.jobID = jobID;
         this.jobTitle = jobTitle;
-        this.jobDescription = jobDescription;
-        this.clientName = clientname;
-        this.clientID = clientId;
         this.startDate = startDate;
-        this.completionDate = completionDate;
-        this.finalDate = finalDate;
-        this.priorityLevel = priorityLevel;
-        this.staffAssignedTo = staffAssignedTo;
+        this.endDate = endDate;
+        this.remarks = remarks;
+        this.assignedEmployee = assignedEmployee;
         this.status = status;
-        this.jobtype = jobType;
-        this.interval = null;
+        this.recurring = recurring;
+        this.companyName = companyName;
     }
-    
-    public Job(String jobID, String jobTitle, String jobDescription, String clientname, String clientId, Date startDate, Date completionDate, Date finalDate, String priorityLevel, Employee staffAssignedTo, String status, String jobType, String interval){
-        //for recurring jobs
-        this.jobID = jobID;
-        this.jobTitle = jobTitle;
-        this.jobDescription = jobDescription;
-        this.clientName = clientname;
-        this.clientID = clientId;
-        this.startDate = startDate;
-        this.completionDate = completionDate;
-        this.finalDate = finalDate;
-        this.priorityLevel = priorityLevel;
-        this.staffAssignedTo = staffAssignedTo;
-        this.status = status;
-        this.jobtype = jobType;
-        this.interval = interval;
-    }
-    
-    public String getJobID(){
+
+    public int getJobID() {
         return jobID;
     }
-    
-    public String getClientID(){
-        return clientID;
-    }
-    
-    public String getJobTitle(){
-         return jobTitle;
-    }
-    
-    public String getJobDescription(){
-         return jobDescription;
-    }
-    
-    public String getClientName(){
-         return clientName;
-    }
-    
-    public String getClientId(){
-         return clientID;
+
+    public void setJobID(int jobID) {
+        this.jobID = jobID;
     }
 
-    public Date getStartDate(){
-         return startDate;
-    }      
-    
-    public Date getFinalDate(){
-         return finalDate;
-    }   
+    public String getJobTitle() {
+        return jobTitle;
+    }
 
-    public Date getCompletionDate(){
-         return completionDate;
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
-    
-    public String getPriorityLevel(){
-         return priorityLevel;
+
+    public Date getStartDate() {
+        return startDate;
     }
-    
-    public Employee getStaffAssignedTo(){
-         return staffAssignedTo;
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
-    
-    public String getStatus(){
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public String getAssignedEmployee() {
+        return assignedEmployee;
+    }
+
+    public void setAssignedEmployee(String assignedEmployee) {
+        this.assignedEmployee = assignedEmployee;
+    }
+
+    public boolean isStatus() {
         return status;
     }
-    
-    public String getJobType(){
-        return jobtype;
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
-    
-    public String getInterval(){
-        return interval;
+
+    public String getRecurring() {
+        return recurring;
     }
+
+    public void setRecurring(String recurring) {
+        this.recurring = recurring;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    } 
+    
 }
