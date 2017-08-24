@@ -20,18 +20,20 @@ public class Employee {
     private String position;
     private int isSupervisor;
     private double cpf;
+    private int projectsWorkedOn;
     private String bankAccount;
     private String nric;
     private String name;
     private String phoneNum;
     
-    public Employee(String employeeID, String password, String email, int isAdmin, double currentSalary, String position,int isSupervisor,double cpf, String bankAccount, String nric, String name, String phoneNum){
+    public Employee(String employeeID, String password, String email, int isAdmin, double currentSalary, String position,int isSupervisor,double cpf, int projectsWorkedOn, String bankAccount, String nric, String name, String phoneNum){
         this.email = email;
         this.password = password;
         this.employeeID = employeeID;
         this.isAdmin = isAdmin;
         this.currentSalary = currentSalary;
         this.cpf = cpf;
+        this.projectsWorkedOn = projectsWorkedOn;
         this.bankAccount = bankAccount;
         this.nric = nric;
         this.name = name;
@@ -39,51 +41,55 @@ public class Employee {
         this.isSupervisor = isSupervisor;
         this.phoneNum = phoneNum;
     }    
-    
-    public String getEmail(){
-        return email;
-    }
-    
-    public String getPassword(){
-        return password;
-    }
-    
-    public String getEmployeeId() {
+
+    public String getEmployeeID() {
         return employeeID;
     }
-    
-    public int getIsAdmin(){
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public int getIsAdmin() {
         return isAdmin;
     }
-    
-    public double getCurrentSalary(){
+
+    public double getCurrentSalary() {
         return currentSalary;
     }
-    
-    public double getCpf(){
-        return cpf;
-    }
-    
-    public String getBankAccount(){
-        return bankAccount;
-    }
-    
-    public String getNric(){
-        return nric;
-    }
-    
-    public String getName(){
-        return name;
-    }
-    
-    public String getPosition(){
+
+    public String getPosition() {
         return position;
     }
-    
+
     public int getIsSupervisor() {
         return isSupervisor;
     }
-    
+
+    public double getCpf() {
+        return cpf;
+    }
+
+    public int getProjectsWorkedOn() {
+        return projectsWorkedOn;
+    }
+
+    public String getBankAccount() {
+        return bankAccount;
+    }
+
+    public String getNric() {
+        return nric;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public String getPhoneNum() {
         return phoneNum;
     }
@@ -120,6 +126,10 @@ public class Employee {
         this.cpf = cpf;
     }
 
+    public void setProjectsWorkedOn(int projectsWorkedOn) {
+        this.projectsWorkedOn = projectsWorkedOn;
+    }
+
     public void setBankAccount(String bankAccount) {
         this.bankAccount = bankAccount;
     }
@@ -135,4 +145,5 @@ public class Employee {
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
+    
 }

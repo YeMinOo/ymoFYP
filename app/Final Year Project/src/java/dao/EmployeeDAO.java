@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import utility.ConnectionManager;
 
 /**
@@ -46,12 +47,13 @@ public class EmployeeDAO {
             String position = rs.getString(6);
             int isSupervisor = Integer.parseInt(rs.getString(7));
             double cpf = rs.getDouble(8);
+            int projectsWorkedOn = Integer.parseInt(rs.getString(9));
             String bankAccount = rs.getString(10);
             String nric = rs.getString(11);
             String empName = rs.getString(12);
             String phoneNum = rs.getString(13);
             
-            return new Employee(employeeID, password, email, isAdmin, currentSalary, position, isSupervisor, cpf, bankAccount, nric, empName, phoneNum);
+            return new Employee(employeeID, password, email, isAdmin, currentSalary, position, isSupervisor, cpf, projectsWorkedOn, bankAccount, nric, empName, phoneNum);
         } catch (SQLException e) {
             e.printStackTrace();
             //Returns empty staff, so that add new job can determine that the staff does note exist and it's a database error
@@ -82,6 +84,7 @@ public class EmployeeDAO {
             String position = rs.getString(6);
             int isSupervisor = Integer.parseInt(rs.getString(7));
             double cpf = rs.getDouble(8);
+            int projectsWorkedOn = Integer.parseInt(rs.getString(9));
             String bankAccount = rs.getString(10);
             String nric = rs.getString(11);
             String empName = rs.getString(12);
@@ -91,7 +94,7 @@ public class EmployeeDAO {
             //ArrayList<Job> currentJobs, ArrayList<Job> pastJobs, String department
             //return new Staff(email, pw, isAdmin);
             
-            return new Employee(employeeID, password, email, isAdmin, currentSalary, position, isSupervisor, cpf, bankAccount, nric, empName, phoneNum);
+            return new Employee(employeeID, password, email, isAdmin, currentSalary, position, isSupervisor, cpf,projectsWorkedOn, bankAccount, nric, empName, phoneNum);
         } catch (SQLException e) {
             e.printStackTrace();
             //Returns empty staff, so that add new job can determine that the staff does note exist and it's a database error
@@ -123,6 +126,7 @@ public class EmployeeDAO {
             String position = rs.getString(6);
             int isSupervisor = Integer.parseInt(rs.getString(7));
             double cpf = rs.getDouble(8);
+            int projectsWorkedOn = Integer.parseInt(rs.getString(9));
             String bankAccount = rs.getString(10);
             String nric = rs.getString(11);
             String empName = rs.getString(12);
@@ -131,7 +135,7 @@ public class EmployeeDAO {
 
             //ArrayList<Job> currentJobs, ArrayList<Job> pastJobs, String department
             //return new Staff(email, pw, isAdmin);
-            return new Employee(employeeID, password, email, isAdmin, currentSalary, position, isSupervisor, cpf, bankAccount, nric, empName, phoneNum);
+            return new Employee(employeeID, password, email, isAdmin, currentSalary, position, isSupervisor, cpf, projectsWorkedOn, bankAccount, nric, empName, phoneNum);
         } catch (SQLException e) {
             e.printStackTrace();
             //Returns empty staff, so that add new job can determine that the staff does note exist and it's a database error
@@ -141,42 +145,29 @@ public class EmployeeDAO {
         }
     }
 
-    public static Employee getAllEmployee() {
+    public static ArrayList<Employee> getAllEmployees() {
+        ArrayList<Employee> empList = new ArrayList<>();
+        
         try (Connection conn = ConnectionManager.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(getAllEmployeeStatement);
 
             ResultSet rs = stmt.executeQuery();
-
+            
             // returns null if no records are returned
             if (!rs.next()) {
-                return null;
+                return empList;
             }
-
-            // else returns result
-            String employeeID = rs.getString(1);
-            String password = rs.getString(2);
-            String email = rs.getString(3);
-            int isAdmin = Integer.parseInt(rs.getString(4));
-            double currentSalary = rs.getDouble(5);
-            String position = rs.getString(6);
-            int isSupervisor = Integer.parseInt(rs.getString(7));
-            double cpf = rs.getDouble(8);
-            String bankAccount = rs.getString(10);
-            String nric = rs.getString(11);
-            String empName = rs.getString(12);
-            String phoneNum = rs.getString(13);
-
-            //ArrayList<Job> currentJobs, ArrayList<Job> pastJobs, String department
-            //return new Staff(email, pw, isAdmin);
-            
-            return new Employee(employeeID, password, email, isAdmin, currentSalary, position, isSupervisor, cpf, bankAccount, nric, empName, phoneNum);
+            while(rs.next()) {
+                empList.add(new Employee(rs.getString(1), rs.getString(2), rs.getString(3), Integer.parseInt(rs.getString(4)), Double.parseDouble(rs.getString(5)), rs.getString(6), Integer.parseInt(rs.getString(7)), Double.parseDouble(rs.getString(8)), Integer.parseInt(rs.getString(9)), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
+            }
+            return empList;
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("EmployeeDAO: (getAllEmployees) = "+e.toString());
             //Returns empty staff, so that add new job can determine that the staff does note exist and it's a database error
             //a database error!
             //Will be checked by .getUserId method!
-            return null;
         }
+        return empList;
     }
 
     public boolean deleteEmployee(String nric) {
@@ -194,23 +185,23 @@ public class EmployeeDAO {
         return false;
     }
     
-    public boolean createEmployee (String employeeID, String password, String email, int isAdmin, double currentSalary, String position,int isSupervisor,double cpf, String bankAccount, String nric, String name, String phoneNum) {
+    public boolean createEmployee (String employeeID, String password, String email, Boolean isAdmin, String currentSalary, String position,Boolean isSupervisor,double cpf, String bankAccount, String nric, String name, String phoneNum) {
         
         try (Connection conn = ConnectionManager.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(insertEmployeeStatement);
             stmt.setString(1, employeeID);
             stmt.setString(2, password);
             stmt.setString(3, email);
-            stmt.setInt(4, isAdmin);
-            stmt.setDouble(5, currentSalary);
+            stmt.setBoolean(4, isAdmin);
+            stmt.setString(5, currentSalary);
             stmt.setString(6, position);
-            stmt.setInt(7, isSupervisor);
+            stmt.setBoolean(7, isSupervisor);
             stmt.setDouble(8, cpf);
             stmt.setInt(9, 0); //new employee means 0 number of projects worked on
-            stmt.setString(9, bankAccount);
-            stmt.setString(10, nric);
-            stmt.setString(11, name);
-            stmt.setString(12, phoneNum);
+            stmt.setString(10, bankAccount);
+            stmt.setString(11, nric);
+            stmt.setString(12, name);
+            stmt.setString(13, phoneNum);
             
             int rowsAffected = stmt.executeUpdate();
 

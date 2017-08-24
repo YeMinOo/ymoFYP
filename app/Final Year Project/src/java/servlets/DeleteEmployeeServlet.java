@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import dao.EmployeeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -39,25 +40,25 @@ public class DeleteEmployeeServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         try (PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
-            String name = (String) request.getAttribute("name");
-            
-            Connection conn = ConnectionManager.getConnection();
-            String statement = "Delete from employee WHERE name=?";
-            PreparedStatement stmt = conn.prepareStatement(statement);
-            stmt.setString(1, name);
 
-            stmt.executeUpdate();
-            request.setAttribute("isSuccessfullyDeleted", "success");
-            
+            String nric = (String) request.getAttribute("nric");
+            String message = "";
+
+            EmployeeDAO empDAO = new EmployeeDAO();
+            if (empDAO.deleteEmployee(nric)) {
+                message = "Deleted Successfully";
+                request.setAttribute(message, "success");
+            } else {
+                message = "Unsuccessful";
+                request.setAttribute(message, "success");
+            }
+
             RequestDispatcher rd = request.getRequestDispatcher("ViewEmployee.jsp");
             rd.forward(request, (ServletResponse) response);
             response.sendRedirect("ViewEmployee.jsp");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

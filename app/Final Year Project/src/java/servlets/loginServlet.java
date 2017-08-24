@@ -52,11 +52,11 @@ public class loginServlet extends HttpServlet {
         if (emp != null && emp.getPassword().equals(password)) {
             //this means that the user is not an admin
             if(emp.getIsAdmin() == 1){
-                session.setAttribute("userId", emp.getEmployeeId());
+                session.setAttribute("userId", emp.getEmployeeID());
                 response.sendRedirect("Calendar_Employee.jsp");
              } else {
             //if user is an admin
-                session.setAttribute("userId", emp.getEmployeeId());
+                session.setAttribute("userId", emp.getEmployeeID());
                 response.sendRedirect("Calendar_Admin.jsp");
             }
         }

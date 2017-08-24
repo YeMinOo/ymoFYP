@@ -52,7 +52,7 @@ public class DeleteJobServlet extends HttpServlet {
         String jobId = request.getParameter("jobId");
         String clientId = request.getParameter("clientId");
         JobDAO jobDao = new JobDAO();
-        Job job = jobDao.getJob(clientId, jobId);
+        /*Job job = jobDao.getJob(clientId, jobId);
         
         if(job==null){
             //if job == null then send error that job does not exists
@@ -91,7 +91,7 @@ public class DeleteJobServlet extends HttpServlet {
             rd.forward(request, (ServletResponse) response);
             
             response.sendRedirect("DisplayJobToDelete.jsp");
-        }
+        }*/
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

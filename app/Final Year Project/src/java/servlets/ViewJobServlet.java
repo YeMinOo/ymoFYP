@@ -50,7 +50,7 @@ public class ViewJobServlet extends HttpServlet {
         
         String jobId = (String)request.getParameter("jobId");
         String clientId = (String)request.getParameter("clientId");
-        JobDAO jobDao = new JobDAO();
+        /*JobDAO jobDao = new JobDAO();
         Job job = JobDAO.getJob(clientId, jobId);
         
         if(job==null){
@@ -90,7 +90,7 @@ public class ViewJobServlet extends HttpServlet {
             rd.forward(request, (ServletResponse) response);
             
             response.sendRedirect("DisplayViewJob.jsp");
-        }
+        }*/
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

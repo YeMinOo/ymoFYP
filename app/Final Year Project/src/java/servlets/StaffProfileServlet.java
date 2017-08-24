@@ -5,6 +5,8 @@
  */
 package servlets;
 
+import dao.EmployeeDAO;
+import entity.Employee;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -42,53 +44,25 @@ public class StaffProfileServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-//        
-          String name = "";
-          String email = "";
-          String id= "";
-          String number = "";
-          String position = "";
-          
-
+        
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             HttpSession session = request.getSession();
             
             String employeeID = (String)session.getAttribute("userId");
 
-            Connection conn = ConnectionManager.getConnection();
-            String statement = "SELECT * FROM employee WHERE employee_id=?";
-            PreparedStatement stmt = conn.prepareStatement(statement);
-            stmt.setString(1, employeeID);
-
-            ResultSet rs = stmt.executeQuery();
+            EmployeeDAO empDAO = new EmployeeDAO();
+            Employee emp = empDAO.getEmployeeByID(employeeID);
             
-            while (rs.next()) {
-                name = rs.getString(12);
-                email = rs.getString(3);
-                id = rs.getString(1);
-                number = rs.getString(13);
-                position = rs.getString(6);
-            }
-
-            request.setAttribute("name", name);
-            request.setAttribute("email", email);
-            request.setAttribute("id", id);
-            request.setAttribute("number", number);
-            request.setAttribute("position", position);
-            
-            System.out.println("OVER HERE!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            System.out.println(name);
-            System.out.println(email);
-            System.out.println(id);
-            System.out.println(number);
-            System.out.println(position);
+            request.setAttribute("name", emp.getName());
+            request.setAttribute("email", emp.getEmail());
+            request.setAttribute("id", emp.getEmployeeID());
+            request.setAttribute("number", emp.getPhoneNum());
+            request.setAttribute("position", emp.getPosition());
             
             RequestDispatcher rd = request.getRequestDispatcher("StaffProfile.jsp");
             rd.forward(request, response);
             response.sendRedirect("StaffProfile.jsp");
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 

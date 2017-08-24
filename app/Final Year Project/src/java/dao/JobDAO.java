@@ -25,7 +25,7 @@ public class JobDAO {
     private static String addJobStatement = "INSERT INTO PROJECT(client_id, job_id, jobTitle, jobDescription, clientName, startDate, completionDate, finalDate, priorityLevel, staffAssignedTo, status, jobType, interval) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static String deleteJobStatement = "DELETE * FROM PROJECT WHERE client_id= ? AND job_id = ? ";
     
-    public static Job getJob (String client_id, String job_id) throws SQLException, ParseException{
+    /*public static Job getJob (String client_id, String job_id) throws SQLException, ParseException{
         try (Connection conn = ConnectionManager.getConnection()){
             PreparedStatement stmt = conn.prepareStatement(getJobStatement);
             stmt.setString(1, client_id);
@@ -56,7 +56,7 @@ public class JobDAO {
             //Will be checked by .getJobId method!
             return null;
         }
-    }
+    }*/
 
     /**
      *

@@ -51,7 +51,7 @@ public class DisplayEditJobServlet extends HttpServlet {
         String jobId = (String)request.getParameter("jobId");
         String clientId = (String)request.getParameter("clientId");
         JobDAO jobDao = new JobDAO();
-        Job job = JobDAO.getJob(clientId, jobId);
+        /*Job job = JobDAO.getJob(clientId, jobId);
         
         if(job==null){
             //if job == null then send error that job does not exists
@@ -89,7 +89,7 @@ public class DisplayEditJobServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("DisplayJobToEdit.jsp");
             rd.forward(request, (ServletResponse) response);
             response.sendRedirect("DisplayJobToEdit.jsp");
-        }
+        }*/
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

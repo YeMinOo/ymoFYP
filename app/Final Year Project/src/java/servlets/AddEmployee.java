@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import dao.EmployeeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -51,36 +52,20 @@ public class AddEmployee extends HttpServlet {
             String position = (String) request.getAttribute("position");
             Boolean supervisor = (Boolean) request.getAttribute("supervisor");
             Double cpf = (Double) request.getAttribute("cpf");
-            int numProjects = (int) request.getAttribute("numProjects");
             String bankAcct = (String) request.getAttribute("bankAcct");
             String nric = (String) request.getAttribute("nric");
             String name = (String) request.getAttribute("name");
             String number = (String) request.getAttribute("number");
-
-            Connection conn = ConnectionManager.getConnection();
-            String statement = "INSERT INTO employee values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            PreparedStatement stmt = conn.prepareStatement(statement);
-            stmt.setString(1, employeeID);
-            stmt.setString(2, password);
-            stmt.setString(3, email);
-            stmt.setBoolean(4, isAdmin);
-            stmt.setString(5, currentSalary);
-            stmt.setString(6, position);
-            stmt.setBoolean(7, supervisor);
-            stmt.setDouble(8, cpf);
-            stmt.setInt(9, numProjects);
-            stmt.setString(10, bankAcct);
-            stmt.setString(11, nric);
-            stmt.setString(12, name);
-            stmt.setString(13, number);
             
-            stmt.executeUpdate();
-            
-           
-           
+            EmployeeDAO empDAO= new EmployeeDAO();
+            if(empDAO.createEmployee(employeeID, password, email, isAdmin, currentSalary, position, supervisor, cpf, bankAcct, nric, name, number)) {
+                request.setAttribute("Employee Added", "status");
+            } else {
+                request.setAttribute("Unable to add Employee", "status");
+            }
+            RequestDispatcher rd = request.getRequestDispatcher("ViewEmployee.jsp");
+            rd.forward(request,response);
             response.sendRedirect("ViewEmployee.jsp");
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 

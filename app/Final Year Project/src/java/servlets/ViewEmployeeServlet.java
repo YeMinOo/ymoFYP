@@ -5,6 +5,8 @@
  */
 package servlets;
 
+import dao.EmployeeDAO;
+import entity.Employee;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -51,33 +53,28 @@ public class ViewEmployeeServlet extends HttpServlet {
 
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            HttpSession session = request.getSession();
-            
-            Connection conn = ConnectionManager.getConnection();
-            String statement = "SELECT * FROM EMPLOYEE";
-            PreparedStatement stmt = conn.prepareStatement(statement);
+            EmployeeDAO empDAO = new EmployeeDAO();
+            ArrayList<Employee> empList = empDAO.getAllEmployees();
 
-            ResultSet rs = stmt.executeQuery();
-            
-            while (rs.next()) {
-                nameList.add(rs.getString(12));
-                emailList.add(rs.getString(3));
-                positionList.add(rs.getString(6));
-                isAdminList.add(rs.getString(4));
+            for (int i = 0; i < empList.size(); i++) {
+                Employee emp = empList.get(i);
+                nameList.add(emp.getName());
+                emailList.add(emp.getEmail());
+                positionList.add(emp.getPosition());
+                isAdminList.add(Integer.toString(emp.getIsAdmin()));
             }
-
             for (int i = 0; i < nameList.size(); i++) {
-                    returnNameList.add(nameList.get(i));
-                    returnEmailList.add(emailList.get(i));
-                    returnPositionList.add(positionList.get(i));
-                    String isAdmin = isAdminList.get(i);
-                    if(isAdmin.equals("1")) {
-                        returnIsAdminList.add("No");
-                    } else {
-                        returnIsAdminList.add("Yes");
-                    }
+                returnNameList.add(nameList.get(i));
+                returnEmailList.add(emailList.get(i));
+                returnPositionList.add(positionList.get(i));
+                String isAdmin = isAdminList.get(i);
+                if (isAdmin.equals("1")) {
+                    returnIsAdminList.add("No");
+                } else {
+                    returnIsAdminList.add("Yes");
+                }
             }
-            
+
             request.setAttribute("name", returnNameList);
             request.setAttribute("email", returnEmailList);
             request.setAttribute("position", returnPositionList);
@@ -87,10 +84,7 @@ public class ViewEmployeeServlet extends HttpServlet {
 //            System.out.println("TEST---------------------" + request.getAttribute("endDate"));
             RequestDispatcher rd = request.getRequestDispatcher("ViewEmployee.jsp");
             rd.forward(request, response);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
