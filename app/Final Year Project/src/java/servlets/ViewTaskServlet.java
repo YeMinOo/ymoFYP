@@ -6,6 +6,7 @@
 package servlets;
 
 import dao.JobDAO;
+import entity.Job;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -76,15 +77,16 @@ public class ViewTaskServlet extends HttpServlet {
             
             String employeeID = (String)session.getAttribute("userId");
             
-            ResultSet rs = jobDAO.viewEmployeeTasks(employeeID);
+            ArrayList<Job> jobList = jobDAO.viewEmployeeTasks(employeeID);
             
-            while (rs.next()) {
-                titleList.add(rs.getString(2));
-                idList.add(rs.getString(1));
-                statusList.add(rs.getString(7));
-                startDateList.add(rs.getString(3));
-                endDateList.add(rs.getString(4));
-                recurList.add(rs.getString(8));
+            for(int i = 0; i <jobList.size(); i++){
+                Job job = jobList.get(i);
+                titleList.add(job.getJobTitle());
+                idList.add(Integer.toString(job.getJobID()));
+                statusList.add(Boolean.toString(job.getStatus()));
+                startDateList.add(df.format(job.getStartDate()));
+                endDateList.add(df.format(job.getEndDate()));
+                recurList.add(job.getRecurring());
             }
 
             for (int i = 0; i < statusList.size(); i++) {
@@ -119,7 +121,7 @@ public class ViewTaskServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("ViewTask.jsp");
             rd.forward(request, response);
             response.sendRedirect("ViewTask.jsp");
-        } catch(SQLException | ParseException e) {
+        } catch(ParseException e) {
             e.printStackTrace();
         }
     }

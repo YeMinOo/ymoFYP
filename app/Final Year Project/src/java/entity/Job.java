@@ -83,7 +83,7 @@ public class Job {
         this.assignedEmployee = assignedEmployee;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 

@@ -6,12 +6,15 @@
 package servlets;
 
 import dao.JobDAO;
+import entity.Job;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -51,19 +54,22 @@ public class TaskAssignedTableServlet extends HttpServlet {
         List<String> endDateList = new ArrayList();
         List<String> projectStatusList = new ArrayList();
         JobDAO jobDAO = new JobDAO(); 
-
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
            
-            ResultSet rs = jobDAO.viewAllTasks();
+            ArrayList<Job> jobList = jobDAO.viewAllTasks();
             
-            while (rs.next()) {
-                titleList.add(rs.getString(2));
-                startDateList.add(rs.getString(3));
-                endDateList.add(rs.getString(4));
-                remarksList.add(rs.getString(5));
-                assignedEmployeeList.add(rs.getString(6));
-                statusList.add(rs.getString(7));
+            for(int i = 0; i < jobList.size(); i++){
+                Job job = jobList.get(i);
+                titleList.add(job.getJobTitle());
+                startDateList.add(df.format(job.getStartDate()));
+                endDateList.add(df.format(job.getEndDate()));
+                remarksList.add(job.getRemarks());
+                assignedEmployeeList.add(job.getAssignedEmployee());
+                statusList.add(Boolean.toString(job.getStatus()));
+                
+        
             }
 
             request.setAttribute("title", titleList);
@@ -78,9 +84,7 @@ public class TaskAssignedTableServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("Task_Assigned_Table.jsp");
             rd.forward(request, response);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

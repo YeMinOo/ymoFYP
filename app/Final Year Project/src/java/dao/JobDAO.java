@@ -56,8 +56,8 @@ public class JobDAO {
             //Will be checked by .getJobId method!
             return null;
         }
-    }*/
-
+    }
+*/
     /**
      *
      * @param project_id
@@ -112,18 +112,24 @@ public class JobDAO {
         }
     }
     
-    public ResultSet viewEmployeeTasks(String employeeID){
-        ResultSet rs = null; 
+    public ArrayList<Job> viewEmployeeTasks(String employeeID){
+        ArrayList<Job> jobList = new ArrayList<>();
+         
         try(Connection conn = ConnectionManager.getConnection()){
             String statement = "SELECT * FROM PROJECT WHERE ASSIGNED_EMPLOYEE=?";
             PreparedStatement stmt = conn.prepareStatement(statement);
             stmt.setString(1, employeeID);
-            rs = stmt.executeQuery();
-            return rs;
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Job job = new Job(rs.getInt(1),rs.getString(2),rs.getDate(3), rs.getDate(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getString(8),rs.getString(9));
+                jobList.add(job);
+            }
+            
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return rs; 
+        return jobList; 
     }
     
     public void insertRecurringTask(String title, String start, String end, String remarks, String assignedEmployee, String recurring, String companyName){
@@ -168,17 +174,21 @@ public class JobDAO {
         return 0; 
     }
     
-    public ResultSet viewAllTasks(){
-        ResultSet rs = null; 
+    public ArrayList<Job> viewAllTasks(){
+        ArrayList<Job> jobList = new ArrayList<>();
+        
         try(Connection conn = ConnectionManager.getConnection()){
             String statement = "SELECT * FROM PROJECT";
             PreparedStatement stmt = conn.prepareStatement(statement);
             
-            rs = stmt.executeQuery();
-            return rs;
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                Job job = new Job(rs.getInt(1),rs.getString(2),rs.getDate(3), rs.getDate(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getString(8),rs.getString(9));
+                jobList.add(job);
+            }
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return rs; 
+        return jobList; 
     }
 }
