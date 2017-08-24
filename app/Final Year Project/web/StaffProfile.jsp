@@ -322,7 +322,12 @@
                                     <li><a href="EditJob.jsp">Edit Job</a></li>
                                     <li><a href="DeleteJob.jsp">Delete Job</a></li>
                                 -->
+                                <% if (employeeName.equals("Mdm Ong")) {%>
+                                <li><a href="Task_Assigned_Table.jsp">View Tasks</a></li>
+                                <%} else {%>
                                 <li><a href="ViewTask.jsp">View Tasks</a></li>
+                                <%}
+                                %>
                             </ul>
                         </div>
                         <div class="align-buttons">

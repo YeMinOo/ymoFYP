@@ -14,14 +14,14 @@ import java.util.ArrayList;
 public class Client {
     private String clientId;
     private String clientName;
-    private ArrayList<Job> currentJobs;
-    private ArrayList<Job> pastJobs;
+    private String contact;
+    private String email;
     
-    public Client (String clientId, String clientName, ArrayList<Job> currentJobs, ArrayList<Job> pastJobs){
+    public Client (String clientId, String clientName, String contact, String email){
         this.clientId = clientId;
         this.clientName = clientName;
-        this.currentJobs = currentJobs;
-        this.currentJobs = pastJobs;
+        this.contact = contact;
+        this.email = email;
     }
     
     public String getName(){
@@ -32,11 +32,27 @@ public class Client {
         return clientId;
     }
     
-    public ArrayList<Job> getCurrentJobs(){
-        return currentJobs;
+    public String getContact() {
+        return contact;
     }
     
-    public ArrayList<Job> getPastJobs(){
-        return pastJobs;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

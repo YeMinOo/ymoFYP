@@ -12,21 +12,20 @@ import java.util.ArrayList;
  * @author Bernitatowyg
  */
 public class Employee {
-    private String email;
-    private String password;
     private String employeeID;
+    private String password;
+    private String email;
     private int isAdmin;
     private double currentSalary;
+    private String position;
+    private int isSupervisor;
     private double cpf;
     private String bankAccount;
     private String nric;
     private String name;
-    private String position;
-    private ArrayList<Job> currentJobs;
-    private ArrayList<Job> pastJobs;
-    private String department;
+    private String phoneNum;
     
-    public Employee(String email, String password, String employeeID, int isAdmin, double currentSalary, double cpf, String bankAccount, String nric, String name, String position, ArrayList<Job> currentJobs, ArrayList<Job> pastJobs, String department){
+    public Employee(String employeeID, String password, String email, int isAdmin, double currentSalary, String position,int isSupervisor,double cpf, String bankAccount, String nric, String name, String phoneNum){
         this.email = email;
         this.password = password;
         this.employeeID = employeeID;
@@ -37,9 +36,8 @@ public class Employee {
         this.nric = nric;
         this.name = name;
         this.position = position;
-        this.currentJobs = currentJobs;
-        this.pastJobs = pastJobs;
-        this.department = department;
+        this.isSupervisor = isSupervisor;
+        this.phoneNum = phoneNum;
     }    
     
     public String getEmail(){
@@ -82,15 +80,59 @@ public class Employee {
         return position;
     }
     
-    public ArrayList<Job> getCurrentJobs(){
-        return currentJobs;
+    public int getIsSupervisor() {
+        return isSupervisor;
     }
     
-    public ArrayList<Job> getPastJobs(){
-        return pastJobs;
+    public String getPhoneNum() {
+        return phoneNum;
     }
-    
-    public String getDepartment(){
-        return department;
+
+    public void setEmployeeID(String employeeID) {
+        this.employeeID = employeeID;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setIsAdmin(int isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public void setCurrentSalary(double currentSalary) {
+        this.currentSalary = currentSalary;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public void setIsSupervisor(int isSupervisor) {
+        this.isSupervisor = isSupervisor;
+    }
+
+    public void setCpf(double cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setBankAccount(String bankAccount) {
+        this.bankAccount = bankAccount;
+    }
+
+    public void setNric(String nric) {
+        this.nric = nric;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 }
