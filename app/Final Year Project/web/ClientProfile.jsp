@@ -12,8 +12,30 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <%
+            String empId = (String) session.getAttribute("userId");
+            EmployeeDAO empDAO = new EmployeeDAO();
+            Employee emp = empDAO.getEmployeeByID(empId);
+            String employeeName = "";
+            if (emp == null) {
+                employeeName = "No User";
+            } else {
+                employeeName = emp.getName();
+            }
+            ClientDAO clientDAO = new ClientDAO();
+            String clientId = request.getParameter("clientId");
+            Client client = clientDAO.getClientByID(clientId);
+            String clientName = "";
+            int isAdmin = 1;
+            if (client == null) {
+                clientName = "Client not found";
+            } else {
+                clientName = client.getName();
+                isAdmin = emp.getIsAdmin();
+            }
+        %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Client Profile</title>
+        <title><%=clientName%></title>
         <link href="css/bootstrap.css" rel="stylesheet">
         <link rel='stylesheet' href='lib/fullcalendar.min.css' />
         <!-- for FF, Chrome, Opera -->
@@ -263,29 +285,20 @@
                 background-color: #f1f1f1;
             }
         </style>
+        <script>
+            $(document).ready(function(e){
+                $('.search-panel .dropdown-menu').find('a').click(function(e) {
+                            e.preventDefault();
+                            var param = $(this).attr("href").replace("#","");
+                            var concept = $(this).text();
+                            $('.search-panel span#search_concept').text(concept);
+                            $('.input-group #search_param').val(param);
+                    });
+            });
+        </script>
     </head>
     <body>
-        <!-- ########################################################## header ########################################################## -->
-        <%
-            String empId = (String) session.getAttribute("userId");
-            EmployeeDAO empDAO = new EmployeeDAO();
-            Employee emp = empDAO.getEmployeeByID(empId);
-            String employeeName = "";
-            if (emp == null) {
-                employeeName = "No User";
-            } else {
-                employeeName = emp.getName();
-            }
-            ClientDAO clientDAO = new ClientDAO();
-            String clientId = request.getParameter("clientId");
-            Client client = clientDAO.getClientByID(clientId);
-            String clientName = "";
-            if (client == null) {
-                clientName = "Client not found";
-            } else {
-                clientName = client.getName();
-            }
-        %>
+        <!-- ########################################################## header ########################################################## -->        
         <nav class="container-fluid" width="100%" height="100%">
             <nav class="header navbar navbar-default navbar-static-top">
                 <div class="container-fluid">
@@ -293,11 +306,40 @@
                         <div>
                             <table>
                                 <tr>
-                                    <td style="white-space: nowrap">
-                                        <a href="http://www.abaccounting.com.sg/"><img src="images/Abundant Accounting Logo - Copy.png" width="30%" height="30%"/></a>
+                                    <td>
+                                        <a href="http://www.abaccounting.com.sg/">
+                                            <img src="images/Abundant Accounting Logo - Copy.png"/>
+                                        </a>
                                     </td>
-                                    <td style="white-space: nowrap">
-                                        <a class="navbar-brand" href="http://www.abaccounting.com.sg/">Abundant Accounting</a>
+                                    <td>
+                                        <a href="http://www.abaccounting.com.sg/">Abundant Accounting</a>
+                                    </td>
+                                    <td>
+                                        <div class="container">
+                                            <div class="row">    
+                                                <div class="col-xs-6">
+                                                    <div class="input-group">
+                                                        <div class="input-group-btn search-panel">
+                                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                                <span id="search_concept">Filter by</span> 
+                                                                <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu" role="menu">
+                                                              <li><a href="#All">All</a></li>
+                                                              <li><a href="#Jobs">Jobs</a></li>
+                                                              <li><a href="#Client">Client</a></li>
+                                                              <li><a href="#Staff">Staff</a></li>
+                                                            </ul>
+                                                        </div>
+                                                        <input type="hidden" name="search_param" value="all" id="search_param">         
+                                                        <input type="text" class="form-control" name="x" placeholder="Search term...">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             </table>
@@ -309,26 +351,29 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                            <!--
-                                <li><a href="SearchStaff.jsp">Search Staff</a></li>
-                                <li><a href="SearchClient.jsp">Search Client</a></li>
                                 <li><a href="SearchJob.jsp">Search Job</a></li>
-                                <li><a href="ViewJob.jsp">View Job</a></li>
-                                <li><a href="AddNewJob.jsp">Add New Job</a></li>
-                                <li><a href="EditJob.jsp">Edit Job</a></li>
-                                <li><a href="DeleteJob.jsp">Delete Job</a></li>
-                            -->
-                                <li><a href="ViewTask.jsp">View Tasks</a></li>
+                                <% if (isAdmin==0) {%>
+                                    <li><a href="Task_Assigned_Table.jsp">View Tasks</a></li>
+                                <%} else {%>
+                                   <li><a href="ViewTask.jsp">View Tasks</a></li>
+                                <%}%>
                             </ul>
                         </div>
                         <div class="align-buttons">
-                            <a href="Calendar_Employee.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
+                            <% if (isAdmin==0) {%>
+                                <a href="Calendar_Admin.jsp"><span class="glyphicon glyphicon-home"</span> Home</a>
+                            <%} else {%>
+                                <a href="Calendar_Employee.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
+                            <%}
+                            %>
                             <a href="StaffProfile.jsp"><span class="glyphicon glyphicon-user"></span> <%=employeeName%></a>
                             <a href="LogoutProcess"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
                         </div>
                     </div>
                 </div>
             </nav>
+<!-- ########################################################## end of header ########################################################## --> 
+
             <nav class="navbar navbar-default navbar-center">
                 <div class="container-fluid" style="text-align: center">
                     <div class="container-fluid">
@@ -359,7 +404,8 @@
                             <tr>
                                 <td>
                                     <div id="description" class="collapse in">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                        This is an SME specialising in consulting work.
+                                        They generally need help with their accounting invoices.
                                     </div>
                                 </td>
                             </tr>
@@ -386,6 +432,7 @@
                                 <td>
                                     <div id="currentjobcollapsible" class="collapse in">
                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                        //for each job, link to page about the job
                                     </div>
                                 </td>
                             </tr>

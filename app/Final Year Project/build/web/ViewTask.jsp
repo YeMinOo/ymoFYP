@@ -276,9 +276,7 @@
             if (request.getAttribute("title") == null || request.getAttribute("endDate") == null
                     || request.getAttribute("id") == null || request.getAttribute("startDate") == null
                     || request.getAttribute("recur") == null || request.getAttribute("reminder") == null) {
-        %>
-        <jsp:forward page="ViewTaskServlet"/>
-        <%
+                response.sendRedirect("ViewTaskServlet");
             }
             List<String> titleList = (List<String>) request.getAttribute("title");
             List<String> endDateList = (List<String>) request.getAttribute("endDate");
@@ -343,6 +341,7 @@
                     </div>
                 </div>
             </nav>
+<!-- ########################################################## end of header ########################################################## --> 
             <nav class="navbar navbar-default navbar-center" style="padding-bottom: 20px">
                 <div class="container-fluid" style="text-align: center">
                     <div class="container-fluid">
