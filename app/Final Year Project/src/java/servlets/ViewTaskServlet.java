@@ -77,8 +77,8 @@ public class ViewTaskServlet extends HttpServlet {
             
             String employeeID = (String)session.getAttribute("userId");
             
-            ArrayList<Job> jobList = jobDAO.viewEmployeeTasks(employeeID);
-            
+            ArrayList<Job> jobList = jobDAO.viewEmployeeTasks("john");
+            //System.out.println("Size=============="+jobList.size());
             for(int i = 0; i <jobList.size(); i++){
                 Job job = jobList.get(i);
                 titleList.add(job.getJobTitle());
@@ -91,7 +91,7 @@ public class ViewTaskServlet extends HttpServlet {
 
             for (int i = 0; i < statusList.size(); i++) {
                 String status = statusList.get(i);
-                if (status.equals("1")) {
+                if (status.equals("true")) {
                     //logic for reminder
                     String end = endDateList.get(i);
                     Date endDate = (Date) df.parse(end);
@@ -116,7 +116,7 @@ public class ViewTaskServlet extends HttpServlet {
             request.setAttribute("recur", returnRecurList);
             request.setAttribute("reminder",reminderList);
 //
-//            System.out.println("TEST---------------------" + request.getAttribute("id"));
+//            System.out.println("TEST---------------------" + request.getAttribute("title"));
 //            System.out.println("TEST---------------------" + request.getAttribute("endDate"));
             RequestDispatcher rd = request.getRequestDispatcher("ViewTask.jsp");
             rd.forward(request, response);
