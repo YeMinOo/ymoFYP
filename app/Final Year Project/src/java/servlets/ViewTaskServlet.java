@@ -77,7 +77,7 @@ public class ViewTaskServlet extends HttpServlet {
             
             String employeeID = (String)session.getAttribute("userId");
             
-            ArrayList<Job> jobList = jobDAO.viewEmployeeTasks("john");
+            ArrayList<Job> jobList = jobDAO.viewEmployeeTasks(employeeID);
             //System.out.println("Size=============="+jobList.size());
             for(int i = 0; i <jobList.size(); i++){
                 Job job = jobList.get(i);

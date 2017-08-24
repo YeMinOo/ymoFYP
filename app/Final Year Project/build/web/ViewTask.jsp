@@ -276,7 +276,10 @@
             if (request.getAttribute("title") == null || request.getAttribute("endDate") == null
                     || request.getAttribute("id") == null || request.getAttribute("startDate") == null
                     || request.getAttribute("recur") == null || request.getAttribute("reminder") == null) {
-                response.sendRedirect("ViewTaskServlet");
+                //response.sendRedirect("ViewTaskServlet");
+                %>
+                <jsp:forward page="ViewTaskServlet"/>
+                <%
             }
             List<String> titleList = (List<String>) request.getAttribute("title");
             List<String> endDateList = (List<String>) request.getAttribute("endDate");
