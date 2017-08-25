@@ -3,7 +3,6 @@
     Created on : Aug 14, 2017, 4:18:32 PM
     Author     : yemin
 --%>
-<%@page import="entity.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
@@ -18,12 +17,10 @@
     response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
     response.setHeader("Pragma","no-cache"); //HTTP 1.0 backward compatibility
     
-    // Obtain user from session attribute: _loggedInUser
-    User user = (User) session.getAttribute("_loggedInUser");
-    //String userName =(String) session.getAttribute("_loggedInUser");
-
+    // Obtain user from session attribute: userId
+    String userId = (String) session.getAttribute("userId");
     //Redirects user to Login page if user session is null
-    if (user == null) {
+    if (userId == null) {
       response.sendRedirect("login.jsp");
       return;
     }

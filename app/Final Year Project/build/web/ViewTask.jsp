@@ -14,6 +14,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="Protect.jsp"%>
 <%@ page autoFlush="true" buffer="1094kb"%>
 <!DOCTYPE html>
 <html>

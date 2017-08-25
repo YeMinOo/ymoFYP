@@ -3,6 +3,7 @@
 <%@page import="entity.Employee"%>
 <%@page import="dao.EmployeeDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="Protect.jsp"%>
 <!DOCTYPE html>
 
 <!DOCTYPE html>

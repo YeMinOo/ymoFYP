@@ -9,6 +9,7 @@
 <%@page import="java.util.List"%>
 <%@ page autoFlush="true" buffer="1094kb"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="Protect.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
