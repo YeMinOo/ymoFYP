@@ -344,6 +344,7 @@
             String empId = (String) session.getAttribute("userId");
             EmployeeDAO empDAO = new EmployeeDAO();
             Employee emp = empDAO.getEmployeeByID(empId);
+            
             String employeeName = "";
             if (emp == null) {
                 employeeName = "No User";
