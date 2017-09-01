@@ -25,6 +25,7 @@ public class EmployeeDAO {
     private static String getEmployeeFromNameStatement = "SELECT * FROM EMPLOYEE WHERE name = ?";
     private static String deleteEmployeeByNRICStatement = "DELTE FROM EMPLOYEE WHERE NRIC = ?";
     private static String insertEmployeeStatement = "INSERT INTO EMPLOYEE values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static String resetPasswordStatement = "UPDATE EMPLOYEE SET PASSWORD = ? WHERE employee_ID = ?";
 
     public static Employee getEmployee(String name) {
         try (Connection conn = ConnectionManager.getConnection()) {
@@ -203,6 +204,22 @@ public class EmployeeDAO {
             stmt.setString(12, name);
             stmt.setString(13, phoneNum);
             
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean resetPassword (String pwd, String userId) {
+        try (Connection conn = ConnectionManager.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(resetPasswordStatement);
+            stmt.setString(1, pwd);
+            stmt.setString(2, userId);
             int rowsAffected = stmt.executeUpdate();
 
             if (rowsAffected == 1) {

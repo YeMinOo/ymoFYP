@@ -16,11 +16,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-   
+
         <%-- this is for tab name --%>
         <title>Login | Abundant Accounting Management System</title>
         <link href="css/bootstrap.css" rel="stylesheet">
-        
+
         <!-- for FF, Chrome, Opera -->
         <link rel="icon" type="image/png" href="/Images/Abundant Accounting Logo.png" sizes="16x16">
         <link rel="icon" type="image/png" href="/Images/Abundant Accounting Logo.png" sizes="32x32">
@@ -41,7 +41,7 @@
         <script src="script/bootstrap.min.js" type="text/javascript"></script>
         <script src="script/fullcalendar.min.js" type="text/javascript"></script>
         <script src="script/moment.js" type="text/javascript"></script>
-        
+
         <style type="text/css">
             .bs-docs-featurette + .bs-docs-footer {
                 margin-top: 0;
@@ -92,7 +92,7 @@
             .nobgcl {
                 background-color: #FFFFFF;
             }
-        
+
             body, html {
                 height: 100%;
                 background-repeat: no-repeat;
@@ -227,19 +227,19 @@
                 </div>
             </div>
         </nav>
-        
+
         <%
-            String isInvalidLogin = (String)request.getAttribute("InvalidLogin");
-            if(isInvalidLogin!=null && isInvalidLogin.equals("Login failed! Please try again.")){
+            String isInvalidLogin = (String) request.getAttribute("InvalidLogin");
+            if (isInvalidLogin != null && isInvalidLogin.equals("Login failed! Please try again.")) {
                 // print error at the top
         %>
-                <div class="alert alert-danger">
-                  <strong>Error</strong> Login Failed. Invalid Username or Password. Please try again.
-                </div>
+        <div class="alert alert-danger">
+            <strong>Error</strong> Login Failed. Invalid Username or Password. Please try again.
+        </div>
         <%
             }
         %>
-        
+
         <div class="container">
             <div class="card card-container">
                 <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
@@ -248,19 +248,20 @@
                     <span id="reauth-email" class="reauth-email"></span>
                     <input type="text" name='UserId' id="UserId" class="form-control" placeholder="Username" required autofocus>
                     <input type="password" name='Password' id="Password" class="form-control" placeholder="Password" required>
-                    
-                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</buttosn>
+
+                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
                 </form><!-- /form -->
             </div><!-- /card-container -->
+            <a href="forgotPassword.jsp">Forgot Password?</a>
         </div><!-- /container -->
-</body>
-<footer class="bs-docs-footer" role="contentinfo">
+    </body>
+    <footer class="bs-docs-footer" role="contentinfo">
         <div class="container" style="text-align: center">
-        <p style="color:#949494">Abundant Accounting PTE LTD, 69 Ubi Road 1 (Oxley Bizhub)#08-16, Singapore 408731</p>
-        <p style="color:#949494">Copyright© 2017 Abundant Accounting, Singapore. All rights reserved.</p>
+            <p style="color:#949494">Abundant Accounting PTE LTD, 69 Ubi Road 1 (Oxley Bizhub)#08-16, Singapore 408731</p>
+            <p style="color:#949494">Copyright© 2017 Abundant Accounting, Singapore. All rights reserved.</p>
         </div>
-</footer>
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-<script src='js/bootstrap.js'></script>
+    </footer>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <script src='js/bootstrap.js'></script>
 </html>
 
