@@ -4,6 +4,7 @@
     Author     : yemin
 --%>
 
+<%@page import="dao.PasswordDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +13,7 @@
         <title>Reset Password</title>
     </head>
     <body>
+        <p>Min 8 characters in length</p>
         <div class="container">
             <div class="card card-container">
                 <form class="form-signin" id ="formtype" role="form" action="resetPasswordServlet" method="post">
@@ -33,5 +35,6 @@
         <%
             }
         %>
+
     </body>
 </html>

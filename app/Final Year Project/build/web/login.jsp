@@ -240,6 +240,17 @@
             }
         %>
 
+        <%
+            String emailMsg = (String) request.getAttribute("email");
+            if (emailMsg != null && emailMsg.equals("Email sent successfully.")) {
+                // print error at the top
+        %>
+        <div class="alert alert-danger">
+            <strong>We have sent an email to reset your password. Thank you.</strong>
+        </div>
+        <%
+            }
+        %>
         <div class="container">
             <div class="card card-container">
                 <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>

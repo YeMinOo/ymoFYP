@@ -14,20 +14,20 @@
     <body>
         <div class="container">
             <div class="card card-container">
-                <form class="form-signin" id ="formtype" role="form" action="userIdCheckServlet" method="post">
+                <form class="form-signin" id ="formtype" role="form" action="emailCheckServlet" method="post">
                     <span id="reauth-email" class="reauth-email"></span>
-                    <input type="text" name='UserId' id="UserId" class="form-control" placeholder="Username" required autofocus>
+                    <input type="text" name='Email' id="Email" class="form-control" placeholder="Email" required autofocus>
                     <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Submit</button>
                 </form><!-- /form -->
             </div><!-- /card-container -->
         </div><!-- /container -->
         <%
             String error = (String) request.getAttribute("error");
-            if (error != null && error.equals("Entered User ID does not exist.")) {
+            if (error != null && error.equals("Entered email does not exist.")) {
                 // print error at the top
         %>
         <div class="alert alert-danger">
-            <strong>Invalid User ID.</strong> 
+            <strong>Invalid Email.</strong> 
         </div>
         <%
             }

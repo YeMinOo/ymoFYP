@@ -25,7 +25,8 @@ public class EmployeeDAO {
     private static String getEmployeeFromNameStatement = "SELECT * FROM EMPLOYEE WHERE name = ?";
     private static String deleteEmployeeByNRICStatement = "DELTE FROM EMPLOYEE WHERE NRIC = ?";
     private static String insertEmployeeStatement = "INSERT INTO EMPLOYEE values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    private static String resetPasswordStatement = "UPDATE EMPLOYEE SET PASSWORD = ? WHERE employee_ID = ?";
+    private static String resetPasswordStatement = "UPDATE EMPLOYEE SET PASSWORD = ? WHERE email = ?";
+    private static String getEmployeeByEmailStatement = "SELECT * FROM EMPLOYEE WHERE email = ?";
 
     public static Employee getEmployee(String name) {
         try (Connection conn = ConnectionManager.getConnection()) {
@@ -145,6 +146,45 @@ public class EmployeeDAO {
             return null;
         }
     }
+    
+     public static Employee getEmployeeByEmail(String email) {
+        try (Connection conn = ConnectionManager.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(getEmployeeByEmailStatement);
+            stmt.setString(1, email);
+
+            ResultSet rs = stmt.executeQuery();
+
+            // returns null if no records are returned
+            if (!rs.next()) {
+                return null;
+            }
+
+            // else returns result
+            String employeeID = rs.getString(1);
+            String password = rs.getString(2);
+            int isAdmin = Integer.parseInt(rs.getString(4));
+            double currentSalary = rs.getDouble(5);
+            String position = rs.getString(6);
+            int isSupervisor = Integer.parseInt(rs.getString(7));
+            double cpf = rs.getDouble(8);
+            int projectsWorkedOn = Integer.parseInt(rs.getString(9));
+            String bankAccount = rs.getString(10);
+            String nric = rs.getString(11);
+            String empName = rs.getString(12);
+            String phoneNum = rs.getString(13);
+            //ArrayList<Job> currentJobs = rs.
+
+            //ArrayList<Job> currentJobs, ArrayList<Job> pastJobs, String department
+            //return new Staff(email, pw, isAdmin);
+            return new Employee(employeeID, password, email, isAdmin, currentSalary, position, isSupervisor, cpf, projectsWorkedOn, bankAccount, nric, empName, phoneNum);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            //Returns empty staff, so that add new job can determine that the staff does note exist and it's a database error
+            //a database error!
+            //Will be checked by .getUserId method!
+            return null;
+        }
+    }
 
     public static ArrayList<Employee> getAllEmployees() {
         ArrayList<Employee> empList = new ArrayList<>();
@@ -215,11 +255,11 @@ public class EmployeeDAO {
         return false;
     }
     
-    public boolean resetPassword (String pwd, String userId) {
+    public boolean resetPassword (String pwd, String email) {
         try (Connection conn = ConnectionManager.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(resetPasswordStatement);
             stmt.setString(1, pwd);
-            stmt.setString(2, userId);
+            stmt.setString(2, email);
             int rowsAffected = stmt.executeUpdate();
 
             if (rowsAffected == 1) {

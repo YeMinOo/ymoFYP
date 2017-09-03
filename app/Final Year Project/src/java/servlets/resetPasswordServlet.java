@@ -40,7 +40,7 @@ public class resetPasswordServlet extends HttpServlet {
             String pwd2 = request.getParameter("newPwdConfirm");
 
             HttpSession session = request.getSession();
-            String userId = (String) session.getAttribute("userId");
+            String email = (String) session.getAttribute("email");
 
             if (!pwd1.equals(pwd2)) {
                 request.setAttribute("msg", "Passwords Mismatched!!");
@@ -48,7 +48,7 @@ public class resetPasswordServlet extends HttpServlet {
                 rd.forward(request, response);
             } else {
                 EmployeeDAO empDAO = new EmployeeDAO();
-                if (empDAO.resetPassword(pwd1, userId)) {
+                if (empDAO.resetPassword(pwd1, email)) {
                     response.sendRedirect("login.jsp");
                 }
             }

@@ -9,6 +9,16 @@ import dao.EmployeeDAO;
 import entity.Employee;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.ProcessBuilder.Redirect.to;
+import java.util.Properties;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,8 +31,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author yemin
  */
-@WebServlet(name = "userIdCheckServlet", urlPatterns = {"/userIdCheckServlet"})
-public class userIdCheckServlet extends HttpServlet {
+@WebServlet(name = "emailCheckServlet", urlPatterns = {"/emailCheckServlet"})
+public class emailCheckServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,20 +47,55 @@ public class userIdCheckServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String userId = request.getParameter("UserId");
-            
+            String email = request.getParameter("Email");
+
             HttpSession session = request.getSession();
-            session.setAttribute("userId", userId);
+            session.setAttribute("email", email);
             EmployeeDAO empDAO = new EmployeeDAO();
-            Employee emp = empDAO.getEmployeeByID(userId);
+            Employee emp = empDAO.getEmployeeByEmail(email);
 
             if (emp == null) {
-                request.setAttribute("error", "Entered User ID does not exist.");
+                request.setAttribute("error", "Entered email does not exist.");
                 RequestDispatcher rd = request.getRequestDispatcher("forgotPassword.jsp");
                 rd.forward(request, response);
             } else {
-                response.sendRedirect("reset.jsp");
+                //Send email that will lead to password reset page.
+                String to = "minoo.ye.2015@sis.smu.edu.sg";
+                String from = "yeminoo.one@gmail.com";
+
+                Properties m_properties = new Properties();
+                m_properties.put("mail.transport.protocol", "smtp");
+                m_properties.put("mail.smtp.host", "smtp.gmail.com");
+                m_properties.put("mail.smtp.port", "25");
+                m_properties.put("mail.smtp.auth", "true");
+                m_properties.put("mail.smtp.starttls.enable", "true");
+                Authenticator authenticator = new Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(from, "iamYeMinOo");
+                    }
+                };
+
+                Session session1 = Session.getDefaultInstance(m_properties, authenticator);
+
+                Transport transport = session1.getTransport("smtp");
+                //transport.connect(null, "minoo.ye.2015@sis.smu.edu.sg", "Y3M!n00954");
+
+                MimeMessage message = new MimeMessage(session1);
+                message.setFrom(new InternetAddress(from));
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+                message.setSubject("Password Reset");
+                message.setText("Dear user, please follow http://localhost:8084/Final_Year_Project/reset.jsp to reset your password. ");
+
+                // Send message  
+                Transport.send(message);
+                //System.out.println("message sent successfully....");
+
+                request.setAttribute("email", "Email sent successfully.");
+                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                rd.forward(request, response);
             }
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
         }
     }
 
