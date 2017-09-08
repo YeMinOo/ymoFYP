@@ -60,11 +60,10 @@ public class AddEmployee extends HttpServlet {
                 isAdmin = 0;
             }
             String tempPassword = (String)request.getAttribute("tempPassword");
-            int projectsWorkedOn = 0;
             String employeeID = employeeEmail.substring(0, employeeEmail.indexOf("@"));
             
             EmployeeDAO empDAO= new EmployeeDAO();
-            if(empDAO.createEmployee(employeeID, tempPassword, employeeEmail, isAdmin, employeeSalary, employeePosition, supervisor, employeeCPF, projectsWorkedOn, employeeBankAccount, employeeNRIC, employeeName, employeeNumber)) {
+            if(empDAO.createEmployee(employeeID, tempPassword, employeeEmail, isAdmin, employeeSalary, employeePosition, supervisor, employeeCPF, employeeBankAccount, employeeNRIC, employeeName, employeeNumber)) {
                 request.setAttribute("Employee Added", "status");
             } else {
                 request.setAttribute("Unable to add Employee", "status");

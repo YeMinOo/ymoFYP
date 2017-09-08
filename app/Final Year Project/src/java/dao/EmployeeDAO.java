@@ -226,18 +226,17 @@ public class EmployeeDAO {
         return false;
     }
     
-    public boolean createEmployee (String employeeID, String password, String email, Boolean isAdmin, String currentSalary, String position,Boolean isSupervisor,double cpf, String bankAccount, String nric, String name, String phoneNum) {
-        
+    public boolean createEmployee (String employeeID, String password, String email, int isAdmin, String currentSalary, String position, String supervisor, String cpf, String bankAccount, String nric, String name, String phoneNum) {
         try (Connection conn = ConnectionManager.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(insertEmployeeStatement);
             stmt.setString(1, employeeID);
             stmt.setString(2, password);
             stmt.setString(3, email);
-            stmt.setBoolean(4, isAdmin);
+            stmt.setInt(4, isAdmin);
             stmt.setString(5, currentSalary);
             stmt.setString(6, position);
-            stmt.setBoolean(7, isSupervisor);
-            stmt.setDouble(8, cpf);
+            stmt.setString(7, supervisor);
+            stmt.setString(8, cpf);
             stmt.setInt(9, 0); //new employee means 0 number of projects worked on
             stmt.setString(10, bankAccount);
             stmt.setString(11, nric);
