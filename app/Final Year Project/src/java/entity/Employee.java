@@ -26,7 +26,7 @@ public class Employee {
     private String name;
     private String phoneNum;
     
-    public Employee(String employeeID, String password, String email, int isAdmin, double currentSalary, String position,int isSupervisor,double cpf, int projectsWorkedOn, String bankAccount, String nric, String name, String phoneNum){
+    public Employee(String employeeID, String password, String email, int isAdmin, double currentSalary, String position,int isSupervisor, double cpf, int projectsWorkedOn, String bankAccount, String nric, String name, String phoneNum){
         this.email = email;
         this.password = password;
         this.employeeID = employeeID;

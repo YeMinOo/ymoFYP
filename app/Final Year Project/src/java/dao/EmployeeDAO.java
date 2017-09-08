@@ -23,10 +23,12 @@ public class EmployeeDAO {
     private static String getEmployeeStatementwithPassword = "SELECT * FROM EMPLOYEE WHERE employee_ID = ? AND password = ? ";
     private static String getAllEmployeeStatement = "SELECT * FROM EMPLOYEE";
     private static String getEmployeeFromNameStatement = "SELECT * FROM EMPLOYEE WHERE name = ?";
-    private static String deleteEmployeeByNRICStatement = "DELTE FROM EMPLOYEE WHERE NRIC = ?";
+    private static String deleteEmployeeByNRICStatement = "DELETE FROM EMPLOYEE WHERE NRIC = ?";
     private static String insertEmployeeStatement = "INSERT INTO EMPLOYEE values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static String resetPasswordStatement = "UPDATE EMPLOYEE SET PASSWORD = ? WHERE email = ?";
     private static String getEmployeeByEmailStatement = "SELECT * FROM EMPLOYEE WHERE email = ?";
+    private static String deleteEmployeeByEmployeeIdStatement = "DELETE FROM EMPLOYEE WHERE employee_ID = ?";
+    private static String deleteEmployeeByEmployeeNameStatement = "DELETE FROM EMPLOYEE WHERE name = ?";
 
     public static Employee getEmployee(String name) {
         try (Connection conn = ConnectionManager.getConnection()) {
@@ -226,18 +228,45 @@ public class EmployeeDAO {
         return false;
     }
     
-    public boolean createEmployee (String employeeID, String password, String email, Boolean isAdmin, String currentSalary, String position,Boolean isSupervisor,double cpf, String bankAccount, String nric, String name, String phoneNum) {
-        
+    public boolean deleteEmployeeByEmployeeId(String employeeId) {
+        try (Connection conn = ConnectionManager.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(deleteEmployeeByEmployeeIdStatement);
+            stmt.setString(1, employeeId);
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean deleteEmployeeByEmployeeName(String employeeName) {
+        try (Connection conn = ConnectionManager.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(deleteEmployeeByEmployeeNameStatement);
+            stmt.setString(1, employeeName);
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean createEmployee (String employeeID, String password, String email, int isAdmin, String currentSalary, String position, String supervisor, String cpf, String bankAccount, String nric, String name, String phoneNum) {
         try (Connection conn = ConnectionManager.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(insertEmployeeStatement);
             stmt.setString(1, employeeID);
             stmt.setString(2, password);
             stmt.setString(3, email);
-            stmt.setBoolean(4, isAdmin);
+            stmt.setInt(4, isAdmin);
             stmt.setString(5, currentSalary);
             stmt.setString(6, position);
-            stmt.setBoolean(7, isSupervisor);
-            stmt.setDouble(8, cpf);
+            stmt.setString(7, supervisor);
+            stmt.setString(8, cpf);
             stmt.setInt(9, 0); //new employee means 0 number of projects worked on
             stmt.setString(10, bankAccount);
             stmt.setString(11, nric);

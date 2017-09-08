@@ -10,6 +10,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page autoFlush="true" buffer="1094kb"%>
 <%@include file="Protect.jsp"%>
+<%@include file="AdminAccessOnly.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -297,12 +298,12 @@
         <%
             String empId = (String) session.getAttribute("userId");
             EmployeeDAO empDAO = new EmployeeDAO();
-            Employee emp = empDAO.getEmployeeByID(empId);
+            Employee employee = empDAO.getEmployeeByID(empId);
             String employeeName = "";
-            if (emp == null) {
+            if (employee == null) {
                 employeeName = "No User";
             } else {
-                employeeName = emp.getName();
+                employeeName = employee.getName();
             }
         %>
         
@@ -354,6 +355,22 @@
                 <div class="container-fluid" style="text-align: center">
                     <div class="container-fluid">
                         <h3></h3>
+                        <%
+                        String message = (String)request.getAttribute("message");
+                        if(message!=null && message.equals("Deleted Successfully")){
+                        %>
+                            <div class="alert alert-success">
+                                <strong>Successfully Deleted!</strong>
+                            </div>
+                        <%    
+                        }else if(message!=null && message.equals("Unsuccessful")){
+                        %>
+                            <div class="alert alert-danger">
+                                <strong>Error: A problem has occurred, please try again.</strong>
+                            </div>
+                        <%        
+                        }
+                        %>
                         <!-- insert assigned tasks here -->
                         <h2>Overview of Employees</h2>
                         <table id="myTable">
