@@ -4,6 +4,7 @@
 <%@page import="dao.EmployeeDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="Protect.jsp"%>
+<%@include file="AdminAccessOnly.jsp"%>
 <!DOCTYPE html>
 
 <!DOCTYPE html>
@@ -344,12 +345,20 @@
         <%
             String empId = (String) session.getAttribute("userId");
             EmployeeDAO empDAO = new EmployeeDAO();
-            Employee emp = empDAO.getEmployeeByID(empId);
+            Employee employee = empDAO.getEmployeeByID(empId);
             String employeeName = "";
-            if (emp == null) {
+            if (employee == null) {
                 employeeName = "No User";
             } else {
-                employeeName = emp.getName();
+                employeeName = employee.getName();
+            }
+            String adminAccess = (String) request.getAttribute("isAdmin");
+            if(adminAccess.equals("Not an Admin")){
+        %>
+                <div class="alert alert-danger">
+                    <strong>You do not have access to this page!</strong>
+                </div>
+        <%
             }
         %>
         <!--
