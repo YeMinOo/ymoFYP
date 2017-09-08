@@ -6,6 +6,8 @@
             <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/web/login.jsp</file>
             <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/servlets/emailCheckServlet.java</file>
             <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/web/forgotPassword.jsp</file>
+            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/servlets/resetPasswordServlet.java</file>
+            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/dao/PasswordDAO.java</file>
             <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/web/reset.jsp</file>
             <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/dao/EmployeeDAO.java</file>
         </group>

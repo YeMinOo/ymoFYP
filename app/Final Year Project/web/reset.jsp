@@ -24,7 +24,9 @@
                 </form><!-- /form -->
             </div><!-- /card-container -->
         </div><!-- /container -->
-        <%
+        <%  if (session.getAttribute("resetToken") == null) {
+            response.sendRedirect("display.jsp");
+        }
             String error = (String) request.getAttribute("msg");
             if (error != null && error.equals("Passwords Mismatched!!")) {
                 // print error at the top

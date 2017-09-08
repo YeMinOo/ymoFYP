@@ -16,10 +16,6 @@
         <servlet-name>UpdateEmployee</servlet-name>
         <servlet-class>servlets.UpdateEmployeeInfoServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>generateToken</servlet-name>
-        <servlet-class>servlets.generateToken</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>ViewEmployeeServlet</servlet-name>
         <url-pattern>/ViewEmployeeServlet</url-pattern>
@@ -35,10 +31,6 @@
     <servlet-mapping>
         <servlet-name>UpdateEmployee</servlet-name>
         <url-pattern>/UpdateEmployee</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>generateToken</servlet-name>
-        <url-pattern>/generateToken</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

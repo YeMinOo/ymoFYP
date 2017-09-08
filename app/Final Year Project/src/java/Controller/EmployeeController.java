@@ -9,6 +9,12 @@ import dao.EmployeeDAO;
 import entity.Employee;
 import is203.JWTException;
 import is203.JWTUtility;
+import static java.lang.Math.random;
+import static java.lang.StrictMath.random;
+import java.security.SecureRandom;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -18,12 +24,14 @@ import javax.naming.NamingException;
  * @author yemin
  */
 public class EmployeeController {
+
     private EmployeeDAO empDAO;
-    
+    protected static SecureRandom random = new SecureRandom();
+
     public EmployeeController() {
         empDAO = new EmployeeDAO();
     }
-    
+
     /**
      * Uses JWTUtility to generate a token
      *
@@ -31,41 +39,19 @@ public class EmployeeController {
      * @return generated token if user is admin else null
      */
     public String generateToken(Employee employee) {
-        if(employee.getIsAdmin() == 0) {
-            return JWTUtility.sign(getSharedSecret(), employee.getEmployeeID());
+        if (employee.getIsAdmin() == 0) {
+            long longToken = Math.abs(random.nextLong());
+            String randomToken = Long.toString(longToken, 16);
+            return JWTUtility.sign(randomToken, employee.getEmployeeID());
         }
         return null;
     }
-    
-    /**
-     * Uses JWTUtility to verify a token
-     *
-     * @param token string of the token
-     * @return verified token if token is valid else null
-     */
-    public String verifyToken(String token) {
-        try {
-            return JWTUtility.verify(token, getSharedSecret());
-        } catch (JWTException ex) {
-            return null;
-        }
-    }
-    
-    /**
-     * Retrieve the sharedKey from the web.xml
-     *
-     * @return return sharedKey from web.xml if it exists else null
-     */
-    private String getSharedSecret() {
-        try {
 
-            Context env = (Context) new InitialContext().lookup("java:comp/env");
-
-            // Get a single value
-            return (String) env.lookup("sharedKey");
-        } catch (NamingException ex) {
-            System.out.println("Employee.java (getSharedSecret): " + ex.toString());
-        }
-        return null;
+    public String generateToken() {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        long longToken = Math.abs(random.nextLong());
+        String randomToken = Long.toString(longToken, 16);
+        return JWTUtility.sign(randomToken, df.format(date));
     }
 }

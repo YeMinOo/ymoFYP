@@ -238,15 +238,20 @@
         </div>
         <%
             }
-        %>
-
-        <%
-            String emailMsg = (String) request.getAttribute("email");
-            if (emailMsg != null && emailMsg.equals("Email sent successfully.")) {
+            String emailMsg = (String) request.getAttribute("emailMsg");
+            if (emailMsg != null && emailMsg.equals("Email has been sent successfully.")) {
                 // print error at the top
         %>
         <div class="alert alert-danger">
             <strong>We have sent an email to reset your password. Thank you.</strong>
+        </div>
+        <%
+            }
+            String resetMsg = (String) session.getAttribute("ResetMsg");
+            if (resetMsg != null && resetMsg.equals("Your password has been updated!!")) {
+        %>
+        <div class="alert alert-danger">
+            <strong>Your password has been updated.</strong>
         </div>
         <%
             }
@@ -263,7 +268,7 @@
                     <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
                 </form><!-- /form -->
             </div><!-- /card-container -->
-            <a href="forgotPassword.jsp">Forgot Password?</a>
+            <a href="forgotPassword.jsp">Forgot/Change Password?</a>
         </div><!-- /container -->
     </body>
     <footer class="bs-docs-footer" role="contentinfo">

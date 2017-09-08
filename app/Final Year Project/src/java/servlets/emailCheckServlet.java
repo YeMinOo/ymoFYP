@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import Controller.EmployeeController;
 import dao.EmployeeDAO;
 import entity.Employee;
 import java.io.IOException;
@@ -50,10 +51,13 @@ public class emailCheckServlet extends HttpServlet {
             String email = request.getParameter("Email");
 
             HttpSession session = request.getSession();
+            
             session.setAttribute("email", email);
             EmployeeDAO empDAO = new EmployeeDAO();
             Employee emp = empDAO.getEmployeeByEmail(email);
-
+            
+            String resetToken = (String) session.getAttribute("resetToken");
+            
             if (emp == null) {
                 request.setAttribute("error", "Entered email does not exist.");
                 RequestDispatcher rd = request.getRequestDispatcher("forgotPassword.jsp");
@@ -84,15 +88,22 @@ public class emailCheckServlet extends HttpServlet {
                 message.setFrom(new InternetAddress(from));
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
                 message.setSubject("Password Reset");
-                message.setText("Dear user, please follow http://localhost:8084/Final_Year_Project/reset.jsp to reset your password. ");
+                if(resetToken != null && resetToken.length() != 0) {
+                    message.setText("Dear user, please follow http://localhost:8084/Final_Year_Project/reset.jsp?token="+resetToken+" to reset your password. ");
+                } else {
+                    response.sendRedirect("display.jsp");
+                    return;
+                }
 
                 // Send message  
                 Transport.send(message);
                 //System.out.println("message sent successfully....");
 
-                request.setAttribute("email", "Email sent successfully.");
+                request.setAttribute("emailMsg", "Email has been sent successfully.");
                 RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
                 rd.forward(request, response);
+//                session.setAttribute("emailMsg","Email has been sent successfully.");
+//                response.sendRedirect("login.jsp");
             }
         } catch (MessagingException mex) {
             mex.printStackTrace();

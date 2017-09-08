@@ -49,6 +49,11 @@ public class resetPasswordServlet extends HttpServlet {
             } else {
                 EmployeeDAO empDAO = new EmployeeDAO();
                 if (empDAO.resetPassword(pwd1, email)) {
+                    session.setAttribute("resetToken", null);
+//                    request.setAttribute("ResetMsg", "Your password has been updated!!");
+//                    RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+//                    rd.forward(request, response);
+                    session.setAttribute("ResetMsg", "Your password has been updated!!");
                     response.sendRedirect("login.jsp");
                 }
             }

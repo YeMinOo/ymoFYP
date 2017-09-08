@@ -4,6 +4,7 @@
     Author     : yemin
 --%>
 
+<%@page import="Controller.EmployeeController"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -21,7 +22,10 @@
                 </form><!-- /form -->
             </div><!-- /card-container -->
         </div><!-- /container -->
-        <%
+        <%  
+            EmployeeController empController = new EmployeeController();
+            session.setAttribute("resetToken",empController.generateToken());
+            
             String error = (String) request.getAttribute("error");
             if (error != null && error.equals("Entered email does not exist.")) {
                 // print error at the top
