@@ -44,28 +44,34 @@ public class AddEmployee extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
           try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String employeeID = (String) request.getAttribute("id");
-            String password = (String) request.getAttribute("password");
-            String email = (String) request.getAttribute("email");
-            Boolean isAdmin = (Boolean) request.getAttribute("isAdmin");
-            String currentSalary = (String) request.getAttribute("currentSalary");
-            String position = (String) request.getAttribute("position");
-            Boolean supervisor = (Boolean) request.getAttribute("supervisor");
-            Double cpf = (Double) request.getAttribute("cpf");
-            String bankAcct = (String) request.getAttribute("bankAcct");
-            String nric = (String) request.getAttribute("nric");
-            String name = (String) request.getAttribute("name");
-            String number = (String) request.getAttribute("number");
+            String employeeName = (String)request.getAttribute("employeeName");
+            String employeeNRIC = (String)request.getAttribute("employeeNRIC");
+            String employeeEmail = (String)request.getAttribute("employeeEmail");
+            String employeeNumber = (String)request.getAttribute("employeeNumber");
+            String employeeBankAccount = (String)request.getAttribute("employeeBankAccount");
+            String employeeCPF = (String)request.getAttribute("employeeCPF");
+            String employeePosition = (String)request.getAttribute("employeePosition");
+            String supervisor = (String)request.getAttribute("supervisor");
+            String employeeSalary = (String)request.getAttribute("employeeSalary");
+            String isAdminValue = (String)request.getAttribute("isAdmin");
+            //if it is admin, should be 0
+            int isAdmin = 1;
+            if(isAdminValue=="yes"){
+                isAdmin = 0;
+            }
+            String tempPassword = (String)request.getAttribute("tempPassword");
+            int projectsWorkedOn = 0;
+            String employeeID = employeeEmail.substring(0, employeeEmail.indexOf("@"));
             
             EmployeeDAO empDAO= new EmployeeDAO();
-            if(empDAO.createEmployee(employeeID, password, email, isAdmin, currentSalary, position, supervisor, cpf, bankAcct, nric, name, number)) {
+            if(empDAO.createEmployee(employeeID, tempPassword, employeeEmail, isAdmin, employeeSalary, employeePosition, supervisor, employeeCPF, projectsWorkedOn, employeeBankAccount, employeeNRIC, employeeName, employeeNumber)) {
                 request.setAttribute("Employee Added", "status");
             } else {
                 request.setAttribute("Unable to add Employee", "status");
             }
-            RequestDispatcher rd = request.getRequestDispatcher("ViewEmployee.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("CreateUser.jsp");
             rd.forward(request,response);
-            response.sendRedirect("ViewEmployee.jsp");
+            response.sendRedirect("CreateUser.jsp");
         }
     }
 
