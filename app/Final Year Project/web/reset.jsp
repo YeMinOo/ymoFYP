@@ -14,8 +14,13 @@
                 <div class="card card-container">
                     <form class="form-signin" id ="formtype" role="form" action="resetPasswordServlet" method="post">
                         <span id="reauth-email" class="reauth-email"></span>
-                        <input type="text" name='newPwd' id="newPwd" class="form-control" placeholder="Enter new password" required autofocus>
-                        <input type="text" name='newPwdConfirm' id="newPwdConfirm" class="form-control" placeholder="Confirm new password" required autofocus>
+                        <div class="row pass">
+        			<input type="password" id="password1" name="password1" placeholder="Enter New Password" />
+        		</div>
+        		
+        		<div class="row pass">
+        			<input type="password" id="password2" name="password2" placeholder="Confirm New Password"  />
+        		</div>
 
                         <div class="arrowCap"></div>
                         <div class="arrow"></div>

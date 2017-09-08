@@ -344,20 +344,12 @@
         <%
             String empId = (String) session.getAttribute("userId");
             EmployeeDAO empDAO = new EmployeeDAO();
-            Employee employee = empDAO.getEmployeeByID(empId);
+            Employee emp = empDAO.getEmployeeByID(empId);
             String employeeName = "";
-            if (employee == null) {
+            if (emp == null) {
                 employeeName = "No User";
             } else {
-                employeeName = employee.getName();
-            }
-            String adminAccess = (String) request.getAttribute("isAdmin");
-            if(adminAccess.equals("Not an Admin")){
-        %>
-                <div class="alert alert-danger">
-                    <strong>You do not have access to this page!</strong>
-                </div>
-        <%
+                employeeName = emp.getName();
             }
         %>
         <!--
