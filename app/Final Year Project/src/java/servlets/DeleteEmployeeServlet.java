@@ -43,16 +43,14 @@ public class DeleteEmployeeServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
 
-            String nric = (String) request.getAttribute("nric");
+            String name = (String) request.getAttribute("name");
             String message = "";
-
+            
             EmployeeDAO empDAO = new EmployeeDAO();
-            if (empDAO.deleteEmployee(nric)) {
-                message = "Deleted Successfully";
-                request.setAttribute(message, "success");
+            if (empDAO.deleteEmployeeByEmployeeName(name)) {
+                request.setAttribute(message, "Deleted Successfully");
             } else {
-                message = "Unsuccessful";
-                request.setAttribute(message, "success");
+                request.setAttribute(message, "Unsuccessful");
             }
 
             RequestDispatcher rd = request.getRequestDispatcher("ViewEmployee.jsp");

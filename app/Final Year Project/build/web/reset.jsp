@@ -1,17 +1,15 @@
-<%-- 
-    Document   : reset
-    Created on : Sep 1, 2017, 5:13:56 PM
-    Author     : yemin
---%>
 
-<%@page import="dao.PasswordDAO"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+   
+    
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Reset Password</title>
+         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+         <link rel="stylesheet" href="css/styles.css" />
+         <title>JSP Page</title>
+        
     </head>
+<<<<<<< HEAD
     <body>
         <p>Min 8 characters in length</p>
         <div class="container">
@@ -27,6 +25,35 @@
         <%  if (session.getAttribute("resetToken") == null) {
             response.sendRedirect("display.jsp");
         }
+=======
+     <body>
+
+        <div id="main">
+        	
+        	
+        	
+        	<form class="" method="post" action="resetPasswordServlet">
+        		
+        	
+        		
+        		<div class="row pass">
+        			<input type="password" id="password1" name="password1" placeholder="Enter New Password" />
+        		</div>
+        		
+        		<div class="row pass">
+        			<input type="password" id="password2" name="password2" placeholder="Confirm New Password"  />
+        		</div>
+        		
+        		<!-- The rotating arrow -->
+        		<div class="arrowCap"></div>
+        		<div class="arrow"></div>
+        		
+        		<p class="meterText">Password Meter</p>
+        		
+        		<input type="submit" value="Register" />
+        		
+                          <%
+>>>>>>> 775a43cc6657e254817e16014769f7a3d7a84ead
             String error = (String) request.getAttribute("msg");
             if (error != null && error.equals("Passwords Mismatched!!")) {
                 // print error at the top
@@ -37,6 +64,15 @@
         <%
             }
         %>
-
+        	</form>
+        </div>
+        
+       
+        
+        
+		<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+		<script src="lib/jquery.complexify.js"></script>
+		<script src="lib/script.js"></script>
+		     
     </body>
 </html>
