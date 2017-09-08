@@ -35,17 +35,6 @@
         		
         		<input type="submit" value="Register" />
         		
-                          <%
-            String error = (String) request.getAttribute("msg");
-            if (error != null && error.equals("Passwords Mismatched!!")) {
-                // print error at the top
-        %>
-        <div class="alert alert-danger">
-            <strong>Passwords Mismatched!!</strong>
-        </div>
-        <%
-            }
-        %>
         	</form>
         </div>
         

@@ -1,4 +1,10 @@
+<%-- 
+    Document   : resetTesting
+    Created on : Sep 8, 2017, 3:54:07 PM
+    Author     : jagdishps.2014
+--%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
    
@@ -15,16 +21,16 @@
         	
         	
         	
-        	<form class="" method="post" action="resetPasswordServlet">
+        	<form class="" method="post" action="">
         		
         	
         		
         		<div class="row pass">
-        			<input type="password" id="password1" name="password1" placeholder="Enter New Password" />
+        			<input type="password" id="password1" name="password1" placeholder="Password" />
         		</div>
         		
         		<div class="row pass">
-        			<input type="password" id="password2" name="password2" placeholder="Confirm New Password"  />
+        			<input type="password" id="password2" name="password2" placeholder="Password (repeat)"  />
         		</div>
         		
         		<!-- The rotating arrow -->
@@ -35,17 +41,6 @@
         		
         		<input type="submit" value="Register" />
         		
-                          <%
-            String error = (String) request.getAttribute("msg");
-            if (error != null && error.equals("Passwords Mismatched!!")) {
-                // print error at the top
-        %>
-        <div class="alert alert-danger">
-            <strong>Passwords Mismatched!!</strong>
-        </div>
-        <%
-            }
-        %>
         	</form>
         </div>
         

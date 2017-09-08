@@ -36,8 +36,8 @@ public class resetPasswordServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String pwd1 = request.getParameter("newPwd");
-            String pwd2 = request.getParameter("newPwdConfirm");
+            String pwd1 = request.getParameter("password1");
+            String pwd2 = request.getParameter("password2");
 
             HttpSession session = request.getSession();
             String email = (String) session.getAttribute("email");
