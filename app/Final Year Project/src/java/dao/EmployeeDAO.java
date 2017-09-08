@@ -23,10 +23,12 @@ public class EmployeeDAO {
     private static String getEmployeeStatementwithPassword = "SELECT * FROM EMPLOYEE WHERE employee_ID = ? AND password = ? ";
     private static String getAllEmployeeStatement = "SELECT * FROM EMPLOYEE";
     private static String getEmployeeFromNameStatement = "SELECT * FROM EMPLOYEE WHERE name = ?";
-    private static String deleteEmployeeByNRICStatement = "DELTE FROM EMPLOYEE WHERE NRIC = ?";
+    private static String deleteEmployeeByNRICStatement = "DELETE FROM EMPLOYEE WHERE NRIC = ?";
     private static String insertEmployeeStatement = "INSERT INTO EMPLOYEE values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private static String resetPasswordStatement = "UPDATE EMPLOYEE SET PASSWORD = ? WHERE email = ?";
     private static String getEmployeeByEmailStatement = "SELECT * FROM EMPLOYEE WHERE email = ?";
+    private static String deleteEmployeeByEmployeeIdStatement = "DELETE FROM EMPLOYEE WHERE employee_ID = ?";
+    private static String deleteEmployeeByEmployeeNameStatement = "DELETE FROM EMPLOYEE WHERE name = ?";
 
     public static Employee getEmployee(String name) {
         try (Connection conn = ConnectionManager.getConnection()) {
@@ -217,6 +219,34 @@ public class EmployeeDAO {
             stmt.setString(1, nric);
             int rowsAffected = stmt.executeUpdate();
 
+            if (rowsAffected == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean deleteEmployeeByEmployeeId(String employeeId) {
+        try (Connection conn = ConnectionManager.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(deleteEmployeeByEmployeeIdStatement);
+            stmt.setString(1, employeeId);
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean deleteEmployeeByEmployeeName(String employeeName) {
+        try (Connection conn = ConnectionManager.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(deleteEmployeeByEmployeeNameStatement);
+            stmt.setString(1, employeeName);
+            int rowsAffected = stmt.executeUpdate();
             if (rowsAffected == 1) {
                 return true;
             }
