@@ -131,5 +131,16 @@ public class AddEvent extends HttpServlet {
 
         return counter;
     }
+    
+    public int getProjectID() throws SQLException { 
+        Connection conn = ConnectionManager.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("Select max(projectID) from project");
+        ResultSet rs = stmt.executeQuery();
+        rs.last();
+        int temp = rs.getInt("max(projectID)");
+        //Integer tempCount = Integer.parseInt(temp);
+        int counter = temp + 1;
 
+        return counter;
+    }
 }
