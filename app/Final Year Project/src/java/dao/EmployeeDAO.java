@@ -29,6 +29,7 @@ public class EmployeeDAO {
     private static String getEmployeeByEmailStatement = "SELECT * FROM EMPLOYEE WHERE email = ?";
     private static String deleteEmployeeByEmployeeIdStatement = "DELETE FROM EMPLOYEE WHERE employee_ID = ?";
     private static String deleteEmployeeByEmployeeNameStatement = "DELETE FROM EMPLOYEE WHERE name = ?";
+    private static String updateEmployeeStatement = "UPDATE EMPLOYEE SET employee_ID=?, email=?, isAdmin=?, currentSalary=?, Position=?, supervisor=?, CPF=?, BankAccount=?, name=?, number=? where NRIC=?";
 
     public static Employee getEmployee(String name) {
         try (Connection conn = ConnectionManager.getConnection()) {
@@ -295,6 +296,31 @@ public class EmployeeDAO {
                 return true;
             }
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean updateEmployeeDetails(String employeeID, String email, int isAdmin, String currentSalary, String position, String supervisor, String cpf, String bankAccount, String nric, String name, String number){
+        try (Connection conn = ConnectionManager.getConnection()){
+            PreparedStatement stmt = conn.prepareStatement("updateEmployeeStatement");
+            stmt.setString(1, employeeID);
+            stmt.setString(2, email);
+            stmt.setInt(3, isAdmin);
+            stmt.setString(4, currentSalary);
+            stmt.setString(5, position);
+            stmt.setString(6, supervisor);
+            stmt.setString(7, cpf);
+            stmt.setString(8, bankAccount);
+            stmt.setString(9, name);
+            stmt.setString(10, number);
+            stmt.setString(11, nric);
+            
+            int rowsAffected = stmt.executeUpdate();
+            if(rowsAffected == 1){
+                return true;
+            }
+        } catch (SQLException e){
             e.printStackTrace();
         }
         return false;
