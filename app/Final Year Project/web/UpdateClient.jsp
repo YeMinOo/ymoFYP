@@ -4,6 +4,8 @@
     Author     : jagdishps.2014
 --%>
 
+<%@page import="entity.Client"%>
+<%@page import="dao.ClientDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@include file="Protect.jsp" %>
@@ -16,55 +18,104 @@
     <body>
         <div class="container-fluid">
             <%
+                
             String id = (String)request.getAttribute("id");
+            ClientDAO clientDAO = new ClientDAO(); 
+            Client client = clientDAO.getClientById(id);
+            
             %>
             <h1>Update Client</h1>
             <div class="container">
                 <form action="UpdateClientServlet" method="post">
                     <label>Client ID: </label>
-                    <input type="text" name='clientId' id="clientId" class="form-control" placeholder="clientId" required autofocus>
+                    <div contenteditable>
+                        <%=client.getClientId()%>
+                    </div>
+                    <input type="text" name='clientId' id="clientId" class="form-control" placeholder=<%=client.getClientId()%> required autofocus>
                     </br>
                     <label>Company Category: </label>
-                    <input type="text" name='companyCategory' id="companyCategory" class="form-control" placeholder="Company Category" required autofocus>
+                     <div contenteditable>
+                        <%=client.getCompanyCategory()%>
+                    </div>
+                    <input type="text" name='companyCategory' id="companyCategory" class="form-control" placeholder=<%=client.getCompanyCategory()%> required autofocus>
                     </br>
                     <label>Business Type: </label>
-                    <input type="text" name='businessType' id="businessType" class="form-control" placeholder="Business Type" required autofocus>
+                     <div contenteditable>
+                        <%=client.getBusinessType()%>
+                    </div>
+                    <input type="text" name='businessType' id="businessType" class="form-control" placeholder=<%=client.getBusinessType()%> required autofocus>
                     </br>
                     <label>Company Name: </label>
-                    <input type="text" name='companyName' id="companyName" class="form-control" placeholder="Company Name" required autofocus>
+                     <div contenteditable>
+                        <%=client.getCompanyName()%>
+                    </div>
+                    <input type="text" name='companyName' id="companyName" class="form-control" placeholder=<%=client.getCompanyName()%> required autofocus>
                     </br>
                     <label>Incorporation: </label>
-                    <input type="text" name='incorporation' id="incorporation" class="form-control" placeholder="Incorporation" required autofocus>
+                     <div contenteditable>
+                        <%=client.getIncorporation()%>
+                    </div>
+                    <input type="text" name='incorporation' id="incorporation" class="form-control" placeholder=<%=client.getIncorporation()%> required autofocus>
                     </br>
                     <label>UEN Number: </label>
-                    <input type="text" name='UenNumber' id="UenNumber" class="form-control" placeholder="UEN Number" required autofocus>
+                     <div contenteditable>
+                        <%=client.getUenNumber()%>
+                    </div>
+                    <input type="text" name='UenNumber' id="UenNumber" class="form-control" placeholder=<%=client.getUenNumber()%> required autofocus>
                     </br>
                     <label>Office Contact: </label>
-                    <input type="text" name='officeContact' id="officeContact" class="form-control" placeholder="Office Contact" autofocus>
+                     <div contenteditable>
+                        <%=client.getOfficeContact()%>
+                    </div>
+                    <input type="text" name='officeContact' id="officeContact" class="form-control" placeholder=<%=client.getOfficeContact()%> autofocus>
                     </br>
                     <label>Mobile Contact: </label>
-                    <input type="text" name='mobileContact' id="mobileContact" class="form-control" placeholder="Mobile Contact" required autofocus>
+                     <div contenteditable>
+                        <%=client.getMobileContact()%>
+                    </div>
+                    <input type="text" name='mobileContact' id="mobileContact" class="form-control" placeholder=<%=client.getMobileContact()%> required autofocus>
                     </br>
                     <label>Email Address: </label>
-                    <input type="text" name='emailAddress' id="emailAddress" class="form-control" placeholder="Email Address" required autofocus>
+                     <div contenteditable>
+                        <%=client.getEmailAddress()%>
+                    </div>
+                    <input type="text" name='emailAddress' id="emailAddress" class="form-control" placeholder=<%=client.getEmailAddress()%> required autofocus>
                     </br>
                     <label>Office Address: </label>
-                    <input type="text" name='officeAddress' id="officeAddress" class="form-control" placeholder="Office Address" required autofocus>
+                     <div contenteditable>
+                        <%=client.getOfficeAddress()%>
+                    </div>
+                    <input type="text" name='officeAddress' id="officeAddress" class="form-control" placeholder=<%=client.getOfficeAddress()%> required autofocus>
                     </br>
                     <label>Financial Year End: </label>
-                    <input type="text" name='financialYearEnd' id="financialYearEnd" class="form-control" placeholder="Financial Year End" required autofocus>
+                     <div contenteditable>
+                        <%=client.getFinancialYearEnd()%>
+                    </div>
+                    <input type="text" name='financialYearEnd' id="financialYearEnd" class="form-control" placeholder=<%=client.getFinancialYearEnd()%> required autofocus>
                     </br>
                     <label>GST: </label>
-                    <input type="text" name='gst' id="gst" class="form-control" placeholder="GST" required autofocus>
+                     <div contenteditable>
+                        <%=client.getGst()%>
+                    </div>
+                    <input type="text" name='gst' id="gst" class="form-control" placeholder=<%=client.getGst()%> required autofocus>
                     </br>
                     <label>Director: </label>
-                    <input type="text" name='director' id="director" class="form-control" placeholder="Director" required autofocus>
+                     <div contenteditable>
+                        <%=client.getDirector()%>
+                    </div>
+                    <input type="text" name='director' id="director" class="form-control" placeholder=<%=client.getDirector()%> required autofocus>
                     </br>
                     <label>Shareholder: </label>
-                    <input type="text" name='shareholder' id="shareholder" class="form-control" placeholder="Shareholder" required autofocus>
+                     <div contenteditable>
+                        <%=client.getShareholder()%>
+                    </div>
+                    <input type="text" name='shareholder' id="shareholder" class="form-control" placeholder=<%=client.getShareholder()%> required autofocus>
                      </br>
                     <label>Secretary: </label>
-                    <input type="text" name='secretary' id="secretary" class="form-control" placeholder="Secretary" required autofocus>
+                     <div contenteditable>
+                        <%=client.getSecretary()%>
+                    </div>
+                    <input type="text" name='secretary' id="secretary" class="form-control" placeholder=<%=client.getSecretary()%> required autofocus>
                     </br>
                     <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Add New Client!</button>
                 </form>
