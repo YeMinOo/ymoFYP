@@ -5,26 +5,22 @@
  */
 package servlets;
 
-import dao.EmployeeDAO;
+import dao.ClientDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import utility.ConnectionManager;
 
 /**
  *
  * @author jagdishps.2014
  */
-@WebServlet(name = "UpdateEmployeeInfoServlet", urlPatterns = {"/UpdateEmployeeInfoServlet"})
-public class UpdateEmployeeInfoServlet extends HttpServlet {
+@WebServlet(name = "AddClientServlet", urlPatterns = {"/AddClientServlet"})
+public class AddClientServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,30 +34,32 @@ public class UpdateEmployeeInfoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+       try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String employeeID = (String) request.getAttribute("id");
-            String password = (String) request.getAttribute("password");
-            String email = (String) request.getAttribute("email");
-            int isAdmin = Integer.parseInt((String)request.getAttribute("isAdmin"));
-            String currentSalary = (String) request.getAttribute("currentSalary");
-            String position = (String) request.getAttribute("position");
-            String supervisor = (String) request.getAttribute("supervisor");
-            String cpf = (String) request.getAttribute("cpf");
-            int numProjects = (int) request.getAttribute("numProjects");
-            String bankAcct = (String) request.getAttribute("bankAcct");
-            String nric = (String) request.getAttribute("nric");
-            String name = (String) request.getAttribute("name");
-            String number = (String) request.getAttribute("number");
-
-            EmployeeDAO employeeDao = new EmployeeDAO();
-            boolean status = employeeDao.updateEmployeeDetails(employeeID, email, isAdmin, currentSalary, position, supervisor, cpf, bankAcct, nric, name, number);
-            RequestDispatcher rd = request.getRequestDispatcher("ViewEmployee.jsp");
-            request.setAttribute("status", status);
-            rd.forward(request, response);
-            // will forward status of "true" or "false", if false means there's some sort of error
-            response.sendRedirect("ViewEmployee.jsp");
-        }    
+            String companyCategory = (String)request.getAttribute("companyCategory");
+            String businessType = (String)request.getAttribute("businessType");
+            String companyName = (String)request.getAttribute("companyName");
+            String incorporation = (String)request.getAttribute("incorporation");
+            String UenNumber = (String)request.getAttribute("UenNumber");
+            String officeContact = (String)request.getAttribute("officeContact");
+            String mobileContact = (String)request.getAttribute("mobileContact");
+            String emailAddress = (String)request.getAttribute("emailAddress");
+            String officeAddress = (String)request.getAttribute("officeAddress");
+            String financialYearEnd = (String)request.getAttribute("financialYearEnd");
+            String gst = (String)request.getAttribute("gst"); 
+            String director = (String)request.getAttribute("director");
+            String shareholder = (String)request.getAttribute("shareholder");
+            String secretary = (String)request.getAttribute("secretary");
+            
+            ClientDAO clientDAO= new ClientDAO();
+            
+            clientDAO.addNewClient(companyCategory,businessType,companyName,incorporation,UenNumber,officeContact,mobileContact,emailAddress,officeAddress,financialYearEnd,gst,director,shareholder,secretary);
+            request.setAttribute("Client Added", "status");
+            
+            RequestDispatcher rd = request.getRequestDispatcher("CreateClient.jsp");
+            rd.forward(request,response);
+            response.sendRedirect("CreateClient.jsp");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -91,6 +89,7 @@ public class UpdateEmployeeInfoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
     }
 
     /**

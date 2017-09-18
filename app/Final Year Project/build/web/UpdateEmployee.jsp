@@ -7,6 +7,8 @@
 <%@page import="entity.Employee"%>
 <%@page import="dao.EmployeeDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="Protect.jsp"%>
+<%@include file="AdminAccessOnly.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -268,12 +270,12 @@
         <%
             String empId = (String) session.getAttribute("userId");
             EmployeeDAO empDAO = new EmployeeDAO();
-            Employee emp = empDAO.getEmployeeByID(empId);
+            Employee employee = empDAO.getEmployeeByID(empId);
             String employeeName = "";
-            if (emp == null) {
+            if (employee == null) {
                 employeeName = "No User";
             } else {
-                employeeName = emp.getName();
+                employeeName = employee.getName();
             }
             
             //check if the the attributes exists, if not then redirect to get it
@@ -282,7 +284,7 @@
             String employeeID = (String) request.getAttribute("id");
             String password = (String) request.getAttribute("password");
             String email = (String) request.getAttribute("email");
-            Boolean isAdmin = (Boolean) request.getAttribute("isAdmin");
+            Boolean isAdmin2 = (Boolean) request.getAttribute("isAdmin");
             String currentSalary = (String) request.getAttribute("currentSalary");
             String position = (String) request.getAttribute("position");
             Boolean supervisor = (Boolean) request.getAttribute("supervisor");
@@ -291,6 +293,8 @@
             String nric = (String) request.getAttribute("nric");
             String name = (String) request.getAttribute("name");
             String number = (String) request.getAttribute("number");
+            
+            Boolean status = (Boolean)request.getAttribute("status");
         %>
         
         <nav class="container-fluid" width="100%" height="100%">
@@ -340,7 +344,22 @@
             <nav class="navbar navbar-default navbar-center" style="padding-bottom: 20px">
                 <div class="container-fluid" style="text-align: center">
                     <div class="container-fluid">
-                        <h3></h3>
+                        <%
+                        if(status!=null && status==false){
+                        %>
+                            <div class="alert alert-danger">
+                                <strong>Error: </strong>Cannot Update Employee Details, please try again!
+                            </div>
+                        <%
+                        }else if (status!=null && status== true){
+                        %>
+                            <div class="alert alert-success">
+                                <strong>Success:</strong> Employee details successfully updated!
+                            </div>
+                        <%
+                        }  
+                        %>
+                        <h3>Edit User Details!</h3>
                         <!-- insert form here -->
                         <form method="post" action="UpdateEmployeeInfoServlet">
                             <table id="myTable">
@@ -394,10 +413,10 @@
                                         <input type='hidden' name='email' id='email' value=<%=email%>>
                                         <td>
                                             <div contenteditable>
-                                                <%=isAdmin%>
+                                                <%=isAdmin2%>
                                             </div>
                                         </td>
-                                        <input type='hidden' name='isAdmin' id='isAdmin' value=<%=isAdmin%>>
+                                        <input type='hidden' name='isAdmin' id='isAdmin' value=<%=isAdmin2%>>
                                         <td>
                                             <div contenteditable>
                                                 <%=currentSalary%>

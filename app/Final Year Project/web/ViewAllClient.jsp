@@ -1,19 +1,26 @@
 <%-- 
-    Document   : UpdateEmployee
-    Created on : Aug 20, 2017, 9:50:54 PM
-    Author     : yemin
+    Document   : ViewAllClient
+    Created on : Sep 15, 2017, 4:31:34 PM
+    Author     : jagdishps.2014
 --%>
 
-<%@page import="entity.Employee"%>
-<%@page import="dao.EmployeeDAO"%>
+<%@page import="entity.Client"%>
+<%@page import="dao.ClientDAO"%>
+<%@page import="java.time.format.DateTimeFormatter"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="Protect.jsp"%>
-<%@include file="AdminAccessOnly.jsp"%>
+<%@ page autoFlush="true" buffer="1094kb"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Update Employee Details</title>
+        <title>View Client</title>
         <link href="css/bootstrap.css" rel="stylesheet">
 
         <link rel='stylesheet' href='lib/fullcalendar.min.css' />
@@ -53,7 +60,7 @@
                 bottom: 0;
             }
             .overall-margin {
-                margin: 10%, 10%, 10%, 10%;
+                margin: 10% 10% 10% 10%;
             }
 
             .bs-docs-footer {
@@ -219,12 +226,12 @@
                 -webkit-transition: all 0.218s;
                 transition: all 0.218s;
             }
-            
+
             .body{
                 padding: 0;
                 margin: 0;
             }
-            
+
             .header{
                 padding-top: 20px;
                 padding-right: 20px;
@@ -266,37 +273,26 @@
         </style>
     </head>
     <body>
+                <jsp:forward page="ViewClientServlet"/>                
+             
+
         <!-- ########################################################## header ########################################################## -->
         <%
-            String empId = (String) session.getAttribute("userId");
-            EmployeeDAO empDAO = new EmployeeDAO();
-            Employee employee = empDAO.getEmployeeByID(empId);
-            String employeeName = "";
-            if (employee == null) {
-                employeeName = "No User";
-            } else {
-                employeeName = employee.getName();
+            ArrayList<String> idList = new ArrayList();
+            ArrayList<String> nameList = new ArrayList(); 
+            
+            ClientDAO clientDAO = new ClientDAO();
+            ArrayList<Client> clientList = clientDAO.getAllClient();
+            if(clientList != null){
+                for(int i = 0; i <clientList.size(); i++){
+                    Client c = clientList.get(i);
+                    String id = c.getClientId();
+                    String name = c.getCompanyName();
+                    idList.add(id);
+                    nameList.add(name);                   
+                }
             }
-            
-            //check if the the attributes exists, if not then redirect to get it
-            
-            //getting all attributes
-            String employeeID = (String) request.getAttribute("id");
-            String password = (String) request.getAttribute("password");
-            String email = (String) request.getAttribute("email");
-            Boolean isAdmin2 = (Boolean) request.getAttribute("isAdmin");
-            String currentSalary = (String) request.getAttribute("currentSalary");
-            String position = (String) request.getAttribute("position");
-            Boolean supervisor = (Boolean) request.getAttribute("supervisor");
-            Double cpf = (Double) request.getAttribute("cpf");
-            String bankAcct = (String) request.getAttribute("bankAcct");
-            String nric = (String) request.getAttribute("nric");
-            String name = (String) request.getAttribute("name");
-            String number = (String) request.getAttribute("number");
-            
-            Boolean status = (Boolean)request.getAttribute("status");
         %>
-        
         <nav class="container-fluid" width="100%" height="100%">
             <nav class="header navbar navbar-default navbar-static-top">
                 <div class="container-fluid">
@@ -320,17 +316,16 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                            <!--
-                                <li><a href="SearchStaff.jsp">Search Staff</a></li>
-                                <li><a href="SearchClient.jsp">Search Client</a></li>
-                                <li><a href="SearchJob.jsp">Search Job</a></li>
-                                <li><a href="ViewJob.jsp">View Job</a></li>
-                                <li><a href="AddNewJob.jsp">Add New Job</a></li>
-                                <li><a href="EditJob.jsp">Edit Job</a></li>
-                                <li><a href="DeleteJob.jsp">Delete Job</a></li>
-                            -->
-                                <li><a href="Task_Assigned_Table.jsp">View Tasks</a></li>
-                                <li><a href="ViewEmployee.jsp">View Employee</a></li>
+                                <!--
+                                    <li><a href="SearchStaff.jsp">Search Staff</a></li>
+                                    <li><a href="SearchClient.jsp">Search Client</a></li>
+                                    <li><a href="SearchJob.jsp">Search Job</a></li>
+                                    <li><a href="ViewJob.jsp">View Job</a></li>
+                                    <li><a href="AddNewJob.jsp">Add New Job</a></li>
+                                    <li><a href="EditJob.jsp">Edit Job</a></li>
+                                    <li><a href="DeleteJob.jsp">Delete Job</a></li>
+                                -->
+                                <li><a href="ViewAllClient.jsp">View All Clients</a></li>
                             </ul>
                         </div>
                         <div class="align-buttons">
@@ -341,140 +336,55 @@
                     </div>
                 </div>
             </nav>
+<!-- ########################################################## end of header ########################################################## --> 
             <nav class="navbar navbar-default navbar-center" style="padding-bottom: 20px">
                 <div class="container-fluid" style="text-align: center">
                     <div class="container-fluid">
-                        <%
-                        if(status!=null && status==false){
-                        %>
-                            <div class="alert alert-danger">
-                                <strong>Error: </strong>Cannot Update Employee Details, please try again!
-                            </div>
-                        <%
-                        }else if (status!=null && status== true){
-                        %>
-                            <div class="alert alert-success">
-                                <strong>Success:</strong> Employee details successfully updated!
-                            </div>
-                        <%
-                        }  
-                        %>
-                        <h3>Edit User Details!</h3>
-                        <!-- insert form here -->
-                        <form method="post" action="UpdateEmployeeInfoServlet">
-                            <table id="myTable">
-                                    <tr>
-                                        <th>
-                                            Employee ID 
-                                        </th>
-                                        <th>
-                                            Email
-                                        </th>
-                                        <th>
-                                            Is Admin?
-                                        </th>
-                                        <th>
-                                            Current Salary
-                                        </th>
-                                        <th>
-                                            Position
-                                        </th>
-                                        <th>
-                                            Supervisor
-                                        </th>
-                                        <th>
-                                            CPF
-                                        </th>
-                                        <th>
-                                            Bank Account
-                                        </th>
-                                        <th>
-                                            NRIC
-                                        </th>
-                                        <th>
-                                            Name
-                                        </th>
-                                        <th>
-                                            Number
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=employeeID%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='employeeID' id='employeeID' value=<%=employeeID%>>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=email%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='email' id='email' value=<%=email%>>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=isAdmin2%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='isAdmin' id='isAdmin' value=<%=isAdmin2%>>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=currentSalary%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='currentSalary' id='currentSalary' value=<%=currentSalary%>>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=position%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='position' id='position' value=<%=position%>>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=supervisor%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='supervisor' id='supervisor' value=<%=supervisor%>>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=cpf%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='cpf' id='cpf' value=<%=cpf%>>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=bankAcct%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='bankAcct' id='bankAcct' value=<%=bankAcct%>>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=nric%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='nric' id='nric' value=<%=nric%>>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=name%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='name' id='name' value=<%=name%>>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=number%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='number' id='number' value=<%=number%>>
-                                    </tr>
-                            </table>
-                            <div style="float: right">
-                                <input type="submit" name="submit">
-                            </div>
-                        </form>
+                        <h3></h3>
+                        <!-- insert assigned tasks here -->
+                        <h2>List Of All Clients</h2>
+                        <table id="myTable">
+                            <tr>
+                                <th>Client ID</th>
+                                <th>Company Name</th>
+                                <th>Update Client</th>
+                                <th>Delete Client</th>
+                            </tr>
+                            <%
+                                if (idList.size() == nameList.size()) {
+                                    for (int i = 0; i < idList.size(); i++) {
+                            %>
+                            <tr>
+                                <td>
+                                    <%=idList.get(i)%>
+                                </td>
+                                <td>
+                                    <%=nameList.get(i)%>
+                                </td>
+                                <td>
+                                    <form method="post" action="UpdateClient.jsp">
+                                        <input type="hidden" value="<%=idList.get(i)%>" name="id">
+                                       <input type="submit" value="Update">
+                                    </form>
+                                </td>
+                                 <td>
+                                    <form method="post" action="DeleteClient.jsp">
+                                        <input type="hidden" value="<%=idList.get(i)%>" name="id">
+                                        <input type="hidden" value="<%=nameList.get(i)%>" name="companyName">
+                                        <input type="submit" value="Delete">
+                                    </form>
+                                </td>
+                            </tr>
+                            <%
+                                    }
+                                }
+                            %>
+                        </table>
                     </div>
                 </div>
             </nav>
-        </nav>
+            
+       
     </body>
     <footer class="bs-docs-footer" role="contentinfo">
         <div class="container" style="text-align: center">

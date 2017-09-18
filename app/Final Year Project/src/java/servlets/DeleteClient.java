@@ -5,26 +5,22 @@
  */
 package servlets;
 
-import dao.EmployeeDAO;
+import dao.ClientDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import utility.ConnectionManager;
 
 /**
  *
  * @author jagdishps.2014
  */
-@WebServlet(name = "UpdateEmployeeInfoServlet", urlPatterns = {"/UpdateEmployeeInfoServlet"})
-public class UpdateEmployeeInfoServlet extends HttpServlet {
+@WebServlet(name = "DeleteClient", urlPatterns = {"/DeleteClient"})
+public class DeleteClient extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,30 +34,20 @@ public class UpdateEmployeeInfoServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+          try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String employeeID = (String) request.getAttribute("id");
-            String password = (String) request.getAttribute("password");
-            String email = (String) request.getAttribute("email");
-            int isAdmin = Integer.parseInt((String)request.getAttribute("isAdmin"));
-            String currentSalary = (String) request.getAttribute("currentSalary");
-            String position = (String) request.getAttribute("position");
-            String supervisor = (String) request.getAttribute("supervisor");
-            String cpf = (String) request.getAttribute("cpf");
-            int numProjects = (int) request.getAttribute("numProjects");
-            String bankAcct = (String) request.getAttribute("bankAcct");
-            String nric = (String) request.getAttribute("nric");
-            String name = (String) request.getAttribute("name");
-            String number = (String) request.getAttribute("number");
-
-            EmployeeDAO employeeDao = new EmployeeDAO();
-            boolean status = employeeDao.updateEmployeeDetails(employeeID, email, isAdmin, currentSalary, position, supervisor, cpf, bankAcct, nric, name, number);
-            RequestDispatcher rd = request.getRequestDispatcher("ViewEmployee.jsp");
-            request.setAttribute("status", status);
-            rd.forward(request, response);
-            // will forward status of "true" or "false", if false means there's some sort of error
-            response.sendRedirect("ViewEmployee.jsp");
-        }    
+            String clientId = (String)request.getAttribute("clientId");
+         
+            
+            ClientDAO clientDAO= new ClientDAO();
+            
+            clientDAO.deleteClient(clientId);
+            request.setAttribute("Client Deleted", "status");
+            
+            RequestDispatcher rd = request.getRequestDispatcher("UpdateDeleteClient.jsp");
+            rd.forward(request,response);
+            response.sendRedirect("DeleteClient.jsp");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
