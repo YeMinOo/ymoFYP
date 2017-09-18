@@ -3,19 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/web/login.jsp</file>
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/servlets/emailCheckServlet.java</file>
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/web/forgotPassword.jsp</file>
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/servlets/resetPasswordServlet.java</file>
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/dao/PasswordDAO.java</file>
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/web/reset.jsp</file>
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/dao/EmployeeDAO.java</file>
-=======
-            <file>file:/C:/Users/jagdishps.2014/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/src/java/dao/PasswordDAO.java</file>
-            <file>file:/C:/Users/jagdishps.2014/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/src/java/servlets/resetPasswordServlet.java</file>
-            <file>file:/C:/Users/jagdishps.2014/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/reset.jsp</file>
->>>>>>> 775a43cc6657e254817e16014769f7a3d7a84ead
+            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/JSONWebService/AddEvent.java</file>
+            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/web/Calendar_Admin.jsp</file>
+            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/JSONWebService/UpdateEvent.java</file>
+            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/web/Calendar_Employee.jsp</file>
         </group>
     </open-files>
 </project-private>

@@ -31,6 +31,10 @@
         <link href="css/calendarExtender.css" rel="stylesheet" type="text/css"/>
         <link href="css/gridview.css" rel="stylesheet" type="text/css"/>
         <link href="css/offcanvas.css" rel="stylesheet" type="text/css"/>
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/resources/demos/style.css">
+
         <script type="text/javascript" src="script/prevent-iframe.js"></script>
         <!--<script src="script/jquery.min.js" type="text/javascript"></script>-->
         <script src="script/bootstrap.min.js" type="text/javascript"></script>
@@ -41,6 +45,9 @@
         <script src='lib/jquery.min.js'></script>
         <script src='lib/moment.min.js'></script>
         <script src='lib/fullcalendar.min.js'></script>
+
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
         <script>
             $(document).ready(function () {
                 var date = new Date();
@@ -49,15 +56,17 @@
                 var y = date.getFullYear();
 
                 var calendar = $('#calendar').fullCalendar({
+
                     businessHours: {
                         // days of week. an array of zero-based day of week integers (0=Sunday)
                         dow: [1, 2, 3, 4, 5], // Monday - Friday
 
                         start: '09:00', // a start time (10am )
-                        end: '17:00', // an end time (5pm)
+                        end: '17:00', // an end time (6pm)
                     },
                     displayEventTime: false,
 
+                    editable: true,
                     header: {
                         left: 'prev,next today',
                         center: 'title',
@@ -75,11 +84,12 @@
                     },
                     selectable: true,
                     selectHelper: true,
-                    select: function (start, end, allDay) {
+                    function(start, end, allDay) {
                         var title = prompt('Project Title:');
                         var remarks = prompt('Remarks:');
                         var assignedPeople = prompt('Assigned People:');
-                        var repeat = prompt('How often does this repeat?');
+                        var repeat = prompt('How often does this project repeat?');
+
 
                         if (title) {
                             var start = $.fullCalendar.formatDate(start, "YYYY-MM-DD HH:mm:ss");
@@ -107,7 +117,7 @@
                         calendar.fullCalendar('unselect');
                     },
 
-                    editable: false,
+                    editable: true,
                     eventDrop: function (event, delta) {
                         var start = $.fullCalendar.formatDate(event.start, "YYYY-MM-DD HH:mm:ss");
                         var end = $.fullCalendar.formatDate(event.end, "YYYY-MM-DD HH:mm:ss");
@@ -120,19 +130,20 @@
                             }
                         });
                     },
-                    /*eventClick: function(event) {
-                     var decision = confirm("Are you sure you want to delete this project?"); 
-                     if (decision) {
-                     $.ajax({
-                     type: "POST",
-                     url: "DeleteEvent",
-                     data: "&id=" + event.id,
-                     success: function(data) {
-                     $('#calendar').fullCalendar('removeEvents', event.id);
-                     alert("Deleted Successfully");}
-                     });
-                     }
-                     },*/
+                    eventClick: function (event) {
+                        var decision = confirm("Are you sure you want to delete this project?");
+                        if (decision) {
+                            $.ajax({
+                                type: "POST",
+                                url: "DeleteEvent",
+                                data: "&id=" + event.id,
+                                success: function (data) {
+                                    $('#calendar').fullCalendar('removeEvents', event.id);
+                                    alert("Deleted Successfully");
+                                }
+                            });
+                        }
+                    },
                     eventResize: function (event) {
                         var start = $.fullCalendar.formatDate(event.start, "yyyy-MM-dd HH:mm:ss");
                         var end = $.fullCalendar.formatDate(event.end, "yyyy-MM-dd HH:mm:ss");
@@ -147,10 +158,65 @@
                     }
 
                 });
-
+                var dialog = $("#dialog-form").dialog({
+                    autoOpen: false,
+                    height: 700,
+                    width: 400,
+                    modal: true,
+                    buttons: {
+                        "Create a project": addProject,
+                        Cancel: function () {
+                            dialog.dialog("close");
+                        }
+                    },
+                    close: function () {
+                        form[ 0 ].reset();
+                        //allFields.removeClass("ui-state-error");
+                    }
+                });
+                var form = dialog.find("form").on("submit", function (event) {
+                    event.preventDefault();
+                    addProject();
+                });
+                $("#create-user").button().on("click", function () {
+                    dialog.dialog("open");
+                });
+                function addProject() {
+                    var title = document.getElementById("title").value;
+                    var companyName = document.getElementById("companyName").value;;
+                    var start = document.getElementById("startDate").value;;
+                    var end = document.getElementById("endDate").value;
+                    var remarks = document.getElementById("remarks").value;
+                    var assignEmployee = document.getElementById("assignEmployee").value;
+                    var reviewer = document.getElementById("reviewer").value;
+                    var companyCat = document.getElementById("companyCat").value;
+                    var businessType = document.getElementById("businessType").value;
+                    //console.log(title);
+                    $.ajax({
+                        url: 'AddEvent',
+                        data: 'title=' + title + '&' + 'companyName=' + companyName + '&' + 'startDate=' + start + '&' + 'endDate=' + end + '&' + 'remarks=' + remarks + '&' + 'assignEmployee=' + assignEmployee + '&' + 'reviewer=' + reviewer + '&' + 'companyCat=' + companyCat + '&' + 'businessType=' + businessType,
+                        type: 'POST',
+                        success: function () {
+                            alert("Added Successfully");
+                            //$('#somediv').text(responseText);
+                        }
+                    });
+                    dialog.dialog("close");
+                }
             });
 
         </script>
+        <style>
+            label, input { display:block; }
+            input.text { margin-bottom:12px; width:95%; padding: .4em; }
+            fieldset { padding:0; border:0; margin-top:25px; }
+            h1 { font-size: 1.2em; margin: .6em 0; }
+            div#users-contain { width: 350px; margin: 20px 0; }
+            div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+            div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+            .ui-dialog .ui-state-error { padding: .3em; }
+            .validateTips { border: 1px solid transparent; padding: 0.3em; }
+        </style>
         <style type="text/css">
             .bs-docs-featurette + .bs-docs-footer {
                 margin-top: 0;
@@ -328,12 +394,12 @@
                 -webkit-transition: all 0.218s;
                 transition: all 0.218s;
             }
-            
+
             .body{
                 padding: 0;
                 margin: 0;
             }
-            
+
             .header{
                 padding-top: 20px;
                 padding-right: 20px;
@@ -341,8 +407,7 @@
         </style>
     </head>
     <body>
-        <%
-            String empId = (String) session.getAttribute("userId");
+        <%            String empId = (String) session.getAttribute("userId");
             EmployeeDAO empDAO = new EmployeeDAO();
             Employee emp = empDAO.getEmployeeByID(empId);
             String employeeName = "";
@@ -355,6 +420,7 @@
         <!--
         ###########################################################################################################################
         -->
+
         <nav class="container-fluid" width="100%" height="100%">
             <nav class="header navbar navbar-default navbar-static-top">
                 <div class="container-fluid">
@@ -378,15 +444,15 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                            <!--
-                                <li><a href="SearchStaff.jsp">Search Staff</a></li>
-                                <li><a href="SearchClient.jsp">Search Client</a></li>
-                                <li><a href="SearchJob.jsp">Search Job</a></li>
-                                <li><a href="ViewJob.jsp">View Job</a></li>
-                                <li><a href="AddNewJob.jsp">Add New Job</a></li>
-                                <li><a href="EditJob.jsp">Edit Job</a></li>
-                                <li><a href="DeleteJob.jsp">Delete Job</a></li>
-                            -->
+                                <!--
+                                    <li><a href="SearchStaff.jsp">Search Staff</a></li>
+                                    <li><a href="SearchClient.jsp">Search Client</a></li>
+                                    <li><a href="SearchJob.jsp">Search Job</a></li>
+                                    <li><a href="ViewJob.jsp">View Job</a></li>
+                                    <li><a href="AddNewJob.jsp">Add New Job</a></li>
+                                    <li><a href="EditJob.jsp">Edit Job</a></li>
+                                    <li><a href="DeleteJob.jsp">Delete Job</a></li>
+                                -->
                                 <li><a href="ViewTask.jsp">View Tasks</a></li>
                             </ul>
                         </div>
@@ -408,6 +474,35 @@
                 </div>
             </nav>
         </nav>
+        <div id="dialog-form" title="Create new project">
+            <p>All form fields are required.</p>
+            <form>
+                <fieldset>
+                    <label for="title">Title</label>
+                    <input type="text" name="title" id="title" class="text ui-widget-content ui-corner-all">
+                    <label for="companyName">Company Name</label>
+                    <input type="text" name="companyName" id="companyName" class="text ui-widget-content ui-corner-all">
+                    <label for="startDate">Start Date</label>
+                    <input type="text" name="startDate" id="startDate" class="text ui-widget-content ui-corner-all">
+                    <label for="endDate">End Date</label>
+                    <input type="text" name="endDate" id="endDate" class="text ui-widget-content ui-corner-all">
+                    <label for="remarks">Remarks</label>
+                    <input type="text" name="remarks" id="remarks" class="text ui-widget-content ui-corner-all">
+                    <label for="assignEmployee">Assign Employee</label>
+                    <input type="text" name="assignEmployee" id="assignEmployee" class="text ui-widget-content ui-corner-all">
+                    <label for="reviewer">Reviewer</label>
+                    <input type="text" name="reviewer" id="reviewer" class="text ui-widget-content ui-corner-all">
+                    <label for="companyCat">Company Category</label>
+                    <input type="text" name="companyCat" id="companyCat" class="text ui-widget-content ui-corner-all">
+                    <label for="businessType">Business Type</label>
+                    <input type="text" name="businessType" id="businessType" class="text ui-widget-content ui-corner-all">
+
+                    <!-- Allow form submission with keyboard without duplicating the dialog button -->
+                    <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+                </fieldset>
+            </form>
+        </div>
+        <button id="create-user">Create Project</button>
     </body>
     <footer class="bs-docs-footer" role="contentinfo">
         <div class="container" style="text-align: center">

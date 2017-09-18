@@ -14,7 +14,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -47,34 +51,46 @@ public class AddEvent extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
 
-            JsonObject outputRequest = new JsonObject();
-
-            JsonArray events = new JsonArray();
-
-            ArrayList<String> list = new ArrayList<String>();
-
             String title = request.getParameter("title");
-            String start = request.getParameter("start");
-            String end = request.getParameter("end");
+            String companyName = request.getParameter("companyName");
+            String start = request.getParameter("startDate");
+            String end = request.getParameter("endDate");
             String remarks = request.getParameter("remarks");
-            String assignedPeople = request.getParameter("assignedPeople");
-            String repeat = request.getParameter("repeat");
+            String assignEmployee = request.getParameter("assignEmployee");
+            String reviewer = request.getParameter("reviewer");
+            String companyCat = request.getParameter("companyCat");
+            String businessType = request.getParameter("businessType");
+            
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Date startDate = df.parse(start);
+            Date endDate = df.parse(end);
+            String sDate = df.format(startDate);
+            String eDate = df.format(endDate);
+            System.out.println("formatted=================="+sDate);
+            
             Connection conn = ConnectionManager.getConnection();
-            String statement = "Insert into project values(?,?,?,?,?,?,?,?)";
+            String statement = "Insert into project values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(statement);
 
             stmt.setInt(1, getCounter());
-            stmt.setString(2, title);
-            stmt.setString(3, start);
-            stmt.setString(4, end);
-            stmt.setString(5, remarks);
-            stmt.setString(6, assignedPeople);
-            stmt.setInt(7, 1);
-            stmt.setString(8, repeat);
+            stmt.setInt(2, getProjectID());
+            stmt.setString(3, title);
+            stmt.setString(4, companyName);
+            stmt.setString(5, companyCat);
+            stmt.setString(6, businessType);
+            stmt.setString(7, sDate);
+            stmt.setString(8, eDate);
+            stmt.setString(9, remarks);
+            stmt.setString(10, assignEmployee);
+            stmt.setString(11, reviewer);
+            stmt.setInt(12, 1);
+            stmt.setInt(13, 12); //recurring project values
 
             stmt.executeUpdate();
 
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
     }
@@ -131,5 +147,16 @@ public class AddEvent extends HttpServlet {
 
         return counter;
     }
+    
+    public int getProjectID() throws SQLException { 
+        Connection conn = ConnectionManager.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("Select max(projectID) from project");
+        ResultSet rs = stmt.executeQuery();
+        rs.last();
+        int temp = rs.getInt("max(projectID)");
+        //Integer tempCount = Integer.parseInt(temp);
+        int counter = temp + 1;
 
+        return counter;
+    }
 }

@@ -255,6 +255,7 @@
         </div>
         <%
             }
+            session.setAttribute("ResetMsg", null);
         %>
         <div class="container">
             <div class="card card-container">
