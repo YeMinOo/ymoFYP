@@ -47,12 +47,12 @@ public class ClientProfileServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             ClientDAO clientDAO = new ClientDAO();
-            Client client = clientDAO.getClientByID(client_id);
+            Client client = clientDAO.getClientById(client_id);
             
-            request.setAttribute("name", client.getName());
-            request.setAttribute("email", client.getEmail());
-            request.setAttribute("id", client.getId());
-            request.setAttribute("number", client.getContact());
+            request.setAttribute("name", client.getCompanyName());
+            request.setAttribute("email", client.getEmailAddress());
+            request.setAttribute("id", client.getClientId());
+            request.setAttribute("number", client.getOfficeContact());
             RequestDispatcher rd = request.getRequestDispatcher("ClientProfile.jsp");
             rd.forward(request, response);
             response.sendRedirect("ClientProfile.jsp");
