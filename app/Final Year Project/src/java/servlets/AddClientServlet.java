@@ -59,13 +59,13 @@ public class AddClientServlet extends HttpServlet {
                 request.setAttribute("Client Added", "status");
 //                RequestDispatcher rd = request.getRequestDispatcher("CreateClient.jsp");
 //                rd.forward(request, response);
-                response.sendRedirect("CreateClient.jsp");
+                response.sendRedirect("ViewAllClient.jsp");
                 
             } else {
                 request.setAttribute("Problem Creating New User, Please Try Again", "status");
-                RequestDispatcher rd = request.getRequestDispatcher("CreateClient.jsp");
-                rd.forward(request, response);
-               
+                //RequestDispatcher rd = request.getRequestDispatcher("ViewAllClient.jsp");
+                //rd.forward(request, response);
+                response.sendRedirect("ViewAllClient.jsp");
             }
 
         }

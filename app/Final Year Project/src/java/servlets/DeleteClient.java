@@ -44,9 +44,9 @@ public class DeleteClient extends HttpServlet {
             clientDAO.deleteClient(clientId);
             request.setAttribute("Client Deleted", "status");
             
-            RequestDispatcher rd = request.getRequestDispatcher("UpdateDeleteClient.jsp");
-            rd.forward(request,response);
-            response.sendRedirect("DeleteClient.jsp");
+            //RequestDispatcher rd = request.getRequestDispatcher("UpdateDeleteClient.jsp");
+            //rd.forward(request,response);
+            response.sendRedirect("ViewAllClient.jsp");
         }
     }
 

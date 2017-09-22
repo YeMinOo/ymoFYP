@@ -15,26 +15,7 @@
     </head>
     <body>
         <div class="container-fluid">
-            <%
-            String status = (String)request.getAttribute("status");
-        if(status!=null && status.equals("Client Added")){
-            %>
-                <div class="alert alert-success">
-                    <strong>New Client Added!</strong>
-                </div>
-            <%
-<<<<<<< HEAD
-            }else if(status!=null && status.equals("Problem Creating New User, Please Try Again")){
-=======
-            }else {
->>>>>>> f158914a0ab31aedc66f61b3353b6a60a970d8f9
-            %>
-                <div class="alert alert-danger">
-                    <strong>Problem Creating New User, Please Try Again!</strong>
-                </div>
-            <%
-            }
-            %>
+            
             <h1>Create Client</h1>
             <div class="container">
                 <form action="AddClientServlet" method="post">

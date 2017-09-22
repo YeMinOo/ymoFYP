@@ -46,7 +46,7 @@ public class ClientProfileServlet extends HttpServlet {
           
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-<<<<<<< HEAD
+//<<<<<<< HEAD
             /*ClientDAO clientDAO = new ClientDAO();
             Client client = clientDAO.getClientByID(client_id);
 =======

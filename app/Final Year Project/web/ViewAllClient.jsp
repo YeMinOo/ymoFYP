@@ -293,6 +293,7 @@
             
             
             
+            
             ArrayList<String> idList = new ArrayList();
             ArrayList<String> nameList = new ArrayList(); 
             
@@ -356,7 +357,24 @@
                 <div class="container-fluid" style="text-align: center">
                     <div class="container-fluid">
                         <h3></h3>
-                        <!-- insert assigned tasks here -->
+                        <%
+            String status = (String)request.getAttribute("status");
+        if(status!=null && status.equals("Client Added")){
+            %>
+                <div class="alert alert-success">
+                    <strong>New Client Added!</strong>
+                </div>
+            <%
+
+            }else if(status!=null && status.equals("Problem Creating New User, Please Try Again")){
+
+            %>
+                <div class="alert alert-danger">
+                    <strong>Problem Creating New User, Please Try Again!</strong>
+                </div>
+            <%
+            }
+            %>
                         <h2>List Of All Clients</h2>
                         <table id="myTable">
                             <tr>

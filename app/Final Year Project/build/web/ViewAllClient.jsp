@@ -4,11 +4,8 @@
     Author     : jagdishps.2014
 --%>
 
-<<<<<<< HEAD
 <%@page import="entity.Employee"%>
 <%@page import="dao.EmployeeDAO"%>
-=======
->>>>>>> f158914a0ab31aedc66f61b3353b6a60a970d8f9
 <%@page import="entity.Client"%>
 <%@page import="dao.ClientDAO"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
@@ -278,16 +275,11 @@
         </style>
     </head>
     <body>
-<<<<<<< HEAD
                              
-=======
-                <jsp:forward page="ViewClientServlet"/>                
->>>>>>> f158914a0ab31aedc66f61b3353b6a60a970d8f9
              
 
         <!-- ########################################################## header ########################################################## -->
         <%
-<<<<<<< HEAD
             String empId = (String) session.getAttribute("userId");
             EmployeeDAO empDAO = new EmployeeDAO();
             Employee employee = empDAO.getEmployeeByID(empId);
@@ -301,8 +293,7 @@
             
             
             
-=======
->>>>>>> f158914a0ab31aedc66f61b3353b6a60a970d8f9
+            
             ArrayList<String> idList = new ArrayList();
             ArrayList<String> nameList = new ArrayList(); 
             
@@ -366,7 +357,24 @@
                 <div class="container-fluid" style="text-align: center">
                     <div class="container-fluid">
                         <h3></h3>
-                        <!-- insert assigned tasks here -->
+                        <%
+            String status = (String)request.getAttribute("status");
+        if(status!=null && status.equals("Client Added")){
+            %>
+                <div class="alert alert-success">
+                    <strong>New Client Added!</strong>
+                </div>
+            <%
+
+            }else if(status!=null && status.equals("Problem Creating New User, Please Try Again")){
+
+            %>
+                <div class="alert alert-danger">
+                    <strong>Problem Creating New User, Please Try Again!</strong>
+                </div>
+            <%
+            }
+            %>
                         <h2>List Of All Clients</h2>
                         <table id="myTable">
                             <tr>
@@ -393,11 +401,7 @@
                                     </form>
                                 </td>
                                  <td>
-<<<<<<< HEAD
                                     <form method="post" action="DeleteClient">
-=======
-                                    <form method="post" action="DeleteClient.jsp">
->>>>>>> f158914a0ab31aedc66f61b3353b6a60a970d8f9
                                         <input type="hidden" value="<%=idList.get(i)%>" name="id">
                                         <input type="hidden" value="<%=nameList.get(i)%>" name="companyName">
                                         <input type="submit" value="Delete">
