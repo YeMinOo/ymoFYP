@@ -4,8 +4,11 @@
     Author     : jagdishps.2014
 --%>
 
+<<<<<<< HEAD
 <%@page import="entity.Employee"%>
 <%@page import="dao.EmployeeDAO"%>
+=======
+>>>>>>> f158914a0ab31aedc66f61b3353b6a60a970d8f9
 <%@page import="entity.Client"%>
 <%@page import="dao.ClientDAO"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
@@ -275,11 +278,16 @@
         </style>
     </head>
     <body>
+<<<<<<< HEAD
                              
+=======
+                <jsp:forward page="ViewClientServlet"/>                
+>>>>>>> f158914a0ab31aedc66f61b3353b6a60a970d8f9
              
 
         <!-- ########################################################## header ########################################################## -->
         <%
+<<<<<<< HEAD
             String empId = (String) session.getAttribute("userId");
             EmployeeDAO empDAO = new EmployeeDAO();
             Employee employee = empDAO.getEmployeeByID(empId);
@@ -293,6 +301,8 @@
             
             
             
+=======
+>>>>>>> f158914a0ab31aedc66f61b3353b6a60a970d8f9
             ArrayList<String> idList = new ArrayList();
             ArrayList<String> nameList = new ArrayList(); 
             
@@ -383,7 +393,11 @@
                                     </form>
                                 </td>
                                  <td>
+<<<<<<< HEAD
                                     <form method="post" action="DeleteClient">
+=======
+                                    <form method="post" action="DeleteClient.jsp">
+>>>>>>> f158914a0ab31aedc66f61b3353b6a60a970d8f9
                                         <input type="hidden" value="<%=idList.get(i)%>" name="id">
                                         <input type="hidden" value="<%=nameList.get(i)%>" name="companyName">
                                         <input type="submit" value="Delete">

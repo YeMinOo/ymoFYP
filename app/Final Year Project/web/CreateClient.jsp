@@ -23,7 +23,11 @@
                     <strong>New Client Added!</strong>
                 </div>
             <%
+<<<<<<< HEAD
             }else if(status!=null && status.equals("Problem Creating New User, Please Try Again")){
+=======
+            }else {
+>>>>>>> f158914a0ab31aedc66f61b3353b6a60a970d8f9
             %>
                 <div class="alert alert-danger">
                     <strong>Problem Creating New User, Please Try Again!</strong>

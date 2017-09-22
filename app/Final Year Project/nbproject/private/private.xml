@@ -2,18 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/JSONWebService/AddEvent.java</file>
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/web/Calendar_Admin.jsp</file>
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/JSONWebService/UpdateEvent.java</file>
-            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/web/Calendar_Employee.jsp</file>
-=======
-            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/src/java/dao/EmployeeDAO.java</file>
-            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/UpdateEmployee.jsp</file>
-            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/src/java/servlets/UpdateEmployeeInfoServlet.java</file>
-            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/ViewEmployee.jsp</file>
->>>>>>> 6a26bcb2cad6af9411085c18d45e9421de54c697
-        </group>
+        <group/>
     </open-files>
 </project-private>

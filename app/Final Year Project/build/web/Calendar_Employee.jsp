@@ -483,9 +483,9 @@
                     <label for="companyName">Company Name</label>
                     <input type="text" name="companyName" id="companyName" class="text ui-widget-content ui-corner-all">
                     <label for="startDate">Start Date</label>
-                    <input type="text" name="startDate" id="startDate" class="text ui-widget-content ui-corner-all">
+                    <input type="date" name="startDate" id="startDate" class="text ui-widget-content ui-corner-all">
                     <label for="endDate">End Date</label>
-                    <input type="text" name="endDate" id="endDate" class="text ui-widget-content ui-corner-all">
+                    <input type="date" name="endDate" id="endDate" class="text ui-widget-content ui-corner-all">
                     <label for="remarks">Remarks</label>
                     <input type="text" name="remarks" id="remarks" class="text ui-widget-content ui-corner-all">
                     <label for="assignEmployee">Assign Employee</label>

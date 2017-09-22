@@ -5,22 +5,12 @@
  */
 package JSONWebService;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,26 +50,20 @@ public class AddEvent extends HttpServlet {
             String reviewer = request.getParameter("reviewer");
             String companyCat = request.getParameter("companyCat");
             String businessType = request.getParameter("businessType");
-            
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            Date startDate = df.parse(start);
-            Date endDate = df.parse(end);
-            String sDate = df.format(startDate);
-            String eDate = df.format(endDate);
-            System.out.println("formatted=================="+sDate);
+
             
             Connection conn = ConnectionManager.getConnection();
             String statement = "Insert into project values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(statement);
 
             stmt.setInt(1, getCounter());
-            stmt.setInt(2, getProjectID());
+            stmt.setInt(2, getProjectID(companyName));
             stmt.setString(3, title);
             stmt.setString(4, companyName);
             stmt.setString(5, companyCat);
             stmt.setString(6, businessType);
-            stmt.setString(7, sDate);
-            stmt.setString(8, eDate);
+            stmt.setString(7, start);
+            stmt.setString(8, end);
             stmt.setString(9, remarks);
             stmt.setString(10, assignEmployee);
             stmt.setString(11, reviewer);
@@ -89,8 +73,6 @@ public class AddEvent extends HttpServlet {
             stmt.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
             e.printStackTrace();
         }
     }
@@ -148,9 +130,10 @@ public class AddEvent extends HttpServlet {
         return counter;
     }
     
-    public int getProjectID() throws SQLException { 
+    public int getProjectID(String companyName) throws SQLException { 
         Connection conn = ConnectionManager.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("Select max(projectID) from project");
+        PreparedStatement stmt = conn.prepareStatement("Select max(projectID) from project where companyName = ?");
+        stmt.setString(1,companyName);
         ResultSet rs = stmt.executeQuery();
         rs.last();
         int temp = rs.getInt("max(projectID)");
