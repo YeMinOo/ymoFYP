@@ -142,11 +142,4 @@ public class AddEvent extends HttpServlet {
 
         return counter;
     }
-    
-    public String getDate(String date) {
-        String formattedDate = "";
-        
-        formattedDate = date.substring(6)+"-"+date.substring(0,2)+"-"+date.substring(3,5);
-        return formattedDate;
-    }
 }
