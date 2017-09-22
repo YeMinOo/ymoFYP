@@ -46,7 +46,7 @@ public class ClientProfileServlet extends HttpServlet {
           
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            ClientDAO clientDAO = new ClientDAO();
+            /*ClientDAO clientDAO = new ClientDAO();
             Client client = clientDAO.getClientByID(client_id);
             
             request.setAttribute("name", client.getName());
@@ -56,6 +56,7 @@ public class ClientProfileServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("ClientProfile.jsp");
             rd.forward(request, response);
             response.sendRedirect("ClientProfile.jsp");
+            */
         }
     }
 

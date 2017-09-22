@@ -34,31 +34,40 @@ public class AddClientServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       try (PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String companyCategory = (String)request.getAttribute("companyCategory");
-            String businessType = (String)request.getAttribute("businessType");
-            String companyName = (String)request.getAttribute("companyName");
-            String incorporation = (String)request.getAttribute("incorporation");
-            String UenNumber = (String)request.getAttribute("UenNumber");
-            String officeContact = (String)request.getAttribute("officeContact");
-            String mobileContact = (String)request.getAttribute("mobileContact");
-            String emailAddress = (String)request.getAttribute("emailAddress");
-            String officeAddress = (String)request.getAttribute("officeAddress");
-            String financialYearEnd = (String)request.getAttribute("financialYearEnd");
-            String gst = (String)request.getAttribute("gst"); 
-            String director = (String)request.getAttribute("director");
-            String shareholder = (String)request.getAttribute("shareholder");
-            String secretary = (String)request.getAttribute("secretary");
-            
-            ClientDAO clientDAO= new ClientDAO();
-            
-            clientDAO.addNewClient(companyCategory,businessType,companyName,incorporation,UenNumber,officeContact,mobileContact,emailAddress,officeAddress,financialYearEnd,gst,director,shareholder,secretary);
-            request.setAttribute("Client Added", "status");
-            
-            RequestDispatcher rd = request.getRequestDispatcher("CreateClient.jsp");
-            rd.forward(request,response);
-            response.sendRedirect("CreateClient.jsp");
+            String companyCategory = request.getParameter("companyCategory");
+
+            String businessType = request.getParameter("businessType");
+            String companyName = request.getParameter("companyName");
+            String incorporation = request.getParameter("incorporation");
+            String UenNumber = request.getParameter("UenNumber");
+            String officeContact = request.getParameter("officeContact");
+            String mobileContact = request.getParameter("mobileContact");
+            String emailAddress = request.getParameter("emailAddress");
+            String officeAddress = request.getParameter("officeAddress");
+            String financialYearEnd = request.getParameter("financialYearEnd");
+            String gst = request.getParameter("gst");
+            String director = request.getParameter("director");
+            String shareholder = request.getParameter("shareholder");
+            String secretary = request.getParameter("secretary");
+
+            ClientDAO clientDAO = new ClientDAO();
+            boolean added = clientDAO.addNewClient(companyCategory, businessType, companyName, incorporation, UenNumber, officeContact, mobileContact, emailAddress, officeAddress, financialYearEnd, gst, director, shareholder, secretary);
+
+            if (added) {
+                request.setAttribute("Client Added", "status");
+//                RequestDispatcher rd = request.getRequestDispatcher("CreateClient.jsp");
+//                rd.forward(request, response);
+                response.sendRedirect("CreateClient.jsp");
+                
+            } else {
+                request.setAttribute("Problem Creating New User, Please Try Again", "status");
+                RequestDispatcher rd = request.getRequestDispatcher("CreateClient.jsp");
+                rd.forward(request, response);
+               
+            }
+
         }
     }
 
@@ -89,7 +98,7 @@ public class AddClientServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
     }
 
     /**

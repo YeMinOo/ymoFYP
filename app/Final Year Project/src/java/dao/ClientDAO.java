@@ -20,11 +20,11 @@ import utility.ConnectionManager;
  */
 public class ClientDAO {
     
-    public static void addNewClient(String companyCategory, String businessType, String companyName, String incorporation, String UenNumber, String officeContact, String mobileContact, String emailAddress, String officeAddress, String financialYearEnd, String gst, String director, String shareholder, String secretary){
+    public boolean addNewClient(String companyCategory, String businessType, String companyName, String incorporation, String UenNumber, String officeContact, String mobileContact, String emailAddress, String officeAddress, String financialYearEnd, String gst, String director, String shareholder, String secretary){
         try (Connection conn = ConnectionManager.getConnection()){
             PreparedStatement stmt = conn.prepareStatement( "Insert into client values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
           
-            stmt.setString(1, Integer.toString(getCounter()));
+            stmt.setInt(1, getCounter());
             stmt.setString(2, companyCategory);
             stmt.setString(3, businessType);
             stmt.setString(4, companyName);
@@ -39,16 +39,22 @@ public class ClientDAO {
             stmt.setString(13, director);
             stmt.setString(14, shareholder);
             stmt.setString(15, secretary);
-            stmt.executeUpdate();
             
+            
+            int rowsAffected = stmt.executeUpdate();
+
+            if (rowsAffected == 1) {
+                return true;
+            }    
         } catch (SQLException e){
             e.printStackTrace();
         }
+        return false; 
     }
     
     public static void updateClient(String clientId, String companyCategory, String businessType, String companyName, String incorporation, String UenNumber, String officeContact, String mobileContact, String emailAddress, String officeAddress, String financialYearEnd, String gst, String director, String shareholder, String secretary){
             try (Connection conn = ConnectionManager.getConnection()){
-            String statement = "UPDATE client SET companyCategory=?, businessType=?, companyName=?, incorporation=?, UenNumber=?, officeContact=?, mobileContact=?, emailAddress=?, officeAddress=?, financialYearEnd=?, gst=?, director=?, shareholder=?, secretary=? WHERE clientId=?";
+            String statement = "UPDATE client SET companyCategory=?, businessType=?, companyName=?, incorporation=?, UENNumber=?, officeContact=?, mobileContact=?, contactEmailAddress=?, officeAddress=?, financialYearEnd=?, gst=?, director=?, shareholder=?, secretary=? WHERE clientId=?";
             PreparedStatement stmt = conn.prepareStatement(statement);
             
             stmt.setString(1, companyCategory);

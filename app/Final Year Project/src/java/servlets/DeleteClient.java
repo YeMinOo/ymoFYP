@@ -36,7 +36,7 @@ public class DeleteClient extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
           try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String clientId = (String)request.getAttribute("clientId");
+            String clientId = request.getParameter("clientId");
          
             
             ClientDAO clientDAO= new ClientDAO();

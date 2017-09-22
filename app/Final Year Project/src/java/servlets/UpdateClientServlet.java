@@ -36,30 +36,31 @@ public class UpdateClientServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String clientId = (String)request.getAttribute("clientId");
-            String companyCategory = (String)request.getAttribute("companyCategory");
-            String businessType = (String)request.getAttribute("businessType");
-            String companyName = (String)request.getAttribute("companyName");
-            String incorporation = (String)request.getAttribute("incorporation");
-            String UenNumber = (String)request.getAttribute("UenNumber");
-            String officeContact = (String)request.getAttribute("officeContact");
-            String mobileContact = (String)request.getAttribute("mobileContact");
-            String emailAddress = (String)request.getAttribute("emailAddress");
-            String officeAddress = (String)request.getAttribute("officeAddress");
-            String financialYearEnd = (String)request.getAttribute("financialYearEnd");
-            String gst = (String)request.getAttribute("gst"); 
-            String director = (String)request.getAttribute("director");
-            String shareholder = (String)request.getAttribute("shareholder");
-            String secretary = (String)request.getAttribute("secretary");
-            
+            String clientId = request.getParameter("clientId");
+            String companyCategory = request.getParameter("companyCategory");
+           
+            String businessType = request.getParameter("businessType");
+            String companyName = request.getParameter("companyName");
+            String incorporation = request.getParameter("incorporation");
+            String UenNumber = request.getParameter("UenNumber");
+            String officeContact = request.getParameter("officeContact");
+            String mobileContact = request.getParameter("mobileContact");
+            String emailAddress = request.getParameter("emailAddress");
+            String officeAddress = request.getParameter("officeAddress");
+            String financialYearEnd = request.getParameter("financialYearEnd");
+            String gst = request.getParameter("gst"); 
+            String director = request.getParameter("director");
+            String shareholder = request.getParameter("shareholder");
+            String secretary = request.getParameter("secretary");
+            System.out.println(clientId);
             ClientDAO clientDAO= new ClientDAO();
             
             clientDAO.updateClient(clientId,companyCategory,businessType,companyName,incorporation,UenNumber,officeContact,mobileContact,emailAddress,officeAddress,financialYearEnd,gst,director,shareholder,secretary);
             request.setAttribute("Client Updated", "status");
             
-            RequestDispatcher rd = request.getRequestDispatcher("UpdateClient.jsp");
-            rd.forward(request,response);
-            response.sendRedirect("UpdateClient.jsp");
+            //RequestDispatcher rd = request.getRequestDispatcher("ViewAllClient.jsp");
+            //rd.forward(request,response);
+            response.sendRedirect("ViewAllClient.jsp");
         }
     }
 
