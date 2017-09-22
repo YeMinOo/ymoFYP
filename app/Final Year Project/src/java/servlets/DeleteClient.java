@@ -38,7 +38,7 @@ public class DeleteClient extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String clientId = request.getParameter("clientId");
          
-            
+            //the delete function does not work. Need to try again. 
             ClientDAO clientDAO= new ClientDAO();
             
             clientDAO.deleteClient(clientId);
