@@ -52,7 +52,8 @@ public class UpdateClientServlet extends HttpServlet {
             String director = request.getParameter("director");
             String shareholder = request.getParameter("shareholder");
             String secretary = request.getParameter("secretary");
-            System.out.println(clientId);
+            
+            
             ClientDAO clientDAO= new ClientDAO();
             
             clientDAO.updateClient(clientId,companyCategory,businessType,companyName,incorporation,UenNumber,officeContact,mobileContact,emailAddress,officeAddress,financialYearEnd,gst,director,shareholder,secretary);

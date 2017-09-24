@@ -20,10 +20,19 @@
             <div class="container">
                 <form action="AddClientServlet" method="post">
                     <label>Company Category: </label>
-                    <input type="text" name='companyCategory' id="companyCategory" class="form-control" placeholder="Company Category" required autofocus>
+                    <select name='companyCategory' id="companyCategory" class="form-control" required autofocus>
+                     <option value="Co Official Sec">Co. Official Sec</option>
+                     <option value="NN Co.Sec">NN Co. Sec</option>
+                     <option value="NA">NA</option>
+                     <option value="Others">Others</option>
+                     </select>
                     </br>
                     <label>Business Type: </label>
-                    <input type="text" name='businessType' id="businessType" class="form-control" placeholder="Business Type" required autofocus>
+                    <select name='businessType' id="businessType" class="form-control" required autofocus>
+                     <option value="company">Company</option>
+                     <option value="partnership">Partnership</option>
+                     <option value="sole proprietorship">Sole Proprietorship</option>
+                     </select>    
                     </br>
                     <label>Company Name: </label>
                     <input type="text" name='companyName' id="companyName" class="form-control" placeholder="Company Name" required autofocus>

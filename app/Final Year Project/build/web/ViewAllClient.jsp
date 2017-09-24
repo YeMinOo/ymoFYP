@@ -403,7 +403,7 @@
                                  <td>
                                     <form method="post" action="DeleteClient">
                                         <input type="hidden" value="<%=idList.get(i)%>" name="id">
-                                        <input type="hidden" value="<%=nameList.get(i)%>" name="companyName">
+                                        
                                         <input type="submit" value="Delete">
                                     </form>
                                 </td>

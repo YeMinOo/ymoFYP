@@ -80,7 +80,7 @@ public class ClientDAO {
         }
     }
     
-    public static void deleteClient(String clientId){
+    public void deleteClient(String clientId){
             try (Connection conn = ConnectionManager.getConnection()){
             String statement = "DELETE from client WHERE clientId=? ";
             PreparedStatement stmt = conn.prepareStatement(statement);
