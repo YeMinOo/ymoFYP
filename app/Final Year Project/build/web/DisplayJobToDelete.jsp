@@ -14,6 +14,34 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Delete Job Confirmation</title>
+        <link href="css/bootstrap.css" rel="stylesheet">
+
+        <link rel='stylesheet' href='lib/fullcalendar.min.css' />
+        <!-- for FF, Chrome, Opera -->
+        <link rel="icon" type="image/png" href="/Images/Abundant Accounting Logo.png" sizes="16x16">
+        <link rel="icon" type="image/png" href="/Images/Abundant Accounting Logo.png" sizes="32x32">
+
+        <!-- for IE -->
+        <link rel="icon" type="image/x-icon" href="/Images/Abundant Accounting Logo.ico" >
+        <link rel="shortcut icon" type="image/x-icon" href="/Images/Abundant Accounting Logo.ico"/>
+        <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/fullcalendar.css" rel="stylesheet" type="text/css"/>
+        <link href="css/master.css" rel="stylesheet" type="text/css"/>
+        <link href="css/orangetable.css" rel="stylesheet" type="text/css"/>
+        <link href="css/calendarExtender.css" rel="stylesheet" type="text/css"/>
+        <link href="css/gridview.css" rel="stylesheet" type="text/css"/>
+        <link href="css/offcanvas.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="script/prevent-iframe.js"></script>
+        <!--<script src="script/jquery.min.js" type="text/javascript"></script>-->
+        <script src="script/bootstrap.min.js" type="text/javascript"></script>
+        <!--<script src="script/fullcalendar.min.js" type="text/javascript"></script>-->
+        <!--<script src="script/moment.js" type="text/javascript"></script>-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src='lib/jquery.min.js'></script>
+        <script src='lib/moment.min.js'></script>
+        <script src='lib/fullcalendar.min.js'></script>
             <style type="text/css">
                 .bs-docs-featurette + .bs-docs-footer {
                     margin-top: 0;
