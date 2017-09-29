@@ -332,7 +332,7 @@
                         %>
                         <h1>Create User</h1>
                         <div class="container">
-                            <form action="CreateNewUser" method="post">
+                            <form action="AddEmployee" method="post">
                                 <label>Employee Name: </label>
                                 <input type="text" name='employeeName' id="employeeName" class="form-control" placeholder="Employee's Name" required autofocus>
                                 </br>

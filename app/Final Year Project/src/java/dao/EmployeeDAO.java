@@ -19,17 +19,17 @@ import utility.ConnectionManager;
  */
 public class EmployeeDAO {
 
-    private static String getEmployeeStatement = "SELECT * FROM EMPLOYEE WHERE employee_ID = ? ";
-    private static String getEmployeeStatementwithPassword = "SELECT * FROM EMPLOYEE WHERE employee_ID = ? AND password = ? ";
+    private static String getEmployeeStatement = "SELECT * FROM EMPLOYEE WHERE employeeID = ? ";
+    private static String getEmployeeStatementwithPassword = "SELECT * FROM EMPLOYEE WHERE employeeID = ? AND password = ? ";
     private static String getAllEmployeeStatement = "SELECT * FROM EMPLOYEE";
     private static String getEmployeeFromNameStatement = "SELECT * FROM EMPLOYEE WHERE name = ?";
     private static String deleteEmployeeByNRICStatement = "DELETE FROM EMPLOYEE WHERE NRIC = ?";
     private static String insertEmployeeStatement = "INSERT INTO EMPLOYEE values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-    private static String resetPasswordStatement = "UPDATE EMPLOYEE SET PASSWORD = ? WHERE email = ?";
+    private static String resetPasswordStatement = "UPDATE EMPLOYEE SET password = ? WHERE email = ?";
     private static String getEmployeeByEmailStatement = "SELECT * FROM EMPLOYEE WHERE email = ?";
-    private static String deleteEmployeeByEmployeeIdStatement = "DELETE FROM EMPLOYEE WHERE employee_ID = ?";
+    private static String deleteEmployeeByEmployeeIdStatement = "DELETE FROM EMPLOYEE WHERE employeeID = ?";
     private static String deleteEmployeeByEmployeeNameStatement = "DELETE FROM EMPLOYEE WHERE name = ?";
-    private static String updateEmployeeStatement = "UPDATE EMPLOYEE SET employee_ID=?, email=?, isAdmin=?, currentSalary=?, Position=?, supervisor=?, CPF=?, BankAccount=?, name=?, number=? where NRIC=?";
+    private static String updateEmployeeStatement = "UPDATE EMPLOYEE SET employeeID=?, email=?, isAdmin=?, currentSalary=?, position=?, supervisor=?, CPF=?, bankAccount=?, name=?, number=? where NRIC=?";
 
     public static Employee getEmployee(String name) {
         try (Connection conn = ConnectionManager.getConnection()) {
@@ -48,7 +48,7 @@ public class EmployeeDAO {
             String password = rs.getString(2);
             String email = rs.getString(3);
             int isAdmin = Integer.parseInt(rs.getString(4));
-            double currentSalary = rs.getDouble(5);
+            String currentSalary = rs.getString(5);
             String position = rs.getString(6);
             int isSupervisor = Integer.parseInt(rs.getString(7));
             double cpf = rs.getDouble(8);
@@ -85,7 +85,7 @@ public class EmployeeDAO {
             String password = rs.getString(2);
             String email = rs.getString(3);
             int isAdmin = Integer.parseInt(rs.getString(4));
-            double currentSalary = rs.getDouble(5);
+            String currentSalary = rs.getString(5);
             String position = rs.getString(6);
             int isSupervisor = Integer.parseInt(rs.getString(7));
             double cpf = rs.getDouble(8);
@@ -127,7 +127,7 @@ public class EmployeeDAO {
             String password = rs.getString(2);
             String email = rs.getString(3);
             int isAdmin = Integer.parseInt(rs.getString(4));
-            double currentSalary = rs.getDouble(5);
+            String currentSalary = rs.getString(5);
             String position = rs.getString(6);
             int isSupervisor = Integer.parseInt(rs.getString(7));
             double cpf = rs.getDouble(8);
@@ -166,7 +166,7 @@ public class EmployeeDAO {
             String employeeID = rs.getString(1);
             String password = rs.getString(2);
             int isAdmin = Integer.parseInt(rs.getString(4));
-            double currentSalary = rs.getDouble(5);
+            String currentSalary = rs.getString(5);
             String position = rs.getString(6);
             int isSupervisor = Integer.parseInt(rs.getString(7));
             double cpf = rs.getDouble(8);
@@ -202,7 +202,7 @@ public class EmployeeDAO {
                 return empList;
             }
             while(rs.next()) {
-                empList.add(new Employee(rs.getString(1), rs.getString(2), rs.getString(3), Integer.parseInt(rs.getString(4)), Double.parseDouble(rs.getString(5)), rs.getString(6), Integer.parseInt(rs.getString(7)), Double.parseDouble(rs.getString(8)), Integer.parseInt(rs.getString(9)), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
+                empList.add(new Employee(rs.getString(1), rs.getString(2), rs.getString(3), Integer.parseInt(rs.getString(4)), rs.getString(5), rs.getString(6), Integer.parseInt(rs.getString(7)), Double.parseDouble(rs.getString(8)), Integer.parseInt(rs.getString(9)), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
             }
             return empList;
         } catch (SQLException e) {

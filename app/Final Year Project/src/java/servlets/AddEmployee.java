@@ -44,27 +44,28 @@ public class AddEmployee extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
           try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String employeeName = (String)request.getAttribute("employeeName");
-            String employeeNRIC = (String)request.getAttribute("employeeNRIC");
-            String employeeEmail = (String)request.getAttribute("employeeEmail");
-            String employeeNumber = (String)request.getAttribute("employeeNumber");
-            String employeeBankAccount = (String)request.getAttribute("employeeBankAccount");
-            String employeeCPF = (String)request.getAttribute("employeeCPF");
-            String employeePosition = (String)request.getAttribute("employeePosition");
-            String supervisor = (String)request.getAttribute("supervisor");
-            String employeeSalary = (String)request.getAttribute("employeeSalary");
-            String isAdminValue = (String)request.getAttribute("isAdmin");
+            String employeeName = request.getParameter("employeeName");
+            String employeeNRIC = request.getParameter("employeeNRIC");
+            String employeeEmail = request.getParameter("employeeEmail");
+            String employeeNumber = request.getParameter("employeeNumber");
+            String employeeBankAccount = request.getParameter("employeeBankAccount");
+            String employeeCPF = request.getParameter("employeeCPF");
+            String employeePosition = request.getParameter("employeePosition");
+            String supervisor = request.getParameter("supervisor");
+            String employeeSalary = request.getParameter("employeeSalary");
+            String isAdminValue = request.getParameter("isAdmin");
             //if it is admin, should be 0
             int isAdmin = 1;
             if(isAdminValue=="yes"){
                 isAdmin = 0;
             }
-            String tempPassword = (String)request.getAttribute("tempPassword");
+            String tempPassword = request.getParameter("tempPassword");
             String employeeID = employeeEmail.substring(0, employeeEmail.indexOf("@"));
             
             EmployeeDAO empDAO= new EmployeeDAO();
             if(empDAO.createEmployee(employeeID, tempPassword, employeeEmail, isAdmin, employeeSalary, employeePosition, supervisor, employeeCPF, employeeBankAccount, employeeNRIC, employeeName, employeeNumber)) {
                 request.setAttribute("Employee Added", "status");
+                response.sendRedirect("ViewEmployee.jsp");
             } else {
                 request.setAttribute("Unable to add Employee", "status");
             }

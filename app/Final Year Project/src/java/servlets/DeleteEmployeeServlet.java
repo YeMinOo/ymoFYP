@@ -43,7 +43,7 @@ public class DeleteEmployeeServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
 
-            String name = (String) request.getAttribute("name");
+            String name = request.getParameter("name");
             String message = "";
             
             EmployeeDAO empDAO = new EmployeeDAO();
@@ -53,8 +53,8 @@ public class DeleteEmployeeServlet extends HttpServlet {
                 request.setAttribute(message, "Unsuccessful");
             }
 
-            RequestDispatcher rd = request.getRequestDispatcher("ViewEmployee.jsp");
-            rd.forward(request, (ServletResponse) response);
+            //RequestDispatcher rd = request.getRequestDispatcher("ViewEmployee.jsp");
+            //rd.forward(request, (ServletResponse) response);
             response.sendRedirect("ViewEmployee.jsp");
         } 
     }

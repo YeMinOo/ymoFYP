@@ -429,7 +429,7 @@
                                         <form method="post" action="DeleteEmployeeServlet">
                                             <input type="hidden" value="<%=nameList.get(i)%>" name="name">
                                             <td>
-                                                <input type="submit" id="DeleteEmployeeServlet" value="Delete Employee">
+                                                <input type="submit" value="Delete Employee">
                                             </td>
                                         </form>
                                     </tr>
