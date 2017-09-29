@@ -269,7 +269,7 @@
                     <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
                 </form><!-- /form -->
             </div><!-- /card-container -->
-            <a href="forgotPassword.jsp">Forgot/Change Password?</a>
+            <center><a href="forgotPassword.jsp">Forgot/Change Password?</a></center>
         </div><!-- /container -->
     </body>
     <footer class="bs-docs-footer" role="contentinfo">

@@ -4,6 +4,8 @@
     Author     : jagdishps.2014
 --%>
 
+<%@page import="entity.Employee"%>
+<%@page import="dao.EmployeeDAO"%>
 <%@page import="entity.Client"%>
 <%@page import="dao.ClientDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -16,79 +18,150 @@
         <title>Update Client</title>
     </head>
     <body>
-        <div class="container-fluid">
-            <%
-                
-            String id = request.getParameter("id");
-            ClientDAO clientDAO = new ClientDAO(); 
-            Client client = clientDAO.getClientById(id);
-            
-            %>
-            <h1>Update Client</h1>
-            <div class="container">
-                <form action="UpdateClientServlet" method="post">
-                    <label>Client ID: </label>
-                    <input type="text" name='clientId' id="clientId" class="form-control" placeholder=<%=client.getClientId()%> required autofocus readonly>
-                    </br>
-                    <label>Company Category: </label>
-                    
-                    <input type="text" name='companyCategory' id="companyCategory" class="form-control" value=<%=client.getCompanyCategory()%> required autofocus>
-                    </br>
-                    <label>Business Type: </label>
-                     
-                    <input type="text" name='businessType' id="businessType" class="form-control" value=<%=client.getBusinessType()%> required autofocus>
-                    </br>
-                    <label>Company Name: </label>
-                    
-                    <input type="text" name='companyName' id="companyName" class="form-control" value=<%=client.getCompanyName()%> required autofocus>
-                    </br>
-                    <label>Incorporation: </label>
-                     
-                    <input type="text" name='incorporation' id="incorporation" class="form-control" value=<%=client.getIncorporation()%> required autofocus>
-                    </br>
-                    <label>UEN Number: </label>
-                     
-                    <input type="text" name='UenNumber' id="UenNumber" class="form-control" value=<%=client.getUenNumber()%> required autofocus>
-                    </br>
-                    <label>Office Contact: </label>
-                    
-                    <input type="text" name='officeContact' id="officeContact" class="form-control" value=<%=client.getOfficeContact()%> autofocus>
-                    </br>
-                    <label>Mobile Contact: </label>
-                     
-                    <input type="text" name='mobileContact' id="mobileContact" class="form-control" value=<%=client.getMobileContact()%> required autofocus>
-                    </br>
-                    <label>Email Address: </label>
-                    
-                    <input type="text" name='emailAddress' id="emailAddress" class="form-control" value=<%=client.getEmailAddress()%> required autofocus>
-                    </br>
-                    <label>Office Address: </label>
-                  
-                    <input type="text" name='officeAddress' id="officeAddress" class="form-control" value=<%=client.getOfficeAddress()%> required autofocus>
-                    </br>
-                    <label>Financial Year End: </label>
-                     
-                    <input type="text" name='financialYearEnd' id="financialYearEnd" class="form-control" value=<%=client.getFinancialYearEnd()%> required autofocus>
-                    </br>
-                    <label>GST: </label>
-                     
-                    <input type="text" name='gst' id="gst" class="form-control" value=<%=client.getGst()%> required autofocus>
-                    </br>
-                    <label>Director: </label>
-                     
-                    <input type="text" name='director' id="director" class="form-control" value=<%=client.getDirector()%> required autofocus>
-                    </br>
-                    <label>Shareholder: </label>
-                     
-                    <input type="text" name='shareholder' id="shareholder" class="form-control" value=<%=client.getShareholder()%> required autofocus>
-                     </br>
-                    <label>Secretary: </label>
-                    
-                    <input type="text" name='secretary' id="secretary" class="form-control" value=<%=client.getSecretary()%> required autofocus>
-                    </br>
-                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Update Client!</button>
-                </form>
-            </div>
+        <%
+            String empId = (String) session.getAttribute("userId");
+            EmployeeDAO empDAO = new EmployeeDAO();
+            Employee employee = empDAO.getEmployeeByID(empId);
+            String employeeName = "";
+            if (employee == null) {
+                employeeName = "No User";
+            } else {
+                employeeName = employee.getName();
+            }
+            int sessionUserIsAdmin = employee.getIsAdmin();
+        %>
+            <!--
+        ###########################################################################################################################
+        -->
+        <nav class="container-fluid" width="100%" height="100%" Style="padding: 1%">
+            <nav class="header navbar navbar-default navbar-static-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <div>
+                            <table>
+                                <tr>
+                                    <td style="white-space: nowrap">
+                                        <a href="http://www.abaccounting.com.sg/"><img src="images/Abundant Accounting Logo - Copy.png" width="30%" height="30%"/></a>
+                                    </td>
+                                    <td style="white-space: nowrap">
+                                        <a class="navbar-brand" href="http://www.abaccounting.com.sg/">Abundant Accounting</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="navbar-right" style="position: relative">
+                        <div class="dropdown align-buttons">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Functions
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <% if(sessionUserIsAdmin == 1){
+                                %>
+                                    <li><a href="SearchStaff.jsp">Search Staff</a></li>
+                                    <li><a href="SearchClient.jsp">Search Client</a></li>
+                                    <li><a href="SearchProject.jsp">Search Project</a></li>
+                                    <li><a href="CreateClient.jsp">Create Client</a></li>
+                                    <li><a href="ViewAllClient.jsp">View All Client</a></li>
+                                    <li><a href="ViewTask.jsp">View Tasks</a></li>
+                                    <li><a href="InvoiceManagement.jsp">Invoice Functions</a></li>
+                                <%
+                                }else{
+                                %>
+                                    <li><a href="SearchStaff.jsp">Search Staff</a></li>
+                                    <li><a href="SearchClient.jsp">Search Client</a></li>
+                                    <li><a href="SearchProject.jsp">Search Project</a></li>
+                                    <li><a href="CreateClient.jsp">Create Client</a></li>
+                                    <li><a href="ViewAllClient.jsp">View All Client</a></li>
+                                    <li><a href="CreateUser.jsp">Create User</a></li>
+                                    <li><a href="ViewEmployee.jsp">View All Employees</a></li>
+                                    <li><a href="ViewTask.jsp">View Tasks</a></li>
+                                    <li><a href="Task_Assigned_Table.jsp">View All Tasks</a></li>
+                                    <li><a href="InvoiceManagement.jsp">Invoice Functions</a></li>
+                                <%
+                                }
+                                %>
+                            </ul>
+                        </div>
+                        <div class="align-buttons">
+                            <a href="#"><span class="glyphicon glyphicon-home"</span>Home</a>
+                            <a href="StaffProfile.jsp"><span class="glyphicon glyphicon-user"></span> <%=employeeName%></a>
+                            <a href="LogoutProcess"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <nav class="navbar navbar-default navbar-center">
+                <div class="container-fluid" style="text-align: center">
+                    <div class="container-fluid">
+                        <h1>Update Client</h1>
+                        <div class="container">
+                            <form action="UpdateClientServlet" method="post">
+                                <label>Client ID: </label>
+                                <input type="text" name='clientId' id="clientId" class="form-control" placeholder=<%=client.getClientId()%> required autofocus readonly>
+                                </br>
+                                <label>Company Category: </label>
+
+                                <input type="text" name='companyCategory' id="companyCategory" class="form-control" value=<%=client.getCompanyCategory()%> required autofocus>
+                                </br>
+                                <label>Business Type: </label>
+
+                                <input type="text" name='businessType' id="businessType" class="form-control" value=<%=client.getBusinessType()%> required autofocus>
+                                </br>
+                                <label>Company Name: </label>
+
+                                <input type="text" name='companyName' id="companyName" class="form-control" value=<%=client.getCompanyName()%> required autofocus>
+                                </br>
+                                <label>Incorporation: </label>
+
+                                <input type="text" name='incorporation' id="incorporation" class="form-control" value=<%=client.getIncorporation()%> required autofocus>
+                                </br>
+                                <label>UEN Number: </label>
+
+                                <input type="text" name='UenNumber' id="UenNumber" class="form-control" value=<%=client.getUenNumber()%> required autofocus>
+                                </br>
+                                <label>Office Contact: </label>
+
+                                <input type="text" name='officeContact' id="officeContact" class="form-control" value=<%=client.getOfficeContact()%> autofocus>
+                                </br>
+                                <label>Mobile Contact: </label>
+
+                                <input type="text" name='mobileContact' id="mobileContact" class="form-control" value=<%=client.getMobileContact()%> required autofocus>
+                                </br>
+                                <label>Email Address: </label>
+
+                                <input type="text" name='emailAddress' id="emailAddress" class="form-control" value=<%=client.getEmailAddress()%> required autofocus>
+                                </br>
+                                <label>Office Address: </label>
+
+                                <input type="text" name='officeAddress' id="officeAddress" class="form-control" value=<%=client.getOfficeAddress()%> required autofocus>
+                                </br>
+                                <label>Financial Year End: </label>
+
+                                <input type="text" name='financialYearEnd' id="financialYearEnd" class="form-control" value=<%=client.getFinancialYearEnd()%> required autofocus>
+                                </br>
+                                <label>GST: </label>
+
+                                <input type="text" name='gst' id="gst" class="form-control" value=<%=client.getGst()%> required autofocus>
+                                </br>
+                                <label>Director: </label>
+
+                                <input type="text" name='director' id="director" class="form-control" value=<%=client.getDirector()%> required autofocus>
+                                </br>
+                                <label>Shareholder: </label>
+
+                                <input type="text" name='shareholder' id="shareholder" class="form-control" value=<%=client.getShareholder()%> required autofocus>
+                                 </br>
+                                <label>Secretary: </label>
+
+                                <input type="text" name='secretary' id="secretary" class="form-control" value=<%=client.getSecretary()%> required autofocus>
+                                </br>
+                                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Update Client!</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
         </div>
     </body>
     <footer class="bs-docs-footer" role="contentinfo">

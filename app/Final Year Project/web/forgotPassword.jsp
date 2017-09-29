@@ -31,7 +31,7 @@
                 // print error at the top
         %>
         <div class="alert alert-danger">
-            <strong>Invalid Email.</strong> 
+            <strong>Error: Invalid Email</strong> 
         </div>
         <%
             }

@@ -294,15 +294,19 @@
         <%
             String empId = (String) session.getAttribute("userId");
             EmployeeDAO empDAO = new EmployeeDAO();
-            Employee emp = empDAO.getEmployeeByID(empId);
+            Employee employee = empDAO.getEmployeeByID(empId);
             String employeeName = "";
-            if (emp == null) {
+            if (employee == null) {
                 employeeName = "No User";
             } else {
-                employeeName = emp.getName();
+                employeeName = employee.getName();
             }
+            int sessionUserIsAdmin = employee.getIsAdmin();
         %>
-        <nav class="container-fluid" width="100%" height="100%">
+        <!--
+        ###########################################################################################################################
+        -->
+        <nav class="container-fluid" width="100%" height="100%" Style="padding: 1%">
             <nav class="header navbar navbar-default navbar-static-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -325,28 +329,42 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <!--
+                                <% if(sessionUserIsAdmin == 1){
+                                %>
                                     <li><a href="SearchStaff.jsp">Search Staff</a></li>
                                     <li><a href="SearchClient.jsp">Search Client</a></li>
-                                    <li><a href="SearchJob.jsp">Search Job</a></li>
-                                    <li><a href="ViewJob.jsp">View Job</a></li>
-                                    <li><a href="AddNewJob.jsp">Add New Job</a></li>
-                                    <li><a href="EditJob.jsp">Edit Job</a></li>
-                                    <li><a href="DeleteJob.jsp">Delete Job</a></li>
-                                -->
-                                <li><a href="ViewTask.jsp">View Tasks</a></li>
+                                    <li><a href="SearchProject.jsp">Search Project</a></li>
+                                    <li><a href="CreateClient.jsp">Create Client</a></li>
+                                    <li><a href="ViewAllClient.jsp">View All Client</a></li>
+                                    <li><a href="ViewTask.jsp">View Tasks</a></li>
+                                    <li><a href="InvoiceManagement.jsp">Invoice Functions</a></li>
+                                <%
+                                }else{
+                                %>
+                                    <li><a href="SearchStaff.jsp">Search Staff</a></li>
+                                    <li><a href="SearchClient.jsp">Search Client</a></li>
+                                    <li><a href="SearchProject.jsp">Search Project</a></li>
+                                    <li><a href="CreateClient.jsp">Create Client</a></li>
+                                    <li><a href="ViewAllClient.jsp">View All Client</a></li>
+                                    <li><a href="CreateUser.jsp">Create User</a></li>
+                                    <li><a href="ViewEmployee.jsp">View All Employees</a></li>
+                                    <li><a href="ViewTask.jsp">View Tasks</a></li>
+                                    <li><a href="Task_Assigned_Table.jsp">View All Tasks</a></li>
+                                    <li><a href="InvoiceManagement.jsp">Invoice Functions</a></li>
+                                <%
+                                }
+                                %>
                             </ul>
                         </div>
                         <div class="align-buttons">
-                            <a href="Calendar_Employee.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
+                            <a href="#"><span class="glyphicon glyphicon-home"</span>Home</a>
                             <a href="StaffProfile.jsp"><span class="glyphicon glyphicon-user"></span> <%=employeeName%></a>
                             <a href="LogoutProcess"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
                         </div>
                     </div>
                 </div>
             </nav>
-<!-- ########################################################## end of header ########################################################## --> 
-            <nav class="navbar navbar-default navbar-center" style="padding-bottom: 20px">
+            <nav class="navbar navbar-default navbar-center">
                 <div class="container-fluid" style="text-align: center">
                     <div class="container-fluid">
                         <h3></h3>

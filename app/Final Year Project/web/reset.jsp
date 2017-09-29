@@ -4,8 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="css/styles.css" />
-        <title>JSP Page</title>
-
+        <title>Password Reset</title>
     </head>
     <body>
         <p>Min 8 characters in length</p>
@@ -15,18 +14,14 @@
                     <form class="form-signin" id ="formtype" role="form" action="resetPasswordServlet" method="post">
                         <span id="reauth-email" class="reauth-email"></span>
                         <div class="row pass">
-        			<input type="password" id="password1" name="password1" placeholder="Enter New Password" />
+                            <input type="password" id="password1" name="password1" placeholder="Enter New Password" />
         		</div>
-        		
         		<div class="row pass">
-        			<input type="password" id="password2" name="password2" placeholder="Confirm New Password"  />
+                            <input type="password" id="password2" name="password2" placeholder="Confirm New Password"  />
         		</div>
-
                         <div class="arrowCap"></div>
                         <div class="arrow"></div>
-
                         <p class="meterText">Password Meter</p>
-
                         <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Submit</button>
                     </form><!-- /form -->
                 </div><!-- /card-container -->
@@ -48,6 +43,5 @@
         <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
         <script src="lib/jquery.complexify.js"></script>
         <script src="lib/script.js"></script>
-
     </body>
 </html>
