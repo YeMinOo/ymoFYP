@@ -301,7 +301,7 @@
             } else {
                 employeeName = employee.getName();
             }
-            int sessionUserIsAdmin = employee.getIsAdmin();
+            String sessionUserIsAdmin = employee.getIsAdmin();
         %>
         <!--
         ###########################################################################################################################
@@ -329,7 +329,7 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <% if(sessionUserIsAdmin == 1){
+                                <% if(sessionUserIsAdmin.equals("no")){
                                 %>
                                     <li><a href="SearchStaff.jsp">Search Staff</a></li>
                                     <li><a href="SearchClient.jsp">Search Client</a></li>
@@ -357,7 +357,7 @@
                             </ul>
                         </div>
                         <div class="align-buttons">
-                            <% if(sessionUserIsAdmin == 1){
+                            <% if(sessionUserIsAdmin.equals("no")){
                             %>
                                 <a href="Calendar_Employee.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
                             <%}else{%>
@@ -458,10 +458,10 @@
                 <div class="container-fluid" style="text-align: center">
                     <div class="container-fluid">
                         <h3></h3>
-                        <h2>TASKS DUE IN NEXT 7 DAYS</h2>
+                        <h2>TASKS DUE IN NEXT 21 DAYS</h2>
                         <table id="myTable">
                             <tr>
-                                <th>Task to Complete within 7 days</th>
+                                <th>Task to Complete within 21 days</th>
 
                                 <%
                                     List<String> reminders = new ArrayList();

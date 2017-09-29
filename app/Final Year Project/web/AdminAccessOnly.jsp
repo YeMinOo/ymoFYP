@@ -26,8 +26,8 @@
         String userId2 = (String) session.getAttribute("userId");
         EmployeeDAO employeeDAO = new EmployeeDAO();
         Employee emp = employeeDAO.getEmployeeByID(userId2);
-        int isAdmin = emp.getIsAdmin();
-        if(isAdmin!=0){
+        String isAdmin = emp.getIsAdmin();
+        if(isAdmin.equals("no")){
             //it is not an admin!
             request.setAttribute("isAdmin", "Not an Admin"); 
             RequestDispatcher rd = request.getRequestDispatcher("Calendar_Employee");

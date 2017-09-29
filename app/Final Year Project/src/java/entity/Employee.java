@@ -15,10 +15,10 @@ public class Employee {
     private String employeeID;
     private String password;
     private String email;
-    private int isAdmin;
+    private String isAdmin;
     private String currentSalary;
     private String position;
-    private int isSupervisor;
+    private String isSupervisor;
     private double cpf;
     private int projectsWorkedOn;
     private String bankAccount;
@@ -26,7 +26,7 @@ public class Employee {
     private String name;
     private String phoneNum;
 
-    public Employee(String employeeID, String password, String email, int isAdmin, String currentSalary, String position, int isSupervisor, double cpf, int projectsWorkedOn, String bankAccount, String nric, String name, String phoneNum) {
+    public Employee(String employeeID, String password, String email, String isAdmin, String currentSalary, String position, String isSupervisor, double cpf, int projectsWorkedOn, String bankAccount, String nric, String name, String phoneNum) {
         this.employeeID = employeeID;
         this.password = password;
         this.email = email;
@@ -66,11 +66,11 @@ public class Employee {
         this.email = email;
     }
 
-    public int getIsAdmin() {
+    public String getIsAdmin() {
         return isAdmin;
     }
 
-    public void setIsAdmin(int isAdmin) {
+    public void setIsAdmin(String isAdmin) {
         this.isAdmin = isAdmin;
     }
 
@@ -90,11 +90,11 @@ public class Employee {
         this.position = position;
     }
 
-    public int getIsSupervisor() {
+    public String getIsSupervisor() {
         return isSupervisor;
     }
 
-    public void setIsSupervisor(int isSupervisor) {
+    public void setIsSupervisor(String isSupervisor) {
         this.isSupervisor = isSupervisor;
     }
 
@@ -145,6 +145,8 @@ public class Employee {
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
     }
+
+    
     
     
 

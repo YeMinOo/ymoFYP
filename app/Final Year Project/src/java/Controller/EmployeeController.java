@@ -39,7 +39,7 @@ public class EmployeeController {
      * @return generated token if user is admin else null
      */
     public String generateToken(Employee employee) {
-        if (employee.getIsAdmin() == 0) {
+        if (employee.getIsAdmin().equals("yes")) {
             long longToken = Math.abs(random.nextLong());
             String randomToken = Long.toString(longToken, 16);
             return JWTUtility.sign(randomToken, employee.getEmployeeID());

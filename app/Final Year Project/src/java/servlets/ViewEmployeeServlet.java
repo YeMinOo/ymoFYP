@@ -61,14 +61,14 @@ public class ViewEmployeeServlet extends HttpServlet {
                 nameList.add(emp.getName());
                 emailList.add(emp.getEmail());
                 positionList.add(emp.getPosition());
-                isAdminList.add(Integer.toString(emp.getIsAdmin()));
+                isAdminList.add(emp.getIsAdmin());
             }
             for (int i = 0; i < nameList.size(); i++) {
                 returnNameList.add(nameList.get(i));
                 returnEmailList.add(emailList.get(i));
                 returnPositionList.add(positionList.get(i));
                 String isAdmin = isAdminList.get(i);
-                if (isAdmin.equals("1")) {
+                if (isAdmin.equals("no")) {
                     returnIsAdminList.add("No");
                 } else {
                     returnIsAdminList.add("Yes");

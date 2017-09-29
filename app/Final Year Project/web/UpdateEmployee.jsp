@@ -277,14 +277,14 @@
             } else {
                 employeeName = employee.getName();
             }
-            int sessionUserIsAdmin = employee.getIsAdmin();
+            String sessionUserIsAdmin = employee.getIsAdmin();
             //check if the the attributes exists, if not then redirect to get it
             
             //getting all attributes
-            String employeeID = (String) request.getAttribute("id");
+            /*String employeeID = (String) request.getAttribute("id");
             String password = (String) request.getAttribute("password");
             String email = (String) request.getAttribute("email");
-            Boolean isAdmin2 = (Boolean) request.getAttribute("isAdmin");
+            String isAdmin2 = (Boolean) request.getAttribute("isAdmin");
             String currentSalary = (String) request.getAttribute("currentSalary");
             String position = (String) request.getAttribute("position");
             Boolean supervisor = (Boolean) request.getAttribute("supervisor");
@@ -293,8 +293,10 @@
             String nric = (String) request.getAttribute("nric");
             String name = (String) request.getAttribute("name");
             String number = (String) request.getAttribute("number");
-            
+            */
             Boolean status = (Boolean)request.getAttribute("status");
+            String name = request.getParameter("name");
+            Employee employeeToUpdate = empDAO.getEmployee(name);
         %>
         
         <nav class="container-fluid" width="100%" height="100%" Style="padding: 1%">
@@ -320,7 +322,7 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <% if(sessionUserIsAdmin == 1){
+                                <% if(sessionUserIsAdmin.equals("no")){
                                 %>
                                     <li><a href="SearchStaff.jsp">Search Staff</a></li>
                                     <li><a href="SearchClient.jsp">Search Client</a></li>
@@ -348,7 +350,7 @@
                             </ul>
                         </div>
                         <div class="align-buttons">
-                            <% if(sessionUserIsAdmin == 1){
+                            <% if(sessionUserIsAdmin.equals("no")){
                             %>
                                 <a href="Calendar_Employee.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
                             <%}else{%>
@@ -381,114 +383,42 @@
                         <h3>Edit User Details!</h3>
                         <!-- insert form here -->
                         <form method="post" action="UpdateEmployeeInfoServlet">
-                            <table id="myTable">
-                                    <tr>
-                                        <th>
-                                            Employee ID 
-                                        </th>
-                                        <th>
-                                            Email
-                                        </th>
-                                        <th>
-                                            Is Admin?
-                                        </th>
-                                        <th>
-                                            Current Salary
-                                        </th>
-                                        <th>
-                                            Position
-                                        </th>
-                                        <th>
-                                            Supervisor
-                                        </th>
-                                        <th>
-                                            CPF
-                                        </th>
-                                        <th>
-                                            Bank Account
-                                        </th>
-                                        <th>
-                                            NRIC
-                                        </th>
-                                        <th>
-                                            Name
-                                        </th>
-                                        <th>
-                                            Number
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=employeeID%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='employeeID' id='employeeID' value=<%=employeeID%>>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=email%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='email' id='email' value=<%=email%>>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=isAdmin2%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='isAdmin' id='isAdmin' value=<%=isAdmin2%>>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=currentSalary%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='currentSalary' id='currentSalary' value=<%=currentSalary%>>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=position%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='position' id='position' value=<%=position%>>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=supervisor%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='supervisor' id='supervisor' value=<%=supervisor%>>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=cpf%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='cpf' id='cpf' value=<%=cpf%>>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=bankAcct%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='bankAcct' id='bankAcct' value=<%=bankAcct%>>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=nric%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='nric' id='nric' value=<%=nric%>>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=name%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='name' id='name' value=<%=name%>>
-                                        <td>
-                                            <div contenteditable>
-                                                <%=number%>
-                                            </div>
-                                        </td>
-                                        <input type='hidden' name='number' id='number' value=<%=number%>>
-                                    </tr>
-                            </table>
-                            <div style="float: right">
+                                <label>Employee ID: </label>
+                                <input type="text" name='employeeID' id="employeeID" class="form-control" placeholder=<%=employeeToUpdate.getEmployeeID()%> required autofocus readonly>
+                                </br>
+                                <label>Email: </label>
+                                <input type="text" name='email' id="email" class="form-control" value=<%=employeeToUpdate.getEmail()%> required autofocus>
+                                </br>
+                                <label> Admin: </label>
+                                <input type="text" name='isAdmin' id="isAdmin" class="form-control" value=<%=employeeToUpdate.getIsAdmin()%> required autofocus>
+                                </br>
+                                <label>Salary: </label>
+                                <input type="text" name='currentSalary' id="currentSalary" class="form-control" value=<%=employeeToUpdate.getCurrentSalary()%> required autofocus>
+                                </br>   
+                                <label>Position: </label>
+                                <input type="text" name='position' id="position" class="form-control" value=<%=employeeToUpdate.getPosition()%> required autofocus>
+                                </br>   
+                                <label>Supervisor: </label>
+                                <input type="text" name='supervisor' id="supervisor" class="form-control" value=<%=employeeToUpdate.getIsSupervisor()%> required autofocus>
+                                </br> 
+                                <label>CPF: </label>
+                                <input type="text" name='CPF' id="CPF" class="form-control" value=<%=employeeToUpdate.getCpf()%> required autofocus>
+                                </br>
+                                <label>Bank Account: </label>
+                                <input type="text" name='bankAccount' id="bankAccount" class="form-control" value=<%=employeeToUpdate.getBankAccount()%> required autofocus>
+                                </br>
+                                <label>NRIC: </label>
+                                <input type="text" name='NRIC' id="NRIC" class="form-control" value=<%=employeeToUpdate.getNric()%> required autofocus>
+                                </br>   
+                                <label>Name: </label>
+                                <input type="text" name='name' id="name" class="form-control" value=<%=employeeToUpdate.getName()%> required autofocus>
+                                </br>
+                                <label>Number: </label>
+                                <input type="text" name='number' id="number" class="form-control" value=<%=employeeToUpdate.getPhoneNum()%> required autofocus>
+                                </br>
+                                 
                                 <input type="submit" name="submit">
-                            </div>
+                                
                         </form>
                     </div>
                 </div>

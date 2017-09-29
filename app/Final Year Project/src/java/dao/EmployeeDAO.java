@@ -47,10 +47,10 @@ public class EmployeeDAO {
             String employeeID = rs.getString(1);
             String password = rs.getString(2);
             String email = rs.getString(3);
-            int isAdmin = Integer.parseInt(rs.getString(4));
+            String isAdmin = rs.getString(4);
             String currentSalary = rs.getString(5);
             String position = rs.getString(6);
-            int isSupervisor = Integer.parseInt(rs.getString(7));
+            String isSupervisor = rs.getString(7);
             double cpf = rs.getDouble(8);
             int projectsWorkedOn = Integer.parseInt(rs.getString(9));
             String bankAccount = rs.getString(10);
@@ -84,10 +84,10 @@ public class EmployeeDAO {
             String employeeID = rs.getString(1);
             String password = rs.getString(2);
             String email = rs.getString(3);
-            int isAdmin = Integer.parseInt(rs.getString(4));
+            String isAdmin = rs.getString(4);
             String currentSalary = rs.getString(5);
             String position = rs.getString(6);
-            int isSupervisor = Integer.parseInt(rs.getString(7));
+            String isSupervisor = rs.getString(7);
             double cpf = rs.getDouble(8);
             int projectsWorkedOn = Integer.parseInt(rs.getString(9));
             String bankAccount = rs.getString(10);
@@ -126,10 +126,10 @@ public class EmployeeDAO {
             String employeeID = rs.getString(1);
             String password = rs.getString(2);
             String email = rs.getString(3);
-            int isAdmin = Integer.parseInt(rs.getString(4));
+            String isAdmin = rs.getString(4);
             String currentSalary = rs.getString(5);
             String position = rs.getString(6);
-            int isSupervisor = Integer.parseInt(rs.getString(7));
+            String isSupervisor = rs.getString(7);
             double cpf = rs.getDouble(8);
             int projectsWorkedOn = Integer.parseInt(rs.getString(9));
             String bankAccount = rs.getString(10);
@@ -165,10 +165,10 @@ public class EmployeeDAO {
             // else returns result
             String employeeID = rs.getString(1);
             String password = rs.getString(2);
-            int isAdmin = Integer.parseInt(rs.getString(4));
+            String isAdmin = rs.getString(4);
             String currentSalary = rs.getString(5);
             String position = rs.getString(6);
-            int isSupervisor = Integer.parseInt(rs.getString(7));
+            String isSupervisor = rs.getString(7);
             double cpf = rs.getDouble(8);
             int projectsWorkedOn = Integer.parseInt(rs.getString(9));
             String bankAccount = rs.getString(10);
@@ -202,7 +202,7 @@ public class EmployeeDAO {
                 return empList;
             }
             while(rs.next()) {
-                empList.add(new Employee(rs.getString(1), rs.getString(2), rs.getString(3), Integer.parseInt(rs.getString(4)), rs.getString(5), rs.getString(6), Integer.parseInt(rs.getString(7)), Double.parseDouble(rs.getString(8)), Integer.parseInt(rs.getString(9)), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
+                empList.add(new Employee(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), Double.parseDouble(rs.getString(8)), Integer.parseInt(rs.getString(9)), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
             }
             return empList;
         } catch (SQLException e) {
@@ -257,17 +257,17 @@ public class EmployeeDAO {
         return false;
     }
     
-    public boolean createEmployee (String employeeID, String password, String email, int isAdmin, String currentSalary, String position, String supervisor, String cpf, String bankAccount, String nric, String name, String phoneNum) {
+    public boolean createEmployee (String employeeID, String password, String email, String isAdmin, String currentSalary, String position, String supervisor, double cpf, String bankAccount, String nric, String name, String phoneNum) {
         try (Connection conn = ConnectionManager.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(insertEmployeeStatement);
             stmt.setString(1, employeeID);
             stmt.setString(2, password);
             stmt.setString(3, email);
-            stmt.setInt(4, isAdmin);
+            stmt.setString(4, isAdmin);
             stmt.setString(5, currentSalary);
             stmt.setString(6, position);
             stmt.setString(7, supervisor);
-            stmt.setString(8, cpf);
+            stmt.setDouble(8, cpf);
             stmt.setInt(9, 0); //new employee means 0 number of projects worked on
             stmt.setString(10, bankAccount);
             stmt.setString(11, nric);
@@ -301,16 +301,16 @@ public class EmployeeDAO {
         return false;
     }
     
-    public boolean updateEmployeeDetails(String employeeID, String email, int isAdmin, String currentSalary, String position, String supervisor, String cpf, String bankAccount, String nric, String name, String number){
+    public boolean updateEmployeeDetails(String employeeID, String email, String isAdmin, String currentSalary, String position, String supervisor, double cpf, String bankAccount, String nric, String name, String number){
         try (Connection conn = ConnectionManager.getConnection()){
             PreparedStatement stmt = conn.prepareStatement("updateEmployeeStatement");
             stmt.setString(1, employeeID);
             stmt.setString(2, email);
-            stmt.setInt(3, isAdmin);
+            stmt.setString(3, isAdmin);
             stmt.setString(4, currentSalary);
             stmt.setString(5, position);
             stmt.setString(6, supervisor);
-            stmt.setString(7, cpf);
+            stmt.setDouble(7, cpf);
             stmt.setString(8, bankAccount);
             stmt.setString(9, name);
             stmt.setString(10, number);

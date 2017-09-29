@@ -66,20 +66,11 @@
                     },
                     displayEventTime: false,
                     editable: true,
-                    
-                    customButtons: {
-                        myCustomButton: {
-                            text: 'create project',
-                            click: function() {
-                               
-                            }
-                        }
-                    },        
-            
+         
                     header: {
                         left: 'prev,next today',
                         center: 'title',
-                        right: 'myCustomButton month,agendaWeek,agendaDay,listMonth'
+                        right: 'month,agendaWeek,agendaDay,listMonth'
                     },
                     eventLimit: true,
                     events: 'DisplayEvent',
@@ -437,7 +428,7 @@
             } else {
                 employeeName = employee.getName();
             }
-            int sessionUserIsAdmin = employee.getIsAdmin();
+            String sessionUserIsAdmin = employee.getIsAdmin();
         %>
         <!--
         ###########################################################################################################################
@@ -465,7 +456,7 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <% if(sessionUserIsAdmin == 1){
+                                <% if(sessionUserIsAdmin.equals("no")){
                                 %>
                                     <li><a href="SearchStaff.jsp">Search Staff</a></li>
                                     <li><a href="SearchClient.jsp">Search Client</a></li>
@@ -493,7 +484,7 @@
                             </ul>
                         </div>
                         <div class="align-buttons">
-                            <% if(sessionUserIsAdmin == 1){
+                            <% if(sessionUserIsAdmin.equals("no")){
                             %>
                                 <a href="Calendar_Employee.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
                             <%}else{%>

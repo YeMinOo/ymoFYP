@@ -55,23 +55,24 @@ public class AddEmployee extends HttpServlet {
             String employeeSalary = request.getParameter("employeeSalary");
             String isAdminValue = request.getParameter("isAdmin");
             //if it is admin, should be 0
-            int isAdmin = 1;
+            /*int isAdmin = 1;
             if(isAdminValue=="yes"){
                 isAdmin = 0;
-            }
+            }*/
             String tempPassword = request.getParameter("tempPassword");
             String employeeID = employeeEmail.substring(0, employeeEmail.indexOf("@"));
             
             EmployeeDAO empDAO= new EmployeeDAO();
-            if(empDAO.createEmployee(employeeID, tempPassword, employeeEmail, isAdmin, employeeSalary, employeePosition, supervisor, employeeCPF, employeeBankAccount, employeeNRIC, employeeName, employeeNumber)) {
+            if(empDAO.createEmployee(employeeID, tempPassword, employeeEmail, isAdminValue, employeeSalary, employeePosition, supervisor, Double.parseDouble(employeeCPF), employeeBankAccount, employeeNRIC, employeeName, employeeNumber)) {
                 request.setAttribute("Employee Added", "status");
                 response.sendRedirect("ViewEmployee.jsp");
             } else {
                 request.setAttribute("Unable to add Employee", "status");
+                response.sendRedirect("CreateUser.jsp");
             }
-            RequestDispatcher rd = request.getRequestDispatcher("CreateUser.jsp");
-            rd.forward(request,response);
-            response.sendRedirect("CreateUser.jsp");
+            //RequestDispatcher rd = request.getRequestDispatcher("CreateUser.jsp");
+            //rd.forward(request,response);
+            
         }
     }
 

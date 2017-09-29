@@ -242,7 +242,7 @@
             } else {
                 employeeName = employee.getName();
             }
-            int sessionUserIsAdmin = employee.getIsAdmin();
+            String sessionUserIsAdmin = employee.getIsAdmin();
         %><!--
         ###########################################################################################################################
         -->
@@ -269,7 +269,7 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <% if(sessionUserIsAdmin == 1){
+                                <% if(sessionUserIsAdmin.equals("no")){
                                 %>
                                     <li><a href="SearchStaff.jsp">Search Staff</a></li>
                                     <li><a href="SearchClient.jsp">Search Client</a></li>
@@ -297,7 +297,7 @@
                             </ul>
                         </div>
                         <div class="align-buttons">
-                            <% if(sessionUserIsAdmin == 1){
+                            <% if(sessionUserIsAdmin.equals("no")){
                             %>
                                 <a href="Calendar_Employee.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
                             <%}else{%>
@@ -313,23 +313,7 @@
                 <div class="container-fluid" style="text-align: center">
                     <div class="container-fluid">
                     <div class="container-fluid">
-                        <%
-                        String status = null;
-                        status = (String)request.getAttribute("status");
-                        if(status!=null & status=="Employee Added"){
-                        %>
-                            <div class="alert alert-success">
-                                <strong>New User Created!</strong>
-                            </div>
-                        <%
-                        }else{
-                        %>
-                            <div class="alert alert-danger">
-                                <strong>Problem Creating New User, Please Try Again!</strong>
-                            </div>
-                        <%
-                        }
-                        %>
+                        
                         <h1>Create User</h1>
                         <div class="container">
                             <form action="AddEmployee" method="post">
@@ -355,19 +339,18 @@
                                 <input type="text" name='employeePosition' id="employeePosition" class="form-control" placeholder="Employee's Position" required autofocus>
                                 </br>
                                 <label>Supervisor: </label>
-                                <input type="text" name='supervisor' id="supervisor" class="form-control" placeholder="Employee's Supervisor" required autofocus>
+                                <select name='supervisor' id="supervisor" class="form-control" required autofocus>
+                                 <option value="yes">yes</option>
+                                 <option value="no">no</option>
+                                </select>
                                 </br>
                                 <label>Salary: </label>
                                 <input type="text" name='employeeSalary' id="employeeSalary" class="form-control" placeholder="Employee's Salary" required autofocus>
                                 </br>
                                 <label>Has Admin Access: </label>
-                                <Select type="text" name='isAdmin' id="isAdmin" class="form-control" required autofocus>
-                                    <option type='text' name='isAdmin' value='yes'>
-                                        Has Admin Access
-                                    </option>
-                                    <option type='text' name='isAdmin' value='no'>
-                                        No Admin Access
-                                    </option>
+                                <Select name='isAdmin' id="isAdmin" class="form-control" required autofocus>
+                                <option value="yes">yes</option>
+                                <option value="no">no</option>
                                 </Select>
                                 </br>
                                 <label>Temporary Password: </label>

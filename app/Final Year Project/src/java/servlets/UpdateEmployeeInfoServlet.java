@@ -40,25 +40,25 @@ public class UpdateEmployeeInfoServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String employeeID = (String) request.getAttribute("id");
-            String password = (String) request.getAttribute("password");
-            String email = (String) request.getAttribute("email");
-            int isAdmin = Integer.parseInt((String)request.getAttribute("isAdmin"));
-            String currentSalary = (String) request.getAttribute("currentSalary");
-            String position = (String) request.getAttribute("position");
-            String supervisor = (String) request.getAttribute("supervisor");
-            String cpf = (String) request.getAttribute("cpf");
-            int numProjects = (int) request.getAttribute("numProjects");
-            String bankAcct = (String) request.getAttribute("bankAcct");
-            String nric = (String) request.getAttribute("nric");
-            String name = (String) request.getAttribute("name");
-            String number = (String) request.getAttribute("number");
+            String employeeID =  request.getParameter("employeeID");
+            
+            String email =  request.getParameter("email");
+            String isAdmin = request.getParameter("isAdmin");
+            String currentSalary =  request.getParameter("currentSalary");
+            String position =  request.getParameter("position");
+            String supervisor = request.getParameter("supervisor");
+            double cpf =  Double.parseDouble(request.getParameter("CPF"));
+            
+            String bankAcct = (String) request.getParameter("bankAccount");
+            String nric = (String) request.getParameter("nric");
+            String name = (String) request.getParameter("name");
+            String number = (String) request.getParameter("number");
 
             EmployeeDAO employeeDao = new EmployeeDAO();
             boolean status = employeeDao.updateEmployeeDetails(employeeID, email, isAdmin, currentSalary, position, supervisor, cpf, bankAcct, nric, name, number);
-            RequestDispatcher rd = request.getRequestDispatcher("ViewEmployee.jsp");
-            request.setAttribute("status", status);
-            rd.forward(request, response);
+            //RequestDispatcher rd = request.getRequestDispatcher("ViewEmployee.jsp");
+            //request.setAttribute("status", status);
+            //rd.forward(request, response);
             // will forward status of "true" or "false", if false means there's some sort of error
             response.sendRedirect("ViewEmployee.jsp");
         }    
