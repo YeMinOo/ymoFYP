@@ -275,9 +275,6 @@
         </style>
     </head>
     <body>
-                             
-             
-
         <!-- ########################################################## header ########################################################## -->
         <%
             String empId = (String) session.getAttribute("userId");
@@ -289,10 +286,7 @@
             } else {
                 employeeName = employee.getName();
             }
-            
-            
-            
-            
+            int sessionUserIsAdmin = employee.getIsAdmin();
             
             ArrayList<String> idList = new ArrayList();
             ArrayList<String> nameList = new ArrayList(); 
