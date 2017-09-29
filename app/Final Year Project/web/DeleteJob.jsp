@@ -298,7 +298,12 @@
                                 </ul>
                             </div>
                             <div class="align-buttons">
-                                <a href="#"><span class="glyphicon glyphicon-home"</span>Home</a>
+                                <% if(sessionUserIsAdmin == 1){
+                                %>  
+                                    <a href="Calendar_Employee.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
+                                <%}else{%>
+                                    <a href="Calendar_Admin.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
+                                <%}%>
                                 <a href="StaffProfile.jsp"><span class="glyphicon glyphicon-user"></span> <%=employeeName%></a>
                                 <a href="LogoutProcess"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
                             </div>

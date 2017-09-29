@@ -65,12 +65,21 @@
                         end: '17:00', // an end time (6pm)
                     },
                     displayEventTime: false,
-
                     editable: true,
+                    
+                    customButtons: {
+                        myCustomButton: {
+                            text: 'create project',
+                            click: function() {
+                               
+                            }
+                        }
+                    },        
+            
                     header: {
                         left: 'prev,next today',
                         center: 'title',
-                        right: 'month,agendaWeek,agendaDay,listMonth'
+                        right: 'myCustomButton month,agendaWeek,agendaDay,listMonth'
                     },
                     eventLimit: true,
                     events: 'DisplayEvent',
@@ -85,12 +94,6 @@
                     selectable: true,
                     selectHelper: true,
                     function(start, end, allDay) {
-                        var title = prompt('Project Title:');
-                        var remarks = prompt('Remarks:');
-                        var assignedPeople = prompt('Assigned People:');
-                        var repeat = prompt('How often does this project repeat?');
-
-
                         if (title) {
                             var start = $.fullCalendar.formatDate(start, "YYYY-MM-DD HH:mm:ss");
                             var end = $.fullCalendar.formatDate(end, "YYYY-MM-DD HH:mm:ss");
@@ -155,6 +158,23 @@
                                 alert("Updated Successfully");
                             }
                         });
+                    }, 
+                    
+                    eventMouseover: function(calEvent, jsEvent) {
+                    var tooltip = '<div class="tooltipevent" style="width:200px;height:200px;background:#F5DEB3;position:absolute;z-index:10001;">' + calEvent.title + "<br>" + calEvent.companyName + "<br>" + calEvent.start + "<br>" + calEvent.end + "<br>" + calEvent.remarks + "<br>" + calEvent.assignEmployee + "<br>" + calEvent.reviewer + "<br>" + calEvent.companyCat + "<br>" + calEvent.businessType + '</div>';
+                      $("body").append(tooltip);
+                      $(this).mouseover(function(e) {
+                          $(this).css('z-index', 10000);
+                          $('.tooltipevent').fadeIn('500');
+                          $('.tooltipevent').fadeTo('10', 1.9);
+                      }).mousemove(function(e) {
+                          $('.tooltipevent').css('top', e.pageY + 10);
+                          $('.tooltipevent').css('left', e.pageX + 20);
+                      });
+                    },
+                     eventMouseout: function(calEvent, jsEvent) {
+                            $(this).css('z-index', 8);
+                            $('.tooltipevent').remove();
                     }
 
                 });
@@ -181,7 +201,7 @@
                 $("#create-user").button().on("click", function () {
                     dialog.dialog("open");
                 });
-                function addProject() {
+                function addProject() 
                     var title = document.getElementById("title").value;
                     var companyName = document.getElementById("companyName").value;;
                     var start = document.getElementById("startDate").value;;
@@ -473,7 +493,12 @@
                             </ul>
                         </div>
                         <div class="align-buttons">
-                            <a href="#"><span class="glyphicon glyphicon-home"</span>Home</a>
+                            <% if(sessionUserIsAdmin == 1){
+                            %>
+                                <a href="Calendar_Employee.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
+                            <%}else{%>
+                                <a href="Calendar_Admin.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
+                            <%}%>
                             <a href="StaffProfile.jsp"><span class="glyphicon glyphicon-user"></span> <%=employeeName%></a>
                             <a href="LogoutProcess"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
                         </div>
@@ -512,13 +537,11 @@
                     <input type="text" name="companyCat" id="companyCat" class="text ui-widget-content ui-corner-all">
                     <label for="businessType">Business Type</label>
                     <input type="text" name="businessType" id="businessType" class="text ui-widget-content ui-corner-all">
-
                     <!-- Allow form submission with keyboard without duplicating the dialog button -->
                     <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
                 </fieldset>
             </form>
         </div>
-        <button id="create-user">Create Project</button>
     </body>
     <footer class="bs-docs-footer" role="contentinfo">
         <div class="container" style="text-align: center">
