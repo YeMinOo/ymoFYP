@@ -15,13 +15,14 @@
         <%
             String empId = (String) session.getAttribute("userId");
             EmployeeDAO empDAO = new EmployeeDAO();
-            Employee emp = empDAO.getEmployeeByID(empId);
+            Employee employee = empDAO.getEmployeeByID(empId);
             String employeeName = "";
-            if (emp == null) {
+            if (employee == null) {
                 employeeName = "No User";
             } else {
-                employeeName = emp.getName();
+                employeeName = employee.getName();
             }
+            int sessionUserIsAdmin = employee.getIsAdmin();
             ClientDAO clientDAO = new ClientDAO();
             String clientId = request.getParameter("clientId");
             Client client = clientDAO.getClientByID(clientId);
@@ -31,7 +32,7 @@
                 clientName = "Client not found";
             } else {
                 clientName = client.getName();
-                isAdmin = emp.getIsAdmin();
+                isAdmin = employee.getIsAdmin();
             }
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -250,40 +251,6 @@
                 padding-top: 20px;
                 padding-right: 20px;
             }
-            * {
-                box-sizing: border-box;
-            }
-
-            #myInput {
-                background-image: url('/css/searchicon.png');
-                background-position: 10px 10px;
-                background-repeat: no-repeat;
-                width: 100%;
-                font-size: 16px;
-                padding: 12px 20px 12px 40px;
-                border: 1px solid #ddd;
-                margin-bottom: 12px;
-            }
-
-            #myTable {
-                border-collapse: collapse;
-                width: 100%;
-                border: 1px solid #ddd;
-                font-size: 18px;
-            }
-
-            #myTable th, #myTable td {
-                text-align: left;
-                padding: 12px;
-            }
-
-            #myTable tr {
-                border-bottom: 1px solid #ddd;
-            }
-
-            #myTable tr.header, #myTable tr:hover {
-                background-color: #f1f1f1;
-            }
         </style>
         <script>
             $(document).ready(function(e){
@@ -299,47 +266,18 @@
     </head>
     <body>
         <!-- ########################################################## header ########################################################## -->        
-        <nav class="container-fluid" width="100%" height="100%">
+        <nav class="container-fluid" width="100%" height="100%" Style="padding: 1%">
             <nav class="header navbar navbar-default navbar-static-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <div>
                             <table>
                                 <tr>
-                                    <td>
-                                        <a href="http://www.abaccounting.com.sg/">
-                                            <img src="images/Abundant Accounting Logo - Copy.png"/>
-                                        </a>
+                                    <td style="white-space: nowrap">
+                                        <a href="http://www.abaccounting.com.sg/"><img src="images/Abundant Accounting Logo - Copy.png" width="30%" height="30%"/></a>
                                     </td>
-                                    <td>
-                                        <a href="http://www.abaccounting.com.sg/">Abundant Accounting</a>
-                                    </td>
-                                    <td>
-                                        <div class="container">
-                                            <div class="row">    
-                                                <div class="col-xs-6">
-                                                    <div class="input-group">
-                                                        <div class="input-group-btn search-panel">
-                                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                                <span id="search_concept">Filter by</span> 
-                                                                <span class="caret"></span>
-                                                            </button>
-                                                            <ul class="dropdown-menu" role="menu">
-                                                              <li><a href="#All">All</a></li>
-                                                              <li><a href="#Jobs">Jobs</a></li>
-                                                              <li><a href="#Client">Client</a></li>
-                                                              <li><a href="#Staff">Staff</a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <input type="hidden" name="search_param" value="all" id="search_param">         
-                                                        <input type="text" class="form-control" name="x" placeholder="Search term...">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <td style="white-space: nowrap">
+                                        <a class="navbar-brand" href="http://www.abaccounting.com.sg/">Abundant Accounting</a>
                                     </td>
                                 </tr>
                             </table>
@@ -351,21 +289,35 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="SearchJob.jsp">Search Job</a></li>
-                                <% if (isAdmin==0) {%>
-                                    <li><a href="Task_Assigned_Table.jsp">View Tasks</a></li>
-                                <%} else {%>
-                                   <li><a href="ViewTask.jsp">View Tasks</a></li>
-                                <%}%>
+                                <% if(sessionUserIsAdmin == 1){
+                                %>
+                                    <li><a href="SearchStaff.jsp">Search Staff</a></li>
+                                    <li><a href="SearchClient.jsp">Search Client</a></li>
+                                    <li><a href="SearchProject.jsp">Search Project</a></li>
+                                    <li><a href="CreateClient.jsp">Create Client</a></li>
+                                    <li><a href="ViewAllClient.jsp">View All Client</a></li>
+                                    <li><a href="ViewTask.jsp">View Tasks</a></li>
+                                    <li><a href="InvoiceManagement.jsp">Invoice Functions</a></li>
+                                <%
+                                }else{
+                                %>
+                                    <li><a href="SearchStaff.jsp">Search Staff</a></li>
+                                    <li><a href="SearchClient.jsp">Search Client</a></li>
+                                    <li><a href="SearchProject.jsp">Search Project</a></li>
+                                    <li><a href="CreateClient.jsp">Create Client</a></li>
+                                    <li><a href="ViewAllClient.jsp">View All Client</a></li>
+                                    <li><a href="CreateUser.jsp">Create User</a></li>
+                                    <li><a href="ViewEmployee.jsp">View All Employees</a></li>
+                                    <li><a href="ViewTask.jsp">View Tasks</a></li>
+                                    <li><a href="Task_Assigned_Table.jsp">View All Tasks</a></li>
+                                    <li><a href="InvoiceManagement.jsp">Invoice Functions</a></li>
+                                <%
+                                }
+                                %>
                             </ul>
                         </div>
                         <div class="align-buttons">
-                            <% if (isAdmin==0) {%>
-                                <a href="Calendar_Admin.jsp"><span class="glyphicon glyphicon-home"</span> Home</a>
-                            <%} else {%>
-                                <a href="Calendar_Employee.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
-                            <%}
-                            %>
+                            <a href="#"><span class="glyphicon glyphicon-home"</span>Home</a>
                             <a href="StaffProfile.jsp"><span class="glyphicon glyphicon-user"></span> <%=employeeName%></a>
                             <a href="LogoutProcess"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
                         </div>
