@@ -36,9 +36,8 @@ public class UpdateClientServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String clientId = request.getParameter("clientId");
             String companyCategory = request.getParameter("companyCategory");
-           
+
             String businessType = request.getParameter("businessType");
             String companyName = request.getParameter("companyName");
             String incorporation = request.getParameter("incorporation");
@@ -48,17 +47,21 @@ public class UpdateClientServlet extends HttpServlet {
             String emailAddress = request.getParameter("emailAddress");
             String officeAddress = request.getParameter("officeAddress");
             String financialYearEnd = request.getParameter("financialYearEnd");
-            String gst = request.getParameter("gst"); 
+            String gst = request.getParameter("gst");
             String director = request.getParameter("director");
             String shareholder = request.getParameter("shareholder");
             String secretary = request.getParameter("secretary");
             
-            
-            ClientDAO clientDAO= new ClientDAO();
-            
-            clientDAO.updateClient(clientId,companyCategory,businessType,companyName,incorporation,UenNumber,officeContact,mobileContact,emailAddress,officeAddress,financialYearEnd,gst,director,shareholder,secretary);
-            request.setAttribute("Client Updated", "status");
-            
+            ClientDAO clientDAO = new ClientDAO();
+
+            boolean status = clientDAO.updateClient(companyCategory, businessType, companyName, incorporation, UenNumber, officeContact, mobileContact, emailAddress, officeAddress, financialYearEnd, gst, director, shareholder, secretary);
+            if (status) {
+                System.out.println("Successful");
+//                request.setAttribute("Client Updated", "status");
+            } else {
+                System.out.println("Unsuccessful");
+            }
+
             //RequestDispatcher rd = request.getRequestDispatcher("ViewAllClient.jsp");
             //rd.forward(request,response);
             response.sendRedirect("ViewAllClient.jsp");

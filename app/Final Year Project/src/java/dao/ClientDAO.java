@@ -52,32 +52,34 @@ public class ClientDAO {
         return false; 
     }
     
-    public void updateClient(String clientId, String companyCategory, String businessType, String companyName, String incorporation, String UenNumber, String officeContact, String mobileContact, String emailAddress, String officeAddress, String financialYearEnd, String gst, String director, String shareholder, String secretary){
+    public boolean updateClient(String companyCategory, String businessType, String companyName, String incorporation, String UenNumber, String officeContact, String mobileContact, String emailAddress, String officeAddress, String financialYearEnd, String gst, String director, String shareholder, String secretary){
             try (Connection conn = ConnectionManager.getConnection()){
-            String statement = "UPDATE client SET companyCategory=?, businessType=?, companyName=?, incorporation=?, UENNumber=?, officeContact=?, mobileContact=?, contactEmailAddress=?, officeAddress=?, financialYearEnd=?, gst=?, director=?, shareholder=?, secretary=? WHERE clientId=?";
+            String statement = "UPDATE client SET companyCategory=?, businessType=?, companyName=?, incorporation=?, officeContact=?, mobileContact=?, contactEmailAddress=?, officeAddress=?, financialYearEnd=?, gst=?, director=?, shareholder=?, secretary=? WHERE UENNumber=?";
             PreparedStatement stmt = conn.prepareStatement(statement);
             
             stmt.setString(1, companyCategory);
             stmt.setString(2, businessType);
             stmt.setString(3, companyName);
             stmt.setString(4, incorporation);
-            stmt.setString(5, UenNumber);
-            stmt.setString(6, officeContact);
-            stmt.setString(7, mobileContact);
-            stmt.setString(8, emailAddress);
-            stmt.setString(9, officeAddress);
-            stmt.setString(10, financialYearEnd);
-            stmt.setString(11, gst);
-            stmt.setString(12, director);
-            stmt.setString(13, shareholder);
-            stmt.setString(14, secretary);
-            stmt.setString(15, clientId);
-            stmt.executeUpdate();
-            
+            stmt.setString(5, officeContact);
+            stmt.setString(6, mobileContact);
+            stmt.setString(7, emailAddress);
+            stmt.setString(8, officeAddress);
+            stmt.setString(9, financialYearEnd);
+            stmt.setString(10, gst);
+            stmt.setString(11, director);
+            stmt.setString(12, shareholder);
+            stmt.setString(13, secretary);
+            stmt.setString(14, UenNumber);
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected == 1) {
+                return true;
+            }
            
         } catch (SQLException e) {
             e.printStackTrace();
         }
+            return false;
     }
     
     public void deleteClient(String clientId){
