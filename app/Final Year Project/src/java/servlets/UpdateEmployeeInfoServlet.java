@@ -40,28 +40,31 @@ public class UpdateEmployeeInfoServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String employeeID =  request.getParameter("employeeID");
-            
-            String email =  request.getParameter("email");
+            String email = request.getParameter("email");
             String isAdmin = request.getParameter("isAdmin");
-            String currentSalary =  request.getParameter("currentSalary");
-            String position =  request.getParameter("position");
+            String currentSalary = request.getParameter("currentSalary");
+            String position = request.getParameter("position");
             String supervisor = request.getParameter("supervisor");
-            double cpf =  Double.parseDouble(request.getParameter("CPF"));
-            
-            String bankAcct = (String) request.getParameter("bankAccount");
-            String nric = (String) request.getParameter("nric");
-            String name = (String) request.getParameter("name");
-            String number = (String) request.getParameter("number");
-
+            double cpf = Double.parseDouble(request.getParameter("CPF"));
+            String bankAcct = request.getParameter("bankAccount");
+            String nric = request.getParameter("NRIC");
+            String name = request.getParameter("name");
+            String number = request.getParameter("number");
+            System.out.println(nric);
             EmployeeDAO employeeDao = new EmployeeDAO();
-            boolean status = employeeDao.updateEmployeeDetails(employeeID, email, isAdmin, currentSalary, position, supervisor, cpf, bankAcct, nric, name, number);
-            //RequestDispatcher rd = request.getRequestDispatcher("ViewEmployee.jsp");
-            //request.setAttribute("status", status);
-            //rd.forward(request, response);
+            boolean status = employeeDao.updateEmployeeDetails(email, isAdmin, currentSalary, position, supervisor, cpf, bankAcct, nric, name, number);
+            if (status == true) {
+                System.out.println("UPDATE IS SUCCESSFUL");
+            } else {
+                System.out.println("UPDATE IS UNSUCCESSFUL");
+            }
+
+//            RequestDispatcher rd = request.getRequestDispatcher("ViewEmployee.jsp");
+//            request.setAttribute("status", status);
+//            rd.forward(request, response);
             // will forward status of "true" or "false", if false means there's some sort of error
             response.sendRedirect("ViewEmployee.jsp");
-        }    
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -66,7 +66,7 @@
                     },
                     displayEventTime: false,
                     editable: true,
-         
+
                     header: {
                         left: 'prev,next today',
                         center: 'title',
@@ -149,23 +149,23 @@
                                 alert("Updated Successfully");
                             }
                         });
-                    }, 
-                    
-                    eventMouseover: function(calEvent, jsEvent) {
-                    var tooltip = '<div class="tooltipevent" style="width:200px;height:200px;background:#F5DEB3;position:absolute;z-index:10001;">' + calEvent.title + "<br>" + calEvent.companyName + "<br>" + calEvent.start + "<br>" + calEvent.end + "<br>" + calEvent.remarks + "<br>" + calEvent.assignEmployee + "<br>" + calEvent.reviewer + "<br>" + calEvent.companyCat + "<br>" + calEvent.businessType + '</div>';
-                      $("body").append(tooltip);
-                      $(this).mouseover(function(e) {
-                          $(this).css('z-index', 10000);
-                          $('.tooltipevent').fadeIn('500');
-                          $('.tooltipevent').fadeTo('10', 1.9);
-                      }).mousemove(function(e) {
-                          $('.tooltipevent').css('top', e.pageY + 10);
-                          $('.tooltipevent').css('left', e.pageX + 20);
-                      });
                     },
-                     eventMouseout: function(calEvent, jsEvent) {
-                            $(this).css('z-index', 8);
-                            $('.tooltipevent').remove();
+
+                    eventMouseover: function (calEvent, jsEvent) {
+                        var tooltip = '<div class="tooltipevent" style="width:200px;height:200px;background:#F5DEB3;position:absolute;z-index:10001;">' + calEvent.title + "<br>" + calEvent.companyName + "<br>" + calEvent.start + "<br>" + calEvent.end + "<br>" + calEvent.remarks + "<br>" + calEvent.assignEmployee + "<br>" + calEvent.reviewer + "<br>" + calEvent.companyCat + "<br>" + calEvent.businessType + '</div>';
+                        $("body").append(tooltip);
+                        $(this).mouseover(function (e) {
+                            $(this).css('z-index', 10000);
+                            $('.tooltipevent').fadeIn('500');
+                            $('.tooltipevent').fadeTo('10', 1.9);
+                        }).mousemove(function (e) {
+                            $('.tooltipevent').css('top', e.pageY + 10);
+                            $('.tooltipevent').css('left', e.pageX + 20);
+                        });
+                    },
+                    eventMouseout: function (calEvent, jsEvent) {
+                        $(this).css('z-index', 8);
+                        $('.tooltipevent').remove();
                     }
 
                 });
@@ -192,10 +192,12 @@
                 $("#create-user").button().on("click", function () {
                     dialog.dialog("open");
                 });
-                function addProject() 
+                function addProject() {
                     var title = document.getElementById("title").value;
-                    var companyName = document.getElementById("companyName").value;;
-                    var start = document.getElementById("startDate").value;;
+                    var companyName = document.getElementById("companyName").value;
+                    ;
+                    var start = document.getElementById("startDate").value;
+                    ;
                     var end = document.getElementById("endDate").value;
                     var remarks = document.getElementById("remarks").value;
                     var assignEmployee = document.getElementById("assignEmployee").value;
@@ -405,12 +407,12 @@
                 -webkit-transition: all 0.218s;
                 transition: all 0.218s;
             }
-            
+
             .body{
                 padding: 0;
                 margin: 0;
             }
-            
+
             .header{
                 padding-top: 20px;
                 padding-right: 20px;
@@ -418,8 +420,7 @@
         </style>
     </head>
     <body>
-        <%
-            String empId = (String) session.getAttribute("userId");
+        <%            String empId = (String) session.getAttribute("userId");
             EmployeeDAO empDAO = new EmployeeDAO();
             Employee employee = empDAO.getEmployeeByID(empId);
             String employeeName = "";
@@ -433,7 +434,7 @@
         <!--
         ###########################################################################################################################
         -->
-          <nav class="container-fluid" width="100%" height="100%" Style="padding: 1%">
+        <nav class="container-fluid" width="100%" height="100%" Style="padding: 1%">
             <nav class="header navbar navbar-default navbar-static-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -456,39 +457,39 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <% if(sessionUserIsAdmin.equals("no")){
+                                <% if (sessionUserIsAdmin.equals("no")) {
                                 %>
-                                    <li><a href="SearchStaff.jsp">Search Staff</a></li>
-                                    <li><a href="SearchClient.jsp">Search Client</a></li>
-                                    <li><a href="SearchProject.jsp">Search Project</a></li>
-                                    <li><a href="CreateClient.jsp">Create Client</a></li>
-                                    <li><a href="ViewAllClient.jsp">View All Client</a></li>
-                                    <li><a href="ViewTask.jsp">View Tasks</a></li>
-                                    <li><a href="InvoiceManagement.jsp">Invoice Functions</a></li>
-                                <%
-                                }else{
-                                %>
-                                    <li><a href="SearchStaff.jsp">Search Staff</a></li>
-                                    <li><a href="SearchClient.jsp">Search Client</a></li>
-                                    <li><a href="SearchProject.jsp">Search Project</a></li>
-                                    <li><a href="CreateClient.jsp">Create Client</a></li>
-                                    <li><a href="ViewAllClient.jsp">View All Client</a></li>
-                                    <li><a href="CreateUser.jsp">Create User</a></li>
-                                    <li><a href="ViewEmployee.jsp">View All Employees</a></li>
-                                    <li><a href="ViewTask.jsp">View Tasks</a></li>
-                                    <li><a href="Task_Assigned_Table.jsp">View All Tasks</a></li>
-                                    <li><a href="InvoiceManagement.jsp">Invoice Functions</a></li>
-                                <%
-                                }
-                                %>
+                                <li><a href="SearchStaff.jsp">Search Staff</a></li>
+                                <li><a href="SearchClient.jsp">Search Client</a></li>
+                                <li><a href="SearchProject.jsp">Search Project</a></li>
+                                <li><a href="CreateClient.jsp">Create Client</a></li>
+                                <li><a href="ViewAllClient.jsp">View All Client</a></li>
+                                <li><a href="ViewTask.jsp">View Tasks</a></li>
+                                <li><a href="InvoiceManagement.jsp">Invoice Functions</a></li>
+                                    <%
+                                    } else {
+                                    %>
+                                <li><a href="SearchStaff.jsp">Search Staff</a></li>
+                                <li><a href="SearchClient.jsp">Search Client</a></li>
+                                <li><a href="SearchProject.jsp">Search Project</a></li>
+                                <li><a href="CreateClient.jsp">Create Client</a></li>
+                                <li><a href="ViewAllClient.jsp">View All Client</a></li>
+                                <li><a href="CreateUser.jsp">Create User</a></li>
+                                <li><a href="ViewEmployee.jsp">View All Employees</a></li>
+                                <li><a href="ViewTask.jsp">View Tasks</a></li>
+                                <li><a href="Task_Assigned_Table.jsp">View All Tasks</a></li>
+                                <li><a href="InvoiceManagement.jsp">Invoice Functions</a></li>
+                                    <%
+                                        }
+                                    %>
                             </ul>
                         </div>
                         <div class="align-buttons">
-                            <% if(sessionUserIsAdmin.equals("no")){
+                            <% if (sessionUserIsAdmin.equals("no")) {
                             %>
-                                <a href="Calendar_Employee.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
-                            <%}else{%>
-                                <a href="Calendar_Admin.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
+                            <a href="Calendar_Employee.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
+                            <%} else {%>
+                            <a href="Calendar_Admin.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
                             <%}%>
                             <a href="StaffProfile.jsp"><span class="glyphicon glyphicon-user"></span> <%=employeeName%></a>
                             <a href="LogoutProcess"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
@@ -533,6 +534,7 @@
                 </fieldset>
             </form>
         </div>
+        <button id="create-user">Create Project</button>
     </body>
     <footer class="bs-docs-footer" role="contentinfo">
         <div class="container" style="text-align: center">

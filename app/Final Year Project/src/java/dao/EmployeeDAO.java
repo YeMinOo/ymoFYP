@@ -29,7 +29,7 @@ public class EmployeeDAO {
     private static String getEmployeeByEmailStatement = "SELECT * FROM EMPLOYEE WHERE email = ?";
     private static String deleteEmployeeByEmployeeIdStatement = "DELETE FROM EMPLOYEE WHERE employeeID = ?";
     private static String deleteEmployeeByEmployeeNameStatement = "DELETE FROM EMPLOYEE WHERE name = ?";
-    private static String updateEmployeeStatement = "UPDATE EMPLOYEE SET employeeID=?, email=?, isAdmin=?, currentSalary=?, position=?, supervisor=?, CPF=?, bankAccount=?, name=?, number=? where NRIC=?";
+    private static String updateEmployeeStatement = "UPDATE EMPLOYEE SET email=?, isAdmin=?, currentSalary=?, position=?, supervisor=?, CPF=?, bankAccount=?, name=?, number=? WHERE NRIC=?";
 
     public static Employee getEmployee(String name) {
         try (Connection conn = ConnectionManager.getConnection()) {
@@ -301,20 +301,19 @@ public class EmployeeDAO {
         return false;
     }
     
-    public boolean updateEmployeeDetails(String employeeID, String email, String isAdmin, String currentSalary, String position, String supervisor, double cpf, String bankAccount, String nric, String name, String number){
+    public boolean updateEmployeeDetails(String email, String isAdmin, String currentSalary, String position, String supervisor, double cpf, String bankAccount, String nric, String name, String number){
         try (Connection conn = ConnectionManager.getConnection()){
-            PreparedStatement stmt = conn.prepareStatement("updateEmployeeStatement");
-            stmt.setString(1, employeeID);
-            stmt.setString(2, email);
-            stmt.setString(3, isAdmin);
-            stmt.setString(4, currentSalary);
-            stmt.setString(5, position);
-            stmt.setString(6, supervisor);
-            stmt.setDouble(7, cpf);
-            stmt.setString(8, bankAccount);
-            stmt.setString(9, name);
-            stmt.setString(10, number);
-            stmt.setString(11, nric);
+            PreparedStatement stmt = conn.prepareStatement(updateEmployeeStatement);
+            stmt.setString(1, email);
+            stmt.setString(2, isAdmin);
+            stmt.setString(3, currentSalary);
+            stmt.setString(4, position);
+            stmt.setString(5, supervisor);
+            stmt.setDouble(6, cpf);
+            stmt.setString(7, bankAccount);
+            stmt.setString(8, name);
+            stmt.setString(9, number);
+            stmt.setString(10, nric);
             
             int rowsAffected = stmt.executeUpdate();
             if(rowsAffected == 1){

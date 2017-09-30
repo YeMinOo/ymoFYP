@@ -404,6 +404,9 @@
                                 <label>CPF: </label>
                                 <input type="text" name='CPF' id="CPF" class="form-control" value=<%=employeeToUpdate.getCpf()%> required autofocus>
                                 </br>
+                                <label>Number of Projects Worked On: </label>
+                                <input type="text" name='projectsWorkedOn' id="projectsWorkedOn" class="form-control" placeholder=<%=employeeToUpdate.getProjectsWorkedOn()%> required autofocus readonly="readonly">
+                                </br>
                                 <label>Bank Account: </label>
                                 <input type="text" name='bankAccount' id="bankAccount" class="form-control" value=<%=employeeToUpdate.getBankAccount()%> required autofocus>
                                 </br>
