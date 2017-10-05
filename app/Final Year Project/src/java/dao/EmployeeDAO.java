@@ -30,6 +30,8 @@ public class EmployeeDAO {
     private static String deleteEmployeeByEmployeeIdStatement = "DELETE FROM EMPLOYEE WHERE employeeID = ?";
     private static String deleteEmployeeByEmployeeNameStatement = "DELETE FROM EMPLOYEE WHERE name = ?";
     private static String updateEmployeeStatement = "UPDATE EMPLOYEE SET email=?, isAdmin=?, currentSalary=?, position=?, supervisor=?, CPF=?, bankAccount=?, name=?, number=? WHERE NRIC=?";
+    private static String getEmployeeNameStatement = "SELECT name FROM EMPLOYEE WHERE supervisor = ?";
+    private static String getAllSupervisorStatement = "SELECT name FROM EMPLOYEE WHERE supervisor = ?";
 
     public static Employee getEmployee(String name) {
         try (Connection conn = ConnectionManager.getConnection()) {
@@ -57,7 +59,7 @@ public class EmployeeDAO {
             String nric = rs.getString(11);
             String empName = rs.getString(12);
             String phoneNum = rs.getString(13);
-            
+
             return new Employee(employeeID, password, email, isAdmin, currentSalary, position, isSupervisor, cpf, projectsWorkedOn, bankAccount, nric, empName, phoneNum);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -98,8 +100,7 @@ public class EmployeeDAO {
 
             //ArrayList<Job> currentJobs, ArrayList<Job> pastJobs, String department
             //return new Staff(email, pw, isAdmin);
-            
-            return new Employee(employeeID, password, email, isAdmin, currentSalary, position, isSupervisor, cpf,projectsWorkedOn, bankAccount, nric, empName, phoneNum);
+            return new Employee(employeeID, password, email, isAdmin, currentSalary, position, isSupervisor, cpf, projectsWorkedOn, bankAccount, nric, empName, phoneNum);
         } catch (SQLException e) {
             e.printStackTrace();
             //Returns empty staff, so that add new job can determine that the staff does note exist and it's a database error
@@ -149,8 +150,8 @@ public class EmployeeDAO {
             return null;
         }
     }
-    
-     public static Employee getEmployeeByEmail(String email) {
+
+    public static Employee getEmployeeByEmail(String email) {
         try (Connection conn = ConnectionManager.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(getEmployeeByEmailStatement);
             stmt.setString(1, email);
@@ -191,22 +192,22 @@ public class EmployeeDAO {
 
     public static ArrayList<Employee> getAllEmployees() {
         ArrayList<Employee> empList = new ArrayList<>();
-        
+
         try (Connection conn = ConnectionManager.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(getAllEmployeeStatement);
 
             ResultSet rs = stmt.executeQuery();
-            
+
             // returns null if no records are returned
             if (!rs.next()) {
                 return empList;
             }
-            while(rs.next()) {
+            while (rs.next()) {
                 empList.add(new Employee(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), Double.parseDouble(rs.getString(8)), Integer.parseInt(rs.getString(9)), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13)));
             }
             return empList;
         } catch (SQLException e) {
-            System.out.println("EmployeeDAO: (getAllEmployees) = "+e.toString());
+            System.out.println("EmployeeDAO: (getAllEmployees) = " + e.toString());
             //Returns empty staff, so that add new job can determine that the staff does note exist and it's a database error
             //a database error!
             //Will be checked by .getUserId method!
@@ -228,7 +229,7 @@ public class EmployeeDAO {
         }
         return false;
     }
-    
+
     public boolean deleteEmployeeByEmployeeId(String employeeId) {
         try (Connection conn = ConnectionManager.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(deleteEmployeeByEmployeeIdStatement);
@@ -242,7 +243,7 @@ public class EmployeeDAO {
         }
         return false;
     }
-    
+
     public boolean deleteEmployeeByEmployeeName(String employeeName) {
         try (Connection conn = ConnectionManager.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(deleteEmployeeByEmployeeNameStatement);
@@ -256,8 +257,8 @@ public class EmployeeDAO {
         }
         return false;
     }
-    
-    public boolean createEmployee (String employeeID, String password, String email, String isAdmin, String currentSalary, String position, String supervisor, double cpf, String bankAccount, String nric, String name, String phoneNum) {
+
+    public boolean createEmployee(String employeeID, String password, String email, String isAdmin, String currentSalary, String position, String supervisor, double cpf, String bankAccount, String nric, String name, String phoneNum) {
         try (Connection conn = ConnectionManager.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(insertEmployeeStatement);
             stmt.setString(1, employeeID);
@@ -273,7 +274,7 @@ public class EmployeeDAO {
             stmt.setString(11, nric);
             stmt.setString(12, name);
             stmt.setString(13, phoneNum);
-            
+
             int rowsAffected = stmt.executeUpdate();
 
             if (rowsAffected == 1) {
@@ -284,8 +285,8 @@ public class EmployeeDAO {
         }
         return false;
     }
-    
-    public boolean resetPassword (String pwd, String email) {
+
+    public boolean resetPassword(String pwd, String email) {
         try (Connection conn = ConnectionManager.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(resetPasswordStatement);
             stmt.setString(1, pwd);
@@ -300,9 +301,9 @@ public class EmployeeDAO {
         }
         return false;
     }
-    
-    public boolean updateEmployeeDetails(String email, String isAdmin, String currentSalary, String position, String supervisor, double cpf, String bankAccount, String nric, String name, String number){
-        try (Connection conn = ConnectionManager.getConnection()){
+
+    public boolean updateEmployeeDetails(String email, String isAdmin, String currentSalary, String position, String supervisor, double cpf, String bankAccount, String nric, String name, String number) {
+        try (Connection conn = ConnectionManager.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(updateEmployeeStatement);
             stmt.setString(1, email);
             stmt.setString(2, isAdmin);
@@ -314,14 +315,61 @@ public class EmployeeDAO {
             stmt.setString(8, name);
             stmt.setString(9, number);
             stmt.setString(10, nric);
-            
+
             int rowsAffected = stmt.executeUpdate();
-            if(rowsAffected == 1){
+            if (rowsAffected == 1) {
                 return true;
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public ArrayList<String> getAllEmployeeNames() {
+        ArrayList<String> nameList = new ArrayList<>();
+
+        try (Connection conn = ConnectionManager.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(getEmployeeNameStatement);
+            stmt.setString(1, "no");
+            ResultSet rs = stmt.executeQuery();
+
+            // returns null if no records are returned
+            if (!rs.next()) {
+                return nameList;
+            }
+            nameList.add(rs.getString(1));
+            while (rs.next()) {
+                nameList.add(rs.getString(1));
+            }
+            return nameList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nameList;
+    }
+
+    public ArrayList<String> getAllSupervisor() {
+        ArrayList<String> supList = new ArrayList<>();
+
+        try (Connection conn = ConnectionManager.getConnection()) {
+            PreparedStatement stmt = conn.prepareStatement(getAllSupervisorStatement);
+            stmt.setString(1, "yes");
+            ResultSet rs = stmt.executeQuery();
+
+            // returns null if no records are returned
+            if (!rs.next()) {
+                return supList;
+            }
+            //System.out.println("ROW COUNT======="+rowCount);
+            supList.add(rs.getString(1));
+            while (rs.next()) {
+                supList.add(rs.getString(1));
+            }
+            return supList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return supList;
     }
 }

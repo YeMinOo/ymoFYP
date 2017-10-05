@@ -47,13 +47,15 @@ public class AddEvent extends HttpServlet {
             String end = request.getParameter("endDate");
             String remarks = request.getParameter("remarks");
             String assignEmployee = request.getParameter("assignEmployee");
+            String assignEmployee1 = request.getParameter("assignEmployee1");
             String reviewer = request.getParameter("reviewer");
             String companyCat = request.getParameter("companyCat");
             String businessType = request.getParameter("businessType");
-
+            
+            System.out.println("EMPLOYEE===================="+assignEmployee);
             
             Connection conn = ConnectionManager.getConnection();
-            String statement = "Insert into project values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String statement = "Insert into project values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement stmt = conn.prepareStatement(statement);
 
             stmt.setInt(1, getCounter());
@@ -66,10 +68,11 @@ public class AddEvent extends HttpServlet {
             stmt.setString(8, end);
             stmt.setString(9, remarks);
             stmt.setString(10, assignEmployee);
-            stmt.setString(11, reviewer);
-            stmt.setInt(12, 1);
-            stmt.setInt(13, 12); //recurring project values
-
+            stmt.setString(11, assignEmployee1);
+            stmt.setString(12, reviewer);
+            stmt.setString(13, "Incomplete");
+            stmt.setInt(14, 12); //recurring project values
+            stmt.setString(15, "Incomplete");
             stmt.executeUpdate();
 
         } catch (SQLException e) {

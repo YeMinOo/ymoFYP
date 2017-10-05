@@ -6,13 +6,10 @@
 package dao;
 import entity.Job;
 import entity.Employee;
-import entity.Task;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import utility.ConnectionManager;
@@ -112,17 +109,18 @@ public class JobDAO {
         }
     }
     
-    public ArrayList<Job> viewEmployeeTasks(String employeeID){
+    public ArrayList<Job> viewEmployeeTasks(String name){
         ArrayList<Job> jobList = new ArrayList<>();
          
         try(Connection conn = ConnectionManager.getConnection()){
-            String statement = "SELECT * FROM PROJECT WHERE ASSIGNED_EMPLOYEE=?";
+            String statement = "SELECT * FROM PROJECT WHERE ASSIGNED_EMPLOYEE=? OR ASSIGNED_EMPLOYEE2=?";
             PreparedStatement stmt = conn.prepareStatement(statement);
-            stmt.setString(1, employeeID);
+            stmt.setString(1, name);
+            stmt.setString(2,name);
             ResultSet rs = stmt.executeQuery();
             
             while(rs.next()){
-                Job job = new Job(rs.getInt(1),rs.getString(2),rs.getDate(3), rs.getDate(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getString(8),rs.getString(9));
+                Job job = new Job(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getDate(7), rs.getDate(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getString(15));
                 jobList.add(job);
             }
             
@@ -158,8 +156,6 @@ public class JobDAO {
     
     public int getCounter() throws SQLException {
         
-         
-        
         try(Connection conn = ConnectionManager.getConnection()){
         PreparedStatement stmt = conn.prepareStatement("Select max(id) from project");
         ResultSet rs = stmt.executeQuery();
@@ -183,7 +179,7 @@ public class JobDAO {
             
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
-                Job job = new Job(rs.getInt(1),rs.getString(2),rs.getDate(3), rs.getDate(4), rs.getString(5), rs.getString(6), rs.getBoolean(7), rs.getString(8),rs.getString(9));
+                Job job = new Job(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getDate(7), rs.getDate(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getString(12), rs.getString(13), rs.getString(14), rs.getString(15));
                 jobList.add(job);
             }
         }catch (SQLException e){

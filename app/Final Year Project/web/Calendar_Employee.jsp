@@ -1,4 +1,5 @@
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.google.gson.JsonArray"%>
 <%@page import="entity.Employee"%>
 <%@page import="dao.EmployeeDAO"%>
@@ -175,7 +176,7 @@
                     width: 400,
                     modal: true,
                     buttons: {
-                        "Create a project": addProject,
+                        "Update project": updateProject,
                         Cancel: function () {
                             dialog.dialog("close");
                         }
@@ -192,12 +193,10 @@
                 $("#create-user").button().on("click", function () {
                     dialog.dialog("open");
                 });
-                function addProject() {
+                function updateProject() {
                     var title = document.getElementById("title").value;
                     var companyName = document.getElementById("companyName").value;
-                    ;
                     var start = document.getElementById("startDate").value;
-                    ;
                     var end = document.getElementById("endDate").value;
                     var remarks = document.getElementById("remarks").value;
                     var assignEmployee = document.getElementById("assignEmployee").value;
@@ -507,7 +506,8 @@
                 </div>
             </nav>
         </nav>
-        <div id="dialog-form" title="Create new project">
+
+        <div id="dialog-form" title="Update project">
             <p>All form fields are required.</p>
             <form>
                 <fieldset>
@@ -519,22 +519,63 @@
                     <input type="date" name="startDate" id="startDate" class="text ui-widget-content ui-corner-all">
                     <label for="endDate">End Date</label>
                     <input type="date" name="endDate" id="endDate" class="text ui-widget-content ui-corner-all">
+                    <%
+                        ArrayList<String> nameList = empDAO.getAllEmployeeNames();
+                        ArrayList<String> supList = empDAO.getAllSupervisor();
+                        if (nameList != null && nameList.size() != 0 && supList != null && supList.size() != 0) {
+                    %>
+                    <label for="assignEmployee">Assign First Employee</label>
+                    <select name='assignEmployee' id="assignEmployee" class="form-control" required autofocus>
+                        <option disabled selected value> — select an option — </option>
+                        <%
+                            for(int i=0; i<nameList.size(); i++) {
+                                out.println("<option value="+nameList.get(i)+">"+nameList.get(i)+"</option>");
+                            }
+                        %>
+                    </select>
+                    <label for="assignEmployee1">Assign Second Employee</label>
+                    <select name='assignEmployee1' id="assignEmployee1" class="form-control" required autofocus>
+                        <option disabled selected value> — select an option — </option>
+                        <%
+                            for(int i=0; i<nameList.size(); i++) {
+                                out.println("<option value="+nameList.get(i)+">"+nameList.get(i)+"</option>");
+                            }
+                        %>
+                    </select>
+                    <label for="reviewer">Reviewer</label>
+                    <select name='reviewer' id="reviewer" class="form-control" required autofocus>
+                        <option disabled selected value> — select an option — </option>
+                        <%
+                            for(int i=0; i<supList.size(); i++) {
+                                out.println("<option value="+supList.get(i)+">"+supList.get(i)+"</option>");
+                            }
+                        %>
+                    </select>
+                    <%                        }
+                    %>
+                    <label>Company Category</label>
+                    <select name='companyCat' id="companyCat" class="form-control" required autofocus>
+                        <option disabled selected value> — select an option — </option>
+                        <option value="Co Official Sec">Co. Official Sec</option>
+                        <option value="NN Co.Sec">NN Co. Sec</option>
+                        <option value="NA">NA</option>
+                        <option value="Others">Others</option>
+                    </select>
+                    <label>Business Type</label>
+                    <select name='businessType' id="businessType" class="form-control" required autofocus>
+                        <option disabled selected value> — select an option — </option>
+                        <option value="company">Company</option>
+                        <option value="partnership">Partnership</option>
+                        <option value="sole proprietorship">Sole Proprietorship</option>
+                    </select> 
                     <label for="remarks">Remarks</label>
                     <input type="text" name="remarks" id="remarks" class="text ui-widget-content ui-corner-all">
-                    <label for="assignEmployee">Assign Employee</label>
-                    <input type="text" name="assignEmployee" id="assignEmployee" class="text ui-widget-content ui-corner-all">
-                    <label for="reviewer">Reviewer</label>
-                    <input type="text" name="reviewer" id="reviewer" class="text ui-widget-content ui-corner-all">
-                    <label for="companyCat">Company Category</label>
-                    <input type="text" name="companyCat" id="companyCat" class="text ui-widget-content ui-corner-all">
-                    <label for="businessType">Business Type</label>
-                    <input type="text" name="businessType" id="businessType" class="text ui-widget-content ui-corner-all">
                     <!-- Allow form submission with keyboard without duplicating the dialog button -->
                     <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
                 </fieldset>
             </form>
         </div>
-        <button id="create-user">Create Project</button>
+        <button id="create-user">Update Project</button>
     </body>
     <footer class="bs-docs-footer" role="contentinfo">
         <div class="container" style="text-align: center">

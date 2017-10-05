@@ -2,6 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/JSONWebService/AddEvent.java</file>
+            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/web/Calendar_Admin.jsp</file>
+            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/entity/Employee.java</file>
+            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/entity/Job.java</file>
+            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/web/Calendar_Employee.jsp</file>
+            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/dao/JobDAO.java</file>
+            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/web/CreateClient.jsp</file>
+            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/servlets/ViewTaskServlet.java</file>
+            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/web/ViewTask.jsp</file>
+            <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/servlets/TaskAssignedTableServlet.java</file>
+        </group>
     </open-files>
 </project-private>

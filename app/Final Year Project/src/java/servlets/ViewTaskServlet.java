@@ -5,14 +5,12 @@
  */
 package servlets;
 
+import dao.EmployeeDAO;
 import dao.JobDAO;
+import entity.Employee;
 import entity.Job;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,7 +25,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import utility.ConnectionManager;
 
 /**
  *
@@ -76,14 +73,16 @@ public class ViewTaskServlet extends HttpServlet {
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             
             String employeeID = (String)session.getAttribute("userId");
+            EmployeeDAO empDAO = new EmployeeDAO();
+            Employee emp = empDAO.getEmployeeByID(employeeID);
             
-            ArrayList<Job> jobList = jobDAO.viewEmployeeTasks(employeeID);
+            ArrayList<Job> jobList = jobDAO.viewEmployeeTasks(emp.getName());
             //System.out.println("Size=============="+jobList.size());
             for(int i = 0; i <jobList.size(); i++){
                 Job job = jobList.get(i);
-                titleList.add(job.getJobTitle());
-                idList.add(Integer.toString(job.getJobID()));
-                statusList.add(Boolean.toString(job.getStatus()));
+                titleList.add(job.getTitle());
+                idList.add(Integer.toString(job.getProjectID()));
+                statusList.add(job.getProjectStatus());
                 startDateList.add(df.format(job.getStartDate()));
                 endDateList.add(df.format(job.getEndDate()));
                 recurList.add(job.getRecurring());
@@ -91,14 +90,14 @@ public class ViewTaskServlet extends HttpServlet {
 
             for (int i = 0; i < statusList.size(); i++) {
                 String status = statusList.get(i);
-                if (status.equals("true")) {
+                if (status.equals("Incomplete")) {
                     //logic for reminder
                     String end = endDateList.get(i);
                     Date endDate = (Date) df.parse(end);
                     cal2.setTime(endDate);
                     
                     int days = daysBetween(cal1.getTime(),cal2.getTime());
-                    if(days <= 7){
+                    if(days <= 21){
                        reminderList.add(titleList.get(i));
                     }
                     
@@ -116,11 +115,11 @@ public class ViewTaskServlet extends HttpServlet {
             request.setAttribute("recur", returnRecurList);
             request.setAttribute("reminder",reminderList);
 //
-//            System.out.println("TEST---------------------" + request.getAttribute("title"));
+            System.out.println("TEST---------------------" + request.getAttribute("title"));
 //            System.out.println("TEST---------------------" + request.getAttribute("endDate"));
             RequestDispatcher rd = request.getRequestDispatcher("ViewTask.jsp");
             rd.forward(request, response);
-            response.sendRedirect("ViewTask.jsp");
+            //response.sendRedirect("ViewTask.jsp");
         } catch(ParseException e) {
             e.printStackTrace();
         }

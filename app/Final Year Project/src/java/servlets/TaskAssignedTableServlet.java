@@ -9,10 +9,6 @@ import dao.JobDAO;
 import entity.Job;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,8 +19,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import utility.ConnectionManager;
 
 /**
  *
@@ -52,7 +46,7 @@ public class TaskAssignedTableServlet extends HttpServlet {
         List<String> assignedEmployeeList = new ArrayList();
         List<String> startDateList = new ArrayList();
         List<String> endDateList = new ArrayList();
-        List<String> projectStatusList = new ArrayList();
+        
         JobDAO jobDAO = new JobDAO(); 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         try (PrintWriter out = response.getWriter()) {
@@ -62,12 +56,12 @@ public class TaskAssignedTableServlet extends HttpServlet {
             
             for(int i = 0; i < jobList.size(); i++){
                 Job job = jobList.get(i);
-                titleList.add(job.getJobTitle());
+                titleList.add(job.getTitle());
                 startDateList.add(df.format(job.getStartDate()));
                 endDateList.add(df.format(job.getEndDate()));
                 remarksList.add(job.getRemarks());
                 assignedEmployeeList.add(job.getAssignedEmployee());
-                statusList.add(Boolean.toString(job.getStatus()));
+                statusList.add(job.getProjectStatus());
                 
         
             }

@@ -1,4 +1,5 @@
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.google.gson.JsonArray"%>
 <%@page import="entity.Employee"%>
 <%@page import="dao.EmployeeDAO"%>
@@ -191,19 +192,18 @@
                 function addProject() {
                     var title = document.getElementById("title").value;
                     var companyName = document.getElementById("companyName").value;
-                    ;
                     var start = document.getElementById("startDate").value;
-                    ;
                     var end = document.getElementById("endDate").value;
                     var remarks = document.getElementById("remarks").value;
                     var assignEmployee = document.getElementById("assignEmployee").value;
+                    var assignEmployee1 = document.getElementById("assignEmployee1").value;
                     var reviewer = document.getElementById("reviewer").value;
                     var companyCat = document.getElementById("companyCat").value;
                     var businessType = document.getElementById("businessType").value;
-                    //console.log(title);
+                    console.log(assignEmployee);
                     $.ajax({
                         url: 'AddEvent',
-                        data: 'title=' + title + '&' + 'companyName=' + companyName + '&' + 'startDate=' + start + '&' + 'endDate=' + end + '&' + 'remarks=' + remarks + '&' + 'assignEmployee=' + assignEmployee + '&' + 'reviewer=' + reviewer + '&' + 'companyCat=' + companyCat + '&' + 'businessType=' + businessType,
+                        data: 'title=' + title + '&' + 'companyName=' + companyName + '&' + 'startDate=' + start + '&' + 'endDate=' + end + '&' + 'remarks=' + remarks + '&' + 'assignEmployee=' + assignEmployee + '&' +'assignEmployee1=' + assignEmployee1 + '&'+ 'reviewer=' + reviewer + '&' + 'companyCat=' + companyCat + '&' + 'businessType=' + businessType,
                         type: 'POST',
                         success: function () {
                             alert("Added Successfully");
@@ -510,17 +510,58 @@
                     <input type="date" name="startDate" id="startDate" class="text ui-widget-content ui-corner-all">
                     <label for="endDate">End Date</label>
                     <input type="date" name="endDate" id="endDate" class="text ui-widget-content ui-corner-all">
+                    
+                    <%
+                        ArrayList<String> nameList = empDAO.getAllEmployeeNames();
+                        ArrayList<String> supList = empDAO.getAllSupervisor();
+                        if (nameList != null && nameList.size() != 0 && supList != null && supList.size() != 0) {
+                    %>
+                    <label for="assignEmployee">Assign First Employee</label>
+                    <select name='assignEmployee' id="assignEmployee" class="form-control" required autofocus>
+                        <option disabled selected value> — select an option — </option>
+                        <%
+                            for(int i=0; i<nameList.size(); i++) {
+                                out.println("<option value="+nameList.get(i)+">"+nameList.get(i)+"</option>");
+                            }
+                        %>
+                    </select>
+                    <label for="assignEmployee1">Assign Second Employee</label>
+                    <select name='assignEmployee1' id="assignEmployee1" class="form-control" required autofocus>
+                        <option disabled selected value> — select an option — </option>
+                        <%
+                            for(int i=0; i<nameList.size(); i++) {
+                                out.println("<option value="+nameList.get(i)+">"+nameList.get(i)+"</option>");
+                            }
+                        %>
+                    </select>
+                    <label for="reviewer">Reviewer</label>
+                    <select name='reviewer' id="reviewer" class="form-control" required autofocus>
+                        <option disabled selected value> — select an option — </option>
+                        <%
+                            for(int i=0; i<supList.size(); i++) {
+                                out.println("<option value="+supList.get(i)+">"+supList.get(i)+"</option>");
+                            }
+                        %>
+                    </select>
+                    <%                        }
+                    %>
+                    <label>Company Category</label>
+                    <select name='companyCat' id="companyCat" class="form-control" required autofocus>
+                        <option disabled selected value> — select an option — </option>
+                        <option value="Co Official Sec">Co. Official Sec</option>
+                        <option value="NN Co.Sec">NN Co. Sec</option>
+                        <option value="NA">NA</option>
+                        <option value="Others">Others</option>
+                    </select>
+                    <label>Business Type</label>
+                    <select name='businessType' id="businessType" class="form-control" required autofocus>
+                        <option disabled selected value> — select an option — </option>
+                        <option value="company">Company</option>
+                        <option value="partnership">Partnership</option>
+                        <option value="sole proprietorship">Sole Proprietorship</option>
+                    </select> 
                     <label for="remarks">Remarks</label>
                     <input type="text" name="remarks" id="remarks" class="text ui-widget-content ui-corner-all">
-                    <label for="assignEmployee">Assign Employee</label>
-                    <input type="text" name="assignEmployee" id="assignEmployee" class="text ui-widget-content ui-corner-all">
-                    <label for="reviewer">Reviewer</label>
-                    <input type="text" name="reviewer" id="reviewer" class="text ui-widget-content ui-corner-all">
-                    <label for="companyCat">Company Category</label>
-                    <input type="text" name="companyCat" id="companyCat" class="text ui-widget-content ui-corner-all">
-                    <label for="businessType">Business Type</label>
-                    <input type="text" name="businessType" id="businessType" class="text ui-widget-content ui-corner-all">
-
                     <!-- Allow form submission with keyboard without duplicating the dialog button -->
                     <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
                 </fieldset>
