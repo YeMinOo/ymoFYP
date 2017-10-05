@@ -22,7 +22,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>View Client</title>
+        <title>View All Clients</title>
         <link href="css/bootstrap.css" rel="stylesheet">
 
         <link rel='stylesheet' href='lib/fullcalendar.min.css' />
@@ -302,9 +302,11 @@
                     nameList.add(name);                   
                 }
             }
+            String getUpdateClientStatus = null;
+            getUpdateClientStatus = (String) request.getAttribute("updateClientStatus");
         %>
         <nav class="container-fluid" width="100%" height="100%" Style="padding: 1%">
-            <nav class="header navbar navbar-default navbar-static-top">
+            <nav class="header navbar navbar-default navbar-static-top" Style="padding: 1%">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <div>
@@ -375,14 +377,26 @@
                         if(status!=null && status.equals("Client Added")){
                         %>
                             <div class="alert alert-success">
-                                <strong>New Client Added!</strong>
+                                <strong>New client added!</strong>
                             </div>
                         <%
                         }else if(status!=null && status.equals("Problem Creating New User, Please Try Again")){
                         %>
                             <div class="alert alert-danger">
-                                <strong>Problem Creating New User, Please Try Again!</strong>
+                                <strong>Error: Problem creating new user, please try again!</strong>
                             </div>
+                        <%
+                        }else if(getUpdateClientStatus!=null && getUpdateClientStatus.equals("Successful")){
+                        %>
+                            <div class="alert alert-success">
+                                <String>Client details successfully updated in database!
+                            </div>
+                        <%
+                        }else if(getUpdateClientStatus!=null && getUpdateClientStatus.equals("Unsuccessful")){
+                        %>
+                        <div class="alert alert-danger">
+                            <Strong>Error: Problem updating client details, please try again!</Strong>
+                        </div>
                         <%
                         }
                         %>

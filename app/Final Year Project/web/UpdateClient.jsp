@@ -360,9 +360,9 @@
                                     <tr>
                                         <td>
                                             <label>Client ID</label>
-                                            <input type="text" name='clientId' id="clientId" class="form-control" placeholder=<%=client.getClientId()%> required autofocus readonly>
+                                            <input type="text" name='clientId' id="clientId" class="form-control" value=<%=client.getClientId()%> autofocus readonly>
                                         </td>
-                                        <td width="1%">
+                                        <td width="1%"
                                         </td>
                                         <td>
                                             <label>Company Category</label>
@@ -394,19 +394,19 @@
                                     <tr>
                                         <td>
                                             <label>Company Name</label>
-                                            <input type="text" name='companyName' id="companyName" class="form-control" value=<%=client.getCompanyName()%> required autofocus>
+                                            <input type="text" name='companyName' id="companyName" class="form-control" value=<%=client.getCompanyName()%> autofocus>
                                         </td>
                                         <td width="1%">
                                         </td>
                                         <td>
                                             <label>Incorporation</label>
-                                            <input type="text" name='incorporation' id="incorporation" class="form-control" value=<%=client.getIncorporation()%> required autofocus>
+                                            <input type="text" name='incorporation' id="incorporation" class="form-control" value=<%=client.getIncorporation()%> autofocus>
                                         </td>
                                         <td width="1%">
                                         </td>
                                         <td>
                                             <label>UEN Number</label>
-                                            <input type="text" name='UenNumber' id="UenNumber" class="form-control" value=<%=client.getUenNumber()%> required autofocus>
+                                            <input type="text" name='UenNumber' id="UenNumber" class="form-control" value=<%=client.getUenNumber()%> autofocus>
                                         </td>
                                         <td width="1%">
                                         </td>
@@ -423,13 +423,13 @@
                                         </td>
                                         <td>
                                             <label>Mobile Contact</label>
-                                            <input type="text" name='mobileContact' id="mobileContact" class="form-control" value=<%=client.getMobileContact()%> required autofocus>
+                                            <input type="text" name='mobileContact' id="mobileContact" class="form-control" value=<%=client.getMobileContact()%> autofocus>
                                         </td>
                                         <td width="1%">
                                         </td>
                                         <td>
                                             <label>Email Address</label>
-                                            <input type="text" name='emailAddress' id="emailAddress" class="form-control" value=<%=client.getEmailAddress()%> required autofocus>
+                                            <input type="text" name='emailAddress' id="emailAddress" class="form-control" value=<%=client.getEmailAddress()%> autofocus>
                                         </td>
                                         <td width="1%">
                                         </td>
@@ -440,19 +440,19 @@
                                     <tr>
                                         <td>
                                             <label>Office Address</label>
-                                            <input type="text" name='officeAddress' id="officeAddress" class="form-control" value=<%=client.getOfficeAddress()%> required autofocus>
+                                            <input type="text" name='officeAddress' id="officeAddress" class="form-control" value=<%=client.getOfficeAddress()%> autofocus>
                                         </td>
                                         <td width="1%">
                                         </td>
                                         <td>
                                             <label>Financial Year End</label>
-                                            <input type="text" name='financialYearEnd' id="financialYearEnd" class="form-control" value=<%=client.getFinancialYearEnd()%> required autofocus>
+                                            <input type="text" name='financialYearEnd' id="financialYearEnd" class="form-control" value=<%=client.getFinancialYearEnd()%> autofocus>
                                         </td>
                                         <td width="1%">
                                         </td>
                                         <td>
                                             <label>GST</label>
-                                            <input type="text" name='gst' id="gst" class="form-control" value=<%=client.getGst()%> required autofocus>
+                                            <input type="text" name='gst' id="gst" class="form-control" value=<%=client.getGst()%> autofocus>
                                         </td>
                                         <td width="1%">
                                         </td>
@@ -463,19 +463,19 @@
                                     <tr>
                                         <td>
                                             <label>Director</label>
-                                            <input type="text" name='director' id="director" class="form-control" value=<%=client.getDirector()%> required autofocus>
+                                            <input type="text" name='director' id="director" class="form-control" value=<%=client.getDirector()%> autofocus>
                                         </td>
                                         <td width="1%">
                                         </td>
                                         <td>
                                             <label>Shareholder</label>
-                                            <input type="text" name='shareholder' id="shareholder" class="form-control" value=<%=client.getShareholder()%> required autofocus>
+                                            <input type="text" name='shareholder' id="shareholder" class="form-control" value=<%=client.getShareholder()%> autofocus>
                                         </td>
                                         <td width="1%">
                                         </td>
                                         <td>
                                             <label>Secretary</label>
-                                            <input type="text" name='secretary' id="secretary" class="form-control" value=<%=client.getSecretary()%> required autofocus>
+                                            <input type="text" name='secretary' id="secretary" class="form-control" value=<%=client.getSecretary()%> autofocus>
                                         </td>
                                         <td width="1%">
                                         </td>

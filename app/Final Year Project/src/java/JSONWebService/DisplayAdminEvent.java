@@ -3,26 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package JSONWebService;
 
+import static Formatter.JsonFormatter.convertObjectToElement;
+import static Formatter.JsonFormatter.printJSON;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import dao.EmployeeDAO;
 import entity.Employee;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import utility.ConnectionManager;
 
 /**
  *
  * @author yemin
  */
-@WebServlet(name = "loginServlet", urlPatterns = {"/loginServlet"})
-public class loginServlet extends HttpServlet {
+@WebServlet(name = "DisplayAdminEvent", urlPatterns = {"/DisplayAdminEvent"})
+public class DisplayAdminEvent extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,31 +45,41 @@ public class loginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String userId = request.getParameter("UserId");
-        String password = request.getParameter("Password");
-        
-        EmployeeDAO empDAO = new EmployeeDAO();
-        Employee emp = empDAO.getEmployeebyIDandPassword(userId, password);
-        
-        HttpSession session = request.getSession();
-        
-        if(emp == null) {
-            request.setAttribute("InvalidLogin", "Login failed! Please try again.");
-            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-            rd.forward(request,response);
-        }
-        if (emp != null && emp.getPassword().equals(password)) {
-            //this means that the user is not an admin
-            if(emp.getIsAdmin().equals("no")){
-                session.setAttribute("userId", emp.getEmployeeID());
-                response.sendRedirect("Calendar_Employee.jsp");
-             } else {
-                //if user is an admin
-                session.setAttribute("userId", emp.getEmployeeID());
-                response.sendRedirect("Calendar_Admin.jsp");
-            }
-        }
+        response.setContentType("application/json;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            
+            
+                  
+            JsonArray events = new JsonArray();
+            
+            ArrayList<String> list = new ArrayList<String>();
+            
+            Connection conn = ConnectionManager.getConnection();
+            String statement = "SELECT * FROM project ";
+            PreparedStatement stmt = conn.prepareStatement(statement);
+            
+            ResultSet rs = stmt.executeQuery();
+            ResultSetMetaData rsmd = rs.getMetaData();
+            if(!rs.next()) {
+                //outputRequest.add("status", convertObjectToElement("error"));
+                list.add("error");
+            } else {
+                do {
+                    int numColumns = rsmd.getColumnCount();
+                    JsonObject outputRequest = new JsonObject();
+                    for(int i =1; i<=numColumns; i++) {
+                        String column_name = rsmd.getColumnName(i);
+                        outputRequest.add(column_name,convertObjectToElement(rs.getObject(column_name)));
+                    }
+                    events.add(outputRequest);
+                }while(rs.next());
+                out.print(events);
+            }    
+           //out.print(events);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
