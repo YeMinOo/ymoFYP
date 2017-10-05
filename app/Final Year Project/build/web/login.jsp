@@ -269,7 +269,7 @@
                             if (emailMsg != null && emailMsg.equals("Email has been sent successfully.")) {
                                 // print error at the top
                         %>
-                        <div class="alert alert-danger" width="100%">
+                        <div class="alert alert-success" width="100%">
                             <strong>We have sent an email to reset your password. Thank you.</strong>
                         </div>
                         <%
@@ -277,7 +277,7 @@
                             String resetMsg = (String) session.getAttribute("ResetMsg");
                             if (resetMsg != null && resetMsg.equals("Your password has been updated!!")) {
                         %>
-                        <div class="alert alert-danger" width="100%">
+                        <div class="alert alert-success" width="100%">
                             <strong>Your password has been updated.</strong>
                         </div>
                         <%

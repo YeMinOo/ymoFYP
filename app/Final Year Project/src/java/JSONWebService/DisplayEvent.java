@@ -9,6 +9,8 @@ import static Formatter.JsonFormatter.convertObjectToElement;
 import static Formatter.JsonFormatter.printJSON;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import dao.EmployeeDAO;
+import entity.Employee;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -46,14 +48,24 @@ public class DisplayEvent extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-                        
+            HttpSession session = request.getSession();
+            
+            String empId = (String) session.getAttribute("userId");
+            EmployeeDAO empDAO = new EmployeeDAO(); 
+            Employee employee = empDAO.getEmployeeByID(empId);
+            String name = employee.getName();
+            
+                  
             JsonArray events = new JsonArray();
             
             ArrayList<String> list = new ArrayList<String>();
             
             Connection conn = ConnectionManager.getConnection();
-            String statement = "SELECT * FROM project";
+            String statement = "SELECT * FROM project where assigned_employee = ? OR assigned_employee2 = ?";
             PreparedStatement stmt = conn.prepareStatement(statement);
+            
+            stmt.setString(1, name); 
+            stmt.setString(2, name); 
             
             ResultSet rs = stmt.executeQuery();
             ResultSetMetaData rsmd = rs.getMetaData();
@@ -75,9 +87,8 @@ public class DisplayEvent extends HttpServlet {
            //out.print(events);
         } catch (SQLException e) {
             e.printStackTrace();
-        } 
+        }    
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -116,5 +127,4 @@ public class DisplayEvent extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

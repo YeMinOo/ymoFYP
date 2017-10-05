@@ -288,7 +288,7 @@
         ###########################################################################################################################
         -->
         <nav class="container-fluid" width="100%" height="100%" Style="padding: 1%">
-            <nav class="header navbar navbar-default navbar-static-top; container-fluid" width="100%" height="100%" Style="padding: 1%">
+            <nav class="header navbar navbar-default navbar-static-top container-fluid" width="100%" height="100%" Style="padding: 1%">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <div>

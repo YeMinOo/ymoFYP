@@ -27,18 +27,26 @@
         <!--<script src="script/jquery.min.js" type="text/javascript"></script>-->
         <script src="script/bootstrap.min.js" type="text/javascript"></script>
         <style type='text/css'>
-            .link
-            {
-               color:#ffffff;
-               text-decoration: none; 
-               background-color: none;
+            html, body{
+                position:fixed;
+                top:0;
+                bottom:0;
+                left:0;
+                right:0;
             }
-            .cellpadding
+            
+            footer{
+                position:fixed;
+                bottom:0;
+                left:0;
+                right:0;
+            }
+            
+           .cellpadding
             {
                 padding: 10px 10px 10px 10px;
             }
 
-            
             .bs-docs-featurette + .bs-docs-footer {
                 margin-top: 0;
                 border-top: 0;
@@ -49,6 +57,12 @@
                 color: #777;
                 text-align: center;
                 border-top: 1px solid #e5e5e5;
+            }
+            
+            .submitbutton
+            {
+                margin: 0 auto;
+                width: 60%; 
             }
         </style>
     </head>
@@ -72,44 +86,43 @@
                     </div>
                 </div>
             </nav>
-            <nav class="navbar navbar-default navbar-center" style="padding:1%">
-                <div class="container-fluid">
-                    <div class="container-fluid">
-                        <div class="container">
-                            <div class="card card-container" style="padding:0px">
-                                <div id="main">
-                                    <div class="container">
-                                        <div class="card card-container">
-                                            <form class="form-signin" id ="formtype" role="form" action="resetPasswordServlet" method="post">
-                                                <span id="reauth-email" class="reauth-email"></span>
-                                                <div class="row pass" width="100%">
-                                                    <input type="password" id="password1" name="password1" placeholder="Enter New Password" />
-                                                </div>
-                                                <div class="row pass">
-                                                    <input type="password" id="password2" name="password2" placeholder="Confirm New Password"  />
-                                                </div>
-                                                <div class="arrowCap"></div>
-                                                <div class="arrow"></div>
-                                                <p class="meterText">Password Meter</p>
-                                                <p>Minimum password length is 8 characters</p>
-                                                <button class="btn btn-sm btn-primary btn-block btn-signin" type="submit">Submit</button>
-                                            </form><!-- /form -->
-                                        </div><!-- /card-container -->
-                                    </div><!-- /container -->
-                                    <%  if (session.getAttribute("resetToken") == null) {
-                                            response.sendRedirect("display.jsp");
-                                        }
-                                        String error = (String) request.getAttribute("msg");
-                                        if (error != null && error.equals("Passwords Mismatched!!")) {
-                                            // print error at the top
-                                    %>
-                                    <div class="alert alert-danger">
-                                        <strong>Passwords Mismatched!!</strong>
-                                    </div>
-                                </div>
-                                <%
-                                    }
-                                %>
+            <nav width="100%" Style="padding: 0%">
+                <%  
+                if (session.getAttribute("resetToken") == null) {
+                    response.sendRedirect("display.jsp");
+                }
+                    String error = (String) request.getAttribute("msg");
+                    if (error != null && error.equals("Passwords Mismatched!!")) {
+                        // print error at the top
+                %>
+                        <div class="alert alert-danger">
+                            <strong>Error: Passwords Mismatched!</strong>
+                        </div>
+                <%
+                    }
+                %>
+                <div class="container-fluid" width="100%" Style="padding: 0%">
+                    <div class="container" width="100%" Style="padding: 0%">
+                        <div class="card card-container" style="padding:0px">
+                            <div id="main">
+                                <div class="container">
+                                    <div class="card card-container">
+                                        <form class="form-signin" id ="formtype" role="form" action="resetPasswordServlet" method="post">
+                                            <span id="reauth-email" class="reauth-email"></span>
+                                            <div class="row pass">
+                                                <input type="password" id="password1" name="password1" placeholder="Enter New Password" />
+                                            </div>
+                                            <div class="row pass">
+                                                <input type="password" id="password2" name="password2" placeholder="Confirm New Password"  />
+                                            </div>
+                                            <div class="arrowCap"></div>
+                                            <div class="arrow"></div>
+                                            <p class="meterText">Password Meter</p>
+                                            <p>Minimum password length is 8 characters</p>
+                                            <button class="btn btn-sm btn-primary btn-block btn-signin submitbutton" type="submit">Submit</button>
+                                        </form><!-- /form -->
+                                    </div><!-- /card-container -->
+                                </div><!-- /container -->
                             </div>
                         </div>
                     </div>
@@ -117,7 +130,7 @@
             </nav>
         </nav>
     </body>
-    <footer class="bs-docs-footer" role="contentinfo" style="min-height:'30%'">
+    <footer class="bs-docs-footer" role="contentinfo">
         <div class="container" style="text-align: center">
             <p style="color:#949494">Abundant Accounting PTE LTD, 69 Ubi Road 1 (Oxley Bizhub)#08-16, Singapore 408731</p>
             <p style="color:#949494">Copyright© 2017 Abundant Accounting, Singapore. All rights reserved.</p>
