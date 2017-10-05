@@ -48,7 +48,7 @@
         <script src='lib/fullcalendar.min.js'></script>
 
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+        
         <script>
             $(document).ready(function () {
                 var date = new Date();
@@ -75,6 +75,26 @@
                     },
                     eventLimit: true,
                     events: 'DisplayEvent',
+
+                    eventAfterRender: function (event, element, view) {
+                        //when project first created yellow color
+                        var project = event.project_status; 
+                        var review = event.reviewStatus;
+                       
+                        if (project === "incomplete" && review === "incomplete") {
+                           element.css('background-color', '#FFD700');
+                           element.css('color','#000000');
+                            
+                        } else if (project === "complete" && review === "incomplete") {
+                           //when project completed by employee but havent review blue
+                          element.css('background-color', '#6495ED');
+                          element.css('color','#000000'); 
+                        } else if (project === "complete" && review === "complete") {
+                            //when both status is complete green color 
+                           element.css('background-color', '#32CD32');
+                           element.css('color','#000000');
+                        }
+                    },
 
                     eventRender: function (event, element, view) {
                         if (event.allDay === 'true') {
@@ -153,7 +173,9 @@
                     },
 
                     eventMouseover: function (calEvent, jsEvent) {
-                        var tooltip = '<div class="tooltipevent" style="width:200px;height:200px;background:#F5DEB3;position:absolute;z-index:10001;">' + calEvent.title + "<br>" + calEvent.companyName + "<br>" + calEvent.start + "<br>" + calEvent.end + "<br>" + calEvent.remarks + "<br>" + calEvent.assignEmployee + "<br>" + calEvent.reviewer + "<br>" + calEvent.companyCat + "<br>" + calEvent.businessType + '</div>';
+                        var beginning = $.fullCalendar.formatDate(calEvent.start, "DD-MM-YYYY");
+                        var ending = $.fullCalendar.formatDate(calEvent.end, "DD-MM-YYYY");
+                        var tooltip = '<div class="tooltipevent" style="width:250px;height:150px;background:#FFEFD5;position:absolute;z-index:10001;">' + "Task: " + calEvent.title + "<br>" + "Company Name: " + calEvent.companyName + "<br>" + "Start Date: " + beginning + "<br>" + "End Date: " + ending + "<br>" + "Staff: " + calEvent.assigned_employee + ", " + calEvent.assigned_employee2 + "<br>" + "Supervisor: " + calEvent.reviewer + "<br>" + "Remarks: " + calEvent.remarks + "<br>" + '</div>';
                         $("body").append(tooltip);
                         $(this).mouseover(function (e) {
                             $(this).css('z-index', 10000);
@@ -164,6 +186,7 @@
                             $('.tooltipevent').css('left', e.pageX + 20);
                         });
                     },
+                    
                     eventMouseout: function (calEvent, jsEvent) {
                         $(this).css('z-index', 8);
                         $('.tooltipevent').remove();
@@ -434,7 +457,7 @@
         ###########################################################################################################################
         -->
         <nav class="container-fluid" width="100%" height="100%" Style="padding: 1%">
-            <nav class="header navbar navbar-default navbar-static-top">
+            <nav class="header navbar navbar-default navbar-static-top" Style="padding: 1%">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <div>

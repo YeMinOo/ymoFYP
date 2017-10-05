@@ -43,6 +43,21 @@
         <script src="script/moment.js" type="text/javascript"></script>
 
         <style type="text/css">
+            html, body{
+                position:fixed;
+                top:0;
+                bottom:0;
+                left:0;
+                right:0;
+            }
+            
+            footer{
+                position:fixed;
+                bottom:0;
+                left:0;
+                right:0;
+            }
+            
             .bs-docs-featurette + .bs-docs-footer {
                 margin-top: 0;
                 border-top: 0;
@@ -218,59 +233,72 @@
         </style>
     </head>
     <body>
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class='col-md-4' style='margin-top:20px'>
-                    <h1 style="color:#0000A0; margin-top:10px;">
-                        Abundant Accounting Management System
-                    </h1>
+        <nav class="container-fluid" width="100%" height="100%" Style="padding: 1%">
+            <nav class="header navbar navbar-default navbar-static-top" Style="padding: 1%">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <div>
+                            <table>
+                                <tr>
+                                    <td style="white-space: nowrap">
+                                        <a href="http://www.abaccounting.com.sg/"><img src="images/Abundant Accounting Logo - Copy.png" width="30%" height="30%"/></a>
+                                    </td>
+                                    <td style="white-space: nowrap">
+                                        <a class="navbar-brand" href="http://www.abaccounting.com.sg/">Abundant Accounting</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </nav>
+            <nav width="100%" Style="padding: 0%">
+                <div class="container-fluid" width="100%" Style="padding: 0%">
+                    <div class="container" width="100%" Style="padding: 0%">
+                        <%
+                        String isInvalidLogin = (String) request.getAttribute("InvalidLogin");
+                        if (isInvalidLogin != null && isInvalidLogin.equals("Login failed! Please try again.")) {
+                            // print error at the top
+                        %>
+                        <div class="alert alert-danger" width="100%">
+                            <strong>Error</strong> Login Failed. Invalid Username or Password. Please try again.
+                        </div>
+                        <%
+                            }
+                            String emailMsg = (String) request.getAttribute("emailMsg");
+                            if (emailMsg != null && emailMsg.equals("Email has been sent successfully.")) {
+                                // print error at the top
+                        %>
+                        <div class="alert alert-success" width="100%">
+                            <strong>We have sent an email to reset your password. Thank you.</strong>
+                        </div>
+                        <%
+                            }
+                            String resetMsg = (String) session.getAttribute("ResetMsg");
+                            if (resetMsg != null && resetMsg.equals("Your password has been updated!!")) {
+                        %>
+                        <div class="alert alert-success" width="100%">
+                            <strong>Your password has been updated.</strong>
+                        </div>
+                        <%
+                            }
+                            session.setAttribute("ResetMsg", null);
+                        %>
+                        <div class="card card-container">
+                            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+                            <p id="profile-name" class="profile-name-card"></p>
+                            <form class="form-signin" id ="formtype" role="form" action="loginServlet" method="post">
+                                <span id="reauth-email" class="reauth-email"></span>
+                                <input type="text" name='UserId' id="UserId" class="form-control" placeholder="Username" required autofocus>
+                                <input type="password" name='Password' id="Password" class="form-control" placeholder="Password" required>
+
+                                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+                            </form><!-- /form -->
+                        </div><!-- /card-container -->
+                        <center><a href="forgotPassword.jsp">Forgot/Change Password?</a></center>
+                    </div><!-- /container -->
+            </nav>
         </nav>
-
-        <%
-            String isInvalidLogin = (String) request.getAttribute("InvalidLogin");
-            if (isInvalidLogin != null && isInvalidLogin.equals("Login failed! Please try again.")) {
-                // print error at the top
-        %>
-        <div class="alert alert-danger">
-            <strong>Error</strong> Login Failed. Invalid Username or Password. Please try again.
-        </div>
-        <%
-            }
-            String emailMsg = (String) request.getAttribute("emailMsg");
-            if (emailMsg != null && emailMsg.equals("Email has been sent successfully.")) {
-                // print error at the top
-        %>
-        <div class="alert alert-danger">
-            <strong>We have sent an email to reset your password. Thank you.</strong>
-        </div>
-        <%
-            }
-            String resetMsg = (String) session.getAttribute("ResetMsg");
-            if (resetMsg != null && resetMsg.equals("Your password has been updated!!")) {
-        %>
-        <div class="alert alert-danger">
-            <strong>Your password has been updated.</strong>
-        </div>
-        <%
-            }
-            session.setAttribute("ResetMsg", null);
-        %>
-        <div class="container">
-            <div class="card card-container">
-                <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
-                <p id="profile-name" class="profile-name-card"></p>
-                <form class="form-signin" id ="formtype" role="form" action="loginServlet" method="post">
-                    <span id="reauth-email" class="reauth-email"></span>
-                    <input type="text" name='UserId' id="UserId" class="form-control" placeholder="Username" required autofocus>
-                    <input type="password" name='Password' id="Password" class="form-control" placeholder="Password" required>
-
-                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
-                </form><!-- /form -->
-            </div><!-- /card-container -->
-            <center><a href="forgotPassword.jsp">Forgot/Change Password?</a></center>
-        </div><!-- /container -->
     </body>
     <footer class="bs-docs-footer" role="contentinfo">
         <div class="container" style="text-align: center">

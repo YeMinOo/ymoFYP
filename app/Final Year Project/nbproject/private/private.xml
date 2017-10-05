@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/JSONWebService/AddEvent.java</file>
             <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/web/Calendar_Admin.jsp</file>
             <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/entity/Employee.java</file>
@@ -13,6 +14,17 @@
             <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/servlets/ViewTaskServlet.java</file>
             <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/web/ViewTask.jsp</file>
             <file>file:/C:/Users/yemin/Desktop/Git_Repo/ymoFYP/app/Final%20Year%20Project/src/java/servlets/TaskAssignedTableServlet.java</file>
+=======
+            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/login.jsp</file>
+            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/index.jsp</file>
+            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/src/java/servlets/UpdateClientServlet.java</file>
+            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/reset.jsp</file>
+            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/css/styles.css</file>
+            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/UpdateClient.jsp</file>
+            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/ViewAllClient.jsp</file>
+            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/src/java/servlets/UpdateEmployeeInfoServlet.java</file>
+            <file>file:/C:/Users/Bernitatowyg/Documents/GitHub/ymoFYP/app/Final%20Year%20Project/web/Calendar_Admin.jsp</file>
+>>>>>>> 8f49d7f676c8c0b7c3e04d6c6b207c8613f6644a
         </group>
     </open-files>
 </project-private>

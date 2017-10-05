@@ -34,25 +34,25 @@
         <script type="text/javascript" src="script/prevent-iframe.js"></script>
         <!--<script src="script/jquery.min.js" type="text/javascript"></script>-->
         <script src="script/bootstrap.min.js" type="text/javascript"></script>
-        <!--<script src="script/fullcalendar.min.js" type="text/javascript"></script>-->
-        <!--<script src="script/moment.js" type="text/javascript"></script>-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src='lib/jquery.min.js'></script>
-        <script src='lib/moment.min.js'></script>
-        <script src='lib/fullcalendar.min.js'></script>
         <style type="text/css">
+            html, body{
+                position:fixed;
+                top:0;
+                bottom:0;
+                left:0;
+                right:0;
+            }
+            
+            footer{
+                position:fixed;
+                bottom:0;
+                left:0;
+                right:0;
+            }
+            
             .bs-docs-featurette + .bs-docs-footer {
                 margin-top: 0;
                 border-top: 0;
-            }
-
-            .align-buttons{
-                display: inline;
-                bottom: 0;
-            }
-            .overall-margin {
-                margin: 10%, 10%, 10%, 10%;
             }
 
             .bs-docs-footer {
@@ -218,19 +218,50 @@
                 -webkit-transition: all 0.218s;
                 transition: all 0.218s;
             }
-            
-            .body{
+            body{
                 padding: 0;
                 margin: 0;
-            }
-            
-            .header{
-                padding-top: 20px;
-                padding-right: 20px;
             }
         </style>
     </head>
     <body>
-        <h1>An email has been sent to reset your password. Please check your email. Thank you.</h1>
+        <nav class="container-fluid" width="100%" height="100%" Style="padding: 1%">
+            <nav class="header navbar navbar-default navbar-static-top" Style="padding: 1%">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <div>
+                            <table>
+                                <tr>
+                                    <td style="white-space: nowrap">
+                                        <a href="http://www.abaccounting.com.sg/"><img src="images/Abundant Accounting Logo - Copy.png" width="30%" height="30%"/></a>
+                                    </td>
+                                    <td style="white-space: nowrap">
+                                        <a class="navbar-brand" href="http://www.abaccounting.com.sg/">Abundant Accounting</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <nav class="navbar navbar-default navbar-center" style="padding:1%">
+                <div class="container-fluid">
+                    <div class="container-fluid" align="center">
+                        <img src="images/tick.png" width="10%" height="10%"/>
+                        <h3>Password email sent</h3>
+                        <h4>Follow the directions in the email to reset password</h4>
+                        <input type="button" onclick="location.href='login.jsp';" value="Go Back to Login" />
+                    </div>
+                </div>
+            </nav>
+        </nav>
     </body>
+    <footer class="bs-docs-footer" role="contentinfo">
+        <div class="container" style="text-align: center">
+            <p style="color:#949494">Abundant Accounting PTE LTD, 69 Ubi Road 1 (Oxley Bizhub)#08-16, Singapore 408731</p>
+            <p style="color:#949494">Copyright© 2017 Abundant Accounting, Singapore. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <script src='js/bootstrap.js'></script>
 </html>

@@ -37,7 +37,9 @@ public class UpdateClientServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String companyCategory = request.getParameter("companyCategory");
-
+            
+            System.out.println("THIS IS THE FUCKING COMPANYCATEGORY I HOPE IT FUCKING WORKS: " + companyCategory);
+            String clientId = request.getParameter("clientId");
             String businessType = request.getParameter("businessType");
             String companyName = request.getParameter("companyName");
             String incorporation = request.getParameter("incorporation");
@@ -52,19 +54,25 @@ public class UpdateClientServlet extends HttpServlet {
             String shareholder = request.getParameter("shareholder");
             String secretary = request.getParameter("secretary");
             
+            System.out.println("THIS IS THE SECY'S NAME: " + secretary);
+            
             ClientDAO clientDAO = new ClientDAO();
 
             boolean status = clientDAO.updateClient(companyCategory, businessType, companyName, incorporation, UenNumber, officeContact, mobileContact, emailAddress, officeAddress, financialYearEnd, gst, director, shareholder, secretary);
             if (status) {
                 System.out.println("Successful");
-//                request.setAttribute("Client Updated", "status");
+                request.setAttribute("updateClientStatus", "Successful");
+                RequestDispatcher rd = request.getRequestDispatcher("ViewAllClient.jsp");
+                rd.forward(request,response);
+                response.sendRedirect("ViewAllClient.jsp");
             } else {
                 System.out.println("Unsuccessful");
+                request.setAttribute("updateClientStatus", "Unsuccessful");
+                request.setAttribute("id", clientId);
+                RequestDispatcher rd2 = request.getRequestDispatcher("UpdateClient.jsp");
+                rd2.forward(request,response);
+                response.sendRedirect("UpdateClient.jsp");
             }
-
-            //RequestDispatcher rd = request.getRequestDispatcher("ViewAllClient.jsp");
-            //rd.forward(request,response);
-            response.sendRedirect("ViewAllClient.jsp");
         }
     }
 
@@ -78,8 +86,7 @@ public class UpdateClientServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -106,5 +113,4 @@ public class UpdateClientServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
