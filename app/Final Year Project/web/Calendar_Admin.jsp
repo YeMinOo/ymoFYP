@@ -46,7 +46,7 @@
         <script src='lib/jquery.min.js'></script>
         <script src='lib/moment.min.js'></script>
         <script src='lib/fullcalendar.min.js'></script>
-
+        
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
 

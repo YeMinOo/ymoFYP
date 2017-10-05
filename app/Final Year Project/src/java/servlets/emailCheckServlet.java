@@ -64,8 +64,8 @@ public class emailCheckServlet extends HttpServlet {
                 rd.forward(request, response);
             } else {
                 //Send email that will lead to password reset page.
-                String to = "minoo.ye.2015@sis.smu.edu.sg";
-                String from = "yeminoo.one@gmail.com";
+                String to = email;
+                String from = "beelianabundant@gmail.com";
 
                 Properties m_properties = new Properties();
                 m_properties.put("mail.transport.protocol", "smtp");
@@ -75,7 +75,7 @@ public class emailCheckServlet extends HttpServlet {
                 m_properties.put("mail.smtp.starttls.enable", "true");
                 Authenticator authenticator = new Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(from, "iamYeMinOo");
+                        return new PasswordAuthentication(from, "qwerty123$%^");
                     }
                 };
 
@@ -99,8 +99,11 @@ public class emailCheckServlet extends HttpServlet {
                 Transport.send(message);
                 //System.out.println("message sent successfully....");
 
-                request.setAttribute("emailMsg", "Email has been sent successfully.");
-                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                //request.setAttribute("emailMsg", "Email has been sent successfully.");
+                //RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                //rd.forward(request, response);
+                request.setAttribute("error", "email exists.");
+                RequestDispatcher rd = request.getRequestDispatcher("forgotPassword.jsp");
                 rd.forward(request, response);
 //                session.setAttribute("emailMsg","Email has been sent successfully.");
 //                response.sendRedirect("login.jsp");
