@@ -1,21 +1,19 @@
 <%-- 
-    Document   : UpdateDeleteClient
-    Created on : Sep 15, 2017, 3:26:34 PM
-    Author     : jagdishps.2014
+    Document   : UpdateEmployee
+    Created on : Aug 20, 2017, 9:50:54 PM
+    Author     : yemin
 --%>
 
 <%@page import="entity.Employee"%>
 <%@page import="dao.EmployeeDAO"%>
-<%@page import="entity.Client"%>
-<%@page import="dao.ClientDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="Protect.jsp"%>
+<%@include file="AdminAccessOnly.jsp"%>
 <!DOCTYPE html>
-<%@include file="Protect.jsp" %>
-
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Update Client</title>
+        <title>Update Employee Details</title>
         <link href="css/bootstrap.css" rel="stylesheet">
 
         <link rel='stylesheet' href='lib/fullcalendar.min.css' />
@@ -55,7 +53,7 @@
                 bottom: 0;
             }
             .overall-margin {
-                margin: 10% 10% 10% 10%;
+                margin: 10%, 10%, 10%, 10%;
             }
 
             .bs-docs-footer {
@@ -221,12 +219,12 @@
                 -webkit-transition: all 0.218s;
                 transition: all 0.218s;
             }
-
+            
             .body{
                 padding: 0;
                 margin: 0;
             }
-
+            
             .header{
                 padding-top: 20px;
                 padding-right: 20px;
@@ -268,6 +266,7 @@
         </style>
     </head>
     <body>
+        <!-- ########################################################## header ########################################################## -->
         <%
             String empId = (String) session.getAttribute("userId");
             EmployeeDAO empDAO = new EmployeeDAO();
@@ -278,17 +277,28 @@
             } else {
                 employeeName = employee.getName();
             }
-            String sessionUserIsAdmin = employee.getIsAdmin();
             
-            String clientID = request.getParameter("id");
-            ClientDAO clientDAO = new ClientDAO();
-            Client client = clientDAO.getClientById(clientID);
+            //check if the the attributes exists, if not then redirect to get it
+            
+            //getting all attributes
+            String employeeID = (String) request.getAttribute("id");
+            String password = (String) request.getAttribute("password");
+            String email = (String) request.getAttribute("email");
+            Boolean isAdmin2 = (Boolean) request.getAttribute("isAdmin");
+            String currentSalary = (String) request.getAttribute("currentSalary");
+            String position = (String) request.getAttribute("position");
+            Boolean supervisor = (Boolean) request.getAttribute("supervisor");
+            Double cpf = (Double) request.getAttribute("cpf");
+            String bankAcct = (String) request.getAttribute("bankAcct");
+            String nric = (String) request.getAttribute("nric");
+            String name = (String) request.getAttribute("name");
+            String number = (String) request.getAttribute("number");
+            
+            Boolean status = (Boolean)request.getAttribute("status");
         %>
-            <!--
-        ###########################################################################################################################
-        -->
-        <nav class="container-fluid" width="100%" height="100%" Style="padding: 1%">
-            <nav class="header navbar navbar-default navbar-static-top container-fluid" width="100%" height="100%" Style="padding: 1%">
+        
+        <nav class="container-fluid" width="100%" height="100%">
+            <nav class="header navbar navbar-default navbar-static-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <div>
@@ -310,191 +320,161 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <% if(sessionUserIsAdmin.equals("no")){
-                                %>
-                                    <li><a href="SearchStaff.jsp">Search Staff</a></li>
-                                    <li><a href="SearchClient.jsp">Search Client</a></li>
-                                    <li><a href="SearchProject.jsp">Search Project</a></li>
-                                    <li><a href="CreateClient.jsp">Create Client</a></li>
-                                    <li><a href="ViewAllClient.jsp">View All Client</a></li>
-                                    <li><a href="ViewTask.jsp">View Tasks</a></li>
-                                    <li><a href="InvoiceManagement.jsp">Invoice Functions</a></li>
-                                <%
-                                }else{
-                                %>
-                                    <li><a href="SearchStaff.jsp">Search Staff</a></li>
-                                    <li><a href="SearchClient.jsp">Search Client</a></li>
-                                    <li><a href="SearchProject.jsp">Search Project</a></li>
-                                    <li><a href="CreateClient.jsp">Create Client</a></li>
-                                    <li><a href="ViewAllClient.jsp">View All Client</a></li>
-                                    <li><a href="CreateUser.jsp">Create User</a></li>
-                                    <li><a href="ViewEmployee.jsp">View All Employees</a></li>
-                                    <li><a href="ViewTask.jsp">View Tasks</a></li>
-                                    <li><a href="Task_Assigned_Table.jsp">View All Tasks</a></li>
-                                    <li><a href="InvoiceManagement.jsp">Invoice Functions</a></li>
-                                <%
-                                }
-                                %>
+                            <!--
+                                <li><a href="SearchStaff.jsp">Search Staff</a></li>
+                                <li><a href="SearchClient.jsp">Search Client</a></li>
+                                <li><a href="SearchJob.jsp">Search Job</a></li>
+                                <li><a href="ViewJob.jsp">View Job</a></li>
+                                <li><a href="AddNewJob.jsp">Add New Job</a></li>
+                                <li><a href="EditJob.jsp">Edit Job</a></li>
+                                <li><a href="DeleteJob.jsp">Delete Job</a></li>
+                            -->
+                                <li><a href="Task_Assigned_Table.jsp">View Tasks</a></li>
+                                <li><a href="ViewEmployee.jsp">View Employee</a></li>
                             </ul>
                         </div>
                         <div class="align-buttons">
-                            <% if(sessionUserIsAdmin.equals("no")){
-                            %>
-                                <a href="Calendar_Employee.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
-                            <%}else{%>
-                                <a href="Calendar_Admin.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
-                            <%}%>
+                            <a href="Calendar_Employee.jsp"><span class="glyphicon glyphicon-home"</span>Home</a>
                             <a href="StaffProfile.jsp"><span class="glyphicon glyphicon-user"></span> <%=employeeName%></a>
                             <a href="LogoutProcess"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
                         </div>
                     </div>
                 </div>
             </nav>
-            <nav class="navbar navbar-default navbar-center" height="100%">
-                <div class="container-fluid" style="text-align: center" height="100%">
-                    <div class="container-fluid" style="padding:1%">
-                        <h1>Update Client</h1>
-                        <div class="container">
-                            <form action="UpdateClientServlet" method="post">
-                                <table width="100%" height="100%" class="cellpadding">
+            <nav class="navbar navbar-default navbar-center" style="padding-bottom: 20px">
+                <div class="container-fluid" style="text-align: center">
+                    <div class="container-fluid">
+                        <%
+                        if(status!=null && status==false){
+                        %>
+                            <div class="alert alert-danger">
+                                <strong>Error: </strong>Cannot Update Employee Details, please try again!
+                            </div>
+                        <%
+                        }else if (status!=null && status== true){
+                        %>
+                            <div class="alert alert-success">
+                                <strong>Success:</strong> Employee details successfully updated!
+                            </div>
+                        <%
+                        }  
+                        %>
+                        <h3>Edit User Details!</h3>
+                        <!-- insert form here -->
+                        <form method="post" action="UpdateEmployeeInfoServlet">
+                            <table id="myTable">
                                     <tr>
-                                        <td>
-                                            <label>Client ID</label>
-                                            <input type="text" name='clientId' id="clientId" class="form-control" value=<%=client.getClientId()%> autofocus readonly>
-                                        </td>
-                                        <td width="1%"
-                                        </td>
-                                        <td>
-                                            <label>Company Category</label>
-                                            <select name='companyCategory' id="companyCategory" class="form-control" value=<%=client.getCompanyCategory()%> autofocus>
-                                                <option disabled selected value value=<%=client.getCompanyCategory()%>><%=client.getCompanyCategory()%></option>
-                                                <option value="Co Official Sec">Co. Official Sec</option>
-                                                <option value="NN Co.Sec">NN Co. Sec</option>
-                                                <option value="NA">NA</option>
-                                                <option value="Others">Others</option>
-                                            </select>
-                                        </td>
-                                        <td width="1%">
-                                        </td>
-                                        <td>
-                                            <label>Business Type</label>
-                                            <select name='businessType' id="businessType" class="form-control" value=<%=client.getBusinessType()%> autofocus>
-                                                <option disabled selected value value=<%=client.getBusinessType()%>><%=client.getBusinessType()%></option>
-                                                <option value="company">Company</option>
-                                                <option value="partnership">Partnership</option>
-                                                <option value="sole proprietorship">Sole Proprietorship</option>
-                                            </select>    
-                                        </td>
-                                        <td width="1%">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="6">&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label>Company Name</label>
-                                            <input type="text" name='companyName' id="companyName" class="form-control" value=<%=client.getCompanyName()%> autofocus>
-                                        </td>
-                                        <td width="1%">
-                                        </td>
-                                        <td>
-                                            <label>Incorporation</label>
-                                            <input type="text" name='incorporation' id="incorporation" class="form-control" value=<%=client.getIncorporation()%> autofocus>
-                                        </td>
-                                        <td width="1%">
-                                        </td>
-                                        <td>
-                                            <label>UEN Number</label>
-                                            <input type="text" name='UenNumber' id="UenNumber" class="form-control" value=<%=client.getUenNumber()%> autofocus>
-                                        </td>
-                                        <td width="1%">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="6">&nbsp;</td>
+                                        <th>
+                                            Employee ID 
+                                        </th>
+                                        <th>
+                                            Email
+                                        </th>
+                                        <th>
+                                            Is Admin?
+                                        </th>
+                                        <th>
+                                            Current Salary
+                                        </th>
+                                        <th>
+                                            Position
+                                        </th>
+                                        <th>
+                                            Supervisor
+                                        </th>
+                                        <th>
+                                            CPF
+                                        </th>
+                                        <th>
+                                            Bank Account
+                                        </th>
+                                        <th>
+                                            NRIC
+                                        </th>
+                                        <th>
+                                            Name
+                                        </th>
+                                        <th>
+                                            Number
+                                        </th>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <label>Office Contact</label>
-                                            <input type="text" name='officeContact' id="officeContact" class="form-control" value=<%=client.getOfficeContact()%> autofocus>
+                                            <div contenteditable>
+                                                <%=employeeID%>
+                                            </div>
                                         </td>
-                                        <td width="1%">
-                                        </td>
+                                        <input type='hidden' name='employeeID' id='employeeID' value=<%=employeeID%>>
                                         <td>
-                                            <label>Mobile Contact</label>
-                                            <input type="text" name='mobileContact' id="mobileContact" class="form-control" value=<%=client.getMobileContact()%> autofocus>
+                                            <div contenteditable>
+                                                <%=email%>
+                                            </div>
                                         </td>
-                                        <td width="1%">
-                                        </td>
+                                        <input type='hidden' name='email' id='email' value=<%=email%>>
                                         <td>
-                                            <label>Email Address</label>
-                                            <input type="text" name='emailAddress' id="emailAddress" class="form-control" value=<%=client.getEmailAddress()%> autofocus>
+                                            <div contenteditable>
+                                                <%=isAdmin2%>
+                                            </div>
                                         </td>
-                                        <td width="1%">
+                                        <input type='hidden' name='isAdmin' id='isAdmin' value=<%=isAdmin2%>>
+                                        <td>
+                                            <div contenteditable>
+                                                <%=currentSalary%>
+                                            </div>
                                         </td>
+                                        <input type='hidden' name='currentSalary' id='currentSalary' value=<%=currentSalary%>>
+                                        <td>
+                                            <div contenteditable>
+                                                <%=position%>
+                                            </div>
+                                        </td>
+                                        <input type='hidden' name='position' id='position' value=<%=position%>>
+                                        <td>
+                                            <div contenteditable>
+                                                <%=supervisor%>
+                                            </div>
+                                        </td>
+                                        <input type='hidden' name='supervisor' id='supervisor' value=<%=supervisor%>>
+                                        <td>
+                                            <div contenteditable>
+                                                <%=cpf%>
+                                            </div>
+                                        </td>
+                                        <input type='hidden' name='cpf' id='cpf' value=<%=cpf%>>
+                                        <td>
+                                            <div contenteditable>
+                                                <%=bankAcct%>
+                                            </div>
+                                        </td>
+                                        <input type='hidden' name='bankAcct' id='bankAcct' value=<%=bankAcct%>>
+                                        <td>
+                                            <div contenteditable>
+                                                <%=nric%>
+                                            </div>
+                                        </td>
+                                        <input type='hidden' name='nric' id='nric' value=<%=nric%>>
+                                        <td>
+                                            <div contenteditable>
+                                                <%=name%>
+                                            </div>
+                                        </td>
+                                        <input type='hidden' name='name' id='name' value=<%=name%>>
+                                        <td>
+                                            <div contenteditable>
+                                                <%=number%>
+                                            </div>
+                                        </td>
+                                        <input type='hidden' name='number' id='number' value=<%=number%>>
                                     </tr>
-                                    <tr>
-                                        <td colspan="6">&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label>Office Address</label>
-                                            <input type="text" name='officeAddress' id="officeAddress" class="form-control" value=<%=client.getOfficeAddress()%> autofocus>
-                                        </td>
-                                        <td width="1%">
-                                        </td>
-                                        <td>
-                                            <label>Financial Year End</label>
-                                            <input type="text" name='financialYearEnd' id="financialYearEnd" class="form-control" value=<%=client.getFinancialYearEnd()%> autofocus>
-                                        </td>
-                                        <td width="1%">
-                                        </td>
-                                        <td>
-                                            <label>GST</label>
-                                            <input type="text" name='gst' id="gst" class="form-control" value=<%=client.getGst()%> autofocus>
-                                        </td>
-                                        <td width="1%">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="6">&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <label>Director</label>
-                                            <input type="text" name='director' id="director" class="form-control" value=<%=client.getDirector()%> autofocus>
-                                        </td>
-                                        <td width="1%">
-                                        </td>
-                                        <td>
-                                            <label>Shareholder</label>
-                                            <input type="text" name='shareholder' id="shareholder" class="form-control" value=<%=client.getShareholder()%> autofocus>
-                                        </td>
-                                        <td width="1%">
-                                        </td>
-                                        <td>
-                                            <label>Secretary</label>
-                                            <input type="text" name='secretary' id="secretary" class="form-control" value=<%=client.getSecretary()%> autofocus>
-                                        </td>
-                                        <td width="1%">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="6">&nbsp;</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="5">
-                                            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Update Client!</button>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </form>
-                        </div>
+                            </table>
+                            <div style="float: right">
+                                <input type="submit" name="submit">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </nav>
-        </div>
+        </nav>
     </body>
     <footer class="bs-docs-footer" role="contentinfo">
         <div class="container" style="text-align: center">
@@ -503,4 +483,3 @@
         </div>
     </footer>
 </html>
-
