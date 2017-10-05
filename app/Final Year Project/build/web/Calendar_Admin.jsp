@@ -113,7 +113,7 @@
                                 data: 'title=' + title + '&' + 'start=' + start + '&' + 'end=' + end + '&' + 'remarks=' + remarks + '&' + 'assignedPeople=' + assignedPeople + '&' + 'repeat=' + repeat,
                                 type: 'POST',
                                 success: function (data) {
-                                    alert("Added Successfully");
+                                    history.go(-1);
                                     //$('#somediv').text(responseText);
                                 }
                             });
