@@ -53,7 +53,7 @@
                 bottom: 0;
             }
             .overall-margin {
-                margin: 10%, 10%, 10%, 10%;
+                margin: 10% 10% 10% 10%;
             }
 
             .bs-docs-footer {
@@ -219,12 +219,12 @@
                 -webkit-transition: all 0.218s;
                 transition: all 0.218s;
             }
-            
+
             .body{
                 padding: 0;
                 margin: 0;
             }
-            
+
             .header{
                 padding-top: 20px;
                 padding-right: 20px;
@@ -300,7 +300,7 @@
         %>
         
         <nav class="container-fluid" width="100%" height="100%" Style="padding: 1%">
-            <nav class="header navbar navbar-default navbar-static-top">
+            <nav class="header navbar navbar-default navbar-static-top" Style="padding: 1%">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <div>
@@ -362,66 +362,123 @@
                     </div>
                 </div>
             </nav>
-            <nav class="navbar navbar-default navbar-center">
-                <div class="container-fluid" style="text-align: center">
-                    <div class="container-fluid">
-                        <%
-                        if(status!=null && status==false){
-                        %>
-                            <div class="alert alert-danger">
-                                <strong>Error: </strong>Cannot Update Employee Details, please try again!
-                            </div>
-                        <%
-                        }else if (status!=null && status== true){
-                        %>
-                            <div class="alert alert-success">
-                                <strong>Success:</strong> Employee details successfully updated!
-                            </div>
-                        <%
-                        }  
-                        %>
-                        <h3>Edit User Details!</h3>
-                        <!-- insert form here -->
-                        <form method="post" action="UpdateEmployeeInfoServlet">
-                                <label>Employee ID: </label>
-                                <input type="text" name='employeeID' id="employeeID" class="form-control" placeholder=<%=employeeToUpdate.getEmployeeID()%> required autofocus readonly>
-                                </br>
-                                <label>Email: </label>
-                                <input type="text" name='email' id="email" class="form-control" value=<%=employeeToUpdate.getEmail()%> required autofocus>
-                                </br>
-                                <label> Admin: </label>
-                                <input type="text" name='isAdmin' id="isAdmin" class="form-control" value=<%=employeeToUpdate.getIsAdmin()%> required autofocus>
-                                </br>
-                                <label>Salary: </label>
-                                <input type="text" name='currentSalary' id="currentSalary" class="form-control" value=<%=employeeToUpdate.getCurrentSalary()%> required autofocus>
-                                </br>   
-                                <label>Position: </label>
-                                <input type="text" name='position' id="position" class="form-control" value=<%=employeeToUpdate.getPosition()%> required autofocus>
-                                </br>   
-                                <label>Supervisor: </label>
-                                <input type="text" name='supervisor' id="supervisor" class="form-control" value=<%=employeeToUpdate.getIsSupervisor()%> required autofocus>
-                                </br> 
-                                <label>CPF: </label>
-                                <input type="text" name='CPF' id="CPF" class="form-control" value=<%=employeeToUpdate.getCpf()%> required autofocus>
-                                </br>
-                                <label>Number of Projects Worked On: </label>
-                                <input type="text" name='projectsWorkedOn' id="projectsWorkedOn" class="form-control" placeholder=<%=employeeToUpdate.getProjectsWorkedOn()%> required autofocus readonly="readonly">
-                                </br>
-                                <label>Bank Account: </label>
-                                <input type="text" name='bankAccount' id="bankAccount" class="form-control" value=<%=employeeToUpdate.getBankAccount()%> required autofocus>
-                                </br>
-                                <label>NRIC: </label>
-                                <input type="text" name='NRIC' id="NRIC" class="form-control" value=<%=employeeToUpdate.getNric()%> required autofocus>
-                                </br>   
-                                <label>Name: </label>
-                                <input type="text" name='name' id="name" class="form-control" value=<%=employeeToUpdate.getName()%> required autofocus>
-                                </br>
-                                <label>Number: </label>
-                                <input type="text" name='number' id="number" class="form-control" value=<%=employeeToUpdate.getPhoneNum()%> required autofocus>
-                                </br>
-                                 
-                                <input type="submit" name="submit">
-                                
+            <nav class="navbar navbar-default navbar-center" height="100%">
+                <div class="container-fluid" style="text-align: center" height="100%">
+                    <%
+                    if(status!=null && status==false){
+                    %>
+                        <div class="alert alert-danger">
+                            <strong>Error: </strong>Cannot Update Employee Details, please try again!
+                        </div>
+                    <%
+                    }else if (status!=null && status== true){
+                    %>
+                        <div class="alert alert-success">
+                            <strong>Success:</strong> Employee details successfully updated!
+                        </div>
+                    <%
+                    }  
+                    %>
+                    <div class="container-fluid" style="padding:1%">
+                        <h1>Update Employee Details</h1>
+                        <div class="container">
+                            <form method="post" action="UpdateEmployeeInfoServlet">
+                                <table width="100%" height="100%" class="cellpadding">
+                                    <tr>
+                                        <td>
+                                            <label>Employee ID</label>
+                                            <input type="text" name='employeeID' id="employeeID" class="form-control" placeholder=<%=employeeToUpdate.getEmployeeID()%> autofocus readonly>
+                                        </td>
+                                        <td width="1%">
+                                        </td>
+                                        <td>
+                                            <label>Email</label>
+                                            <input type="text" name='email' id="email" class="form-control" value=<%=employeeToUpdate.getEmail()%> autofocus>
+                                        </td>
+                                        <td width="1%">
+                                        </td>
+                                        <td>
+                                            <label>Admin</label>
+                                            <input type="text" name='isAdmin' id="isAdmin" class="form-control" value=<%=employeeToUpdate.getIsAdmin()%> autofocus>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Salary</label>
+                                            <input type="text" name='currentSalary' id="currentSalary" class="form-control" value=<%=employeeToUpdate.getCurrentSalary()%> autofocus>
+                                        </td>
+                                        <td width="1%">
+                                        </td>
+                                        <td>
+                                            <label>Position</label>
+                                            <input type="text" name='position' id="position" class="form-control" value=<%=employeeToUpdate.getPosition()%> autofocus>
+                                        </td>
+                                        <td width="1%">
+                                        </td>
+                                        <td>
+                                            <label>Supervisor</label>
+                                            <input type="text" name='supervisor' id="supervisor" class="form-control" value=<%=employeeToUpdate.getIsSupervisor()%> autofocus>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>CPF</label>
+                                            <input type="text" name='CPF' id="CPF" class="form-control" value=<%=employeeToUpdate.getCpf()%> autofocus>
+                                        </td>
+                                        <td width="1%">
+                                        </td>
+                                        <td>
+                                            <label>Number of Projects Worked On</label>
+                                            <input type="text" name='projectsWorkedOn' id="projectsWorkedOn" class="form-control" placeholder=<%=employeeToUpdate.getProjectsWorkedOn()%> autofocus readonly="readonly">
+                                        </td>
+                                        <td width="1%">
+                                        </td>
+                                        <td>
+                                            <label>Bank Account</label>
+                                            <input type="text" name='bankAccount' id="bankAccount" class="form-control" value=<%=employeeToUpdate.getBankAccount()%> autofocus>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>NRIC</label>
+                                            <input type="text" name='NRIC' id="NRIC" class="form-control" value=<%=employeeToUpdate.getNric()%> autofocus>
+                                        </td>
+                                        <td width="1%">
+                                        </td>
+                                        <td>
+                                            <label>Name</label>
+                                            <input type="text" name='name' id="name" class="form-control" value=<%=employeeToUpdate.getName()%> autofocus>
+                                        </td>
+                                        <td width="1%">
+                                        </td>
+                                        <td>
+                                            <label>Numbe</label>
+                                            <input type="text" name='number' id="number" class="form-control" value=<%=employeeToUpdate.getPhoneNum()%> autofocus>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Date joined</label>
+                                            <input type="text" name='dateJoined' id="dateJoined" class="form-control" value=<%=employeeToUpdate.getDateJoined()%> autofocus>
+                                        </td>
+                                        <td width="1%">
+                                        </td>
+                                        <td>
+                                            &nbsp
+                                        </td>
+                                        <td width="1%">
+                                        </td>
+                                        <td>
+                                            &nbsp
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Update Client!</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
                         </form>
                     </div>
                 </div>

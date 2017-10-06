@@ -55,7 +55,7 @@
                 bottom: 0;
             }
             .overall-margin {
-                margin: 10%, 10%, 10%, 10%;
+                margin: 10% 10% 10% 10%;
             }
 
             .bs-docs-footer {
@@ -221,12 +221,12 @@
                 -webkit-transition: all 0.218s;
                 transition: all 0.218s;
             }
-            
+
             .body{
                 padding: 0;
                 margin: 0;
             }
-            
+
             .header{
                 padding-top: 20px;
                 padding-right: 20px;
@@ -248,14 +248,17 @@
 
             #myTable {
                 border-collapse: collapse;
-                width: 100%;
+                width: 80%;
                 border: 1px solid #ddd;
                 font-size: 18px;
+                text-align: center;
+                position: relative;
+                margin: auto;
             }
 
             #myTable th, #myTable td {
                 text-align: left;
-                padding: 12px;
+                padding: 5px;
             }
 
             #myTable tr {
@@ -311,7 +314,7 @@
         ###########################################################################################################################
         -->
         <nav class="container-fluid" width="100%" height="100%" Style="padding: 1%">
-            <nav class="header navbar navbar-default navbar-static-top">
+            <nav class="header navbar navbar-default navbar-static-top" Style="padding: 1%">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <div>
@@ -373,10 +376,9 @@
                     </div>
                 </div>
             </nav>
-            <nav class="navbar navbar-default navbar-center">
-                <div class="container-fluid" style="text-align: center">
-                    <div class="container-fluid">
-                        <h3></h3>
+            <nav class="navbar navbar-default navbar-center" height="100%" Style="padding: 1%">
+                <div class="container-fluid" style="text-align: left" height="100%">
+                    <div class="container-fluid" style="padding:1%">
                         <%
                         String message = (String)request.getAttribute("message");
                         if(message!=null && message.equals("Deleted Successfully")){
@@ -394,8 +396,8 @@
                         }
                         %>
                         <!-- insert assigned tasks here -->
-                        <h2>Overview of Employees</h2>
-                        <table id="myTable">
+                        <h2 Style="text-align: center">Overview of Employees</h2>
+                        <table width="100%" height="100%" class="cellpadding">
                             <tr>
                                 <th>Name</th>
                                 <th>Email</th>
@@ -423,18 +425,13 @@
                                         <td>
                                             <form method="post" action="UpdateEmployee.jsp">
                                             <input type="hidden" value="<%=nameList.get(i)%>" name="name">
-                                            
                                             <input type="submit"  value="Update Employee">
                                             </form>
-
                                         </td>
                                         <td>
-                                        
                                         <form method="post" action="DeleteEmployeeServlet">
                                             <input type="hidden" value="<%=nameList.get(i)%>" name="name">
-                                            
-                                                <input type="submit" value="Delete Employee">
-                                            
+                                            <input type="submit" value="Delete Employee">
                                         </form>
                                         </td>    
                                     </tr>

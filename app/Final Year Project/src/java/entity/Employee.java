@@ -6,6 +6,7 @@
 package entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -25,8 +26,9 @@ public class Employee {
     private String nric;
     private String name;
     private String phoneNum;
+    private Date dateJoined;
 
-    public Employee(String employeeID, String password, String email, String isAdmin, String currentSalary, String position, String isSupervisor, double cpf, int projectsWorkedOn, String bankAccount, String nric, String name, String phoneNum) {
+    public Employee(String employeeID, String password, String email, String isAdmin, String currentSalary, String position, String isSupervisor, double cpf, int projectsWorkedOn, String bankAccount, String nric, String name, String phoneNum, Date dateJoined) {
         this.employeeID = employeeID;
         this.password = password;
         this.email = email;
@@ -40,8 +42,13 @@ public class Employee {
         this.nric = nric;
         this.name = name;
         this.phoneNum = phoneNum;
+        this.dateJoined = dateJoined;
     }
 
+    public void setDateJoined(Date dateJoined){
+        this.dateJoined = dateJoined;
+    }
+    
     public String getEmployeeID() {
         return employeeID;
     }
@@ -146,7 +153,9 @@ public class Employee {
         this.phoneNum = phoneNum;
     }
 
-    
+    public void getDateJoined(){
+        this.dateJoined = dateJoined;
+    }
     
     
 

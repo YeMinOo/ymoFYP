@@ -15,7 +15,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Update Client</title>
+        <title>Update Client Details</title>
         <link href="css/bootstrap.css" rel="stylesheet">
 
         <link rel='stylesheet' href='lib/fullcalendar.min.css' />
