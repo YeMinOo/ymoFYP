@@ -51,6 +51,15 @@
         <script src='lib/jquery.min.js'></script>
         <script src='lib/moment.min.js'></script>
         <script src='lib/fullcalendar.min.js'></script>
+        <script>
+            function ConfirmDelete(){
+            if (confirm("Delete Client?")){
+                  return true;
+            }
+            else {
+               return false;
+            }
+        </script>
         <style type="text/css">
             .bs-docs-featurette + .bs-docs-footer {
                 margin-top: 0;
@@ -255,14 +264,17 @@
 
             #myTable {
                 border-collapse: collapse;
-                width: 100%;
+                width: 80%;
                 border: 1px solid #ddd;
                 font-size: 18px;
+                text-align: center;
+                position: relative;
+                margin: auto;
             }
 
             #myTable th, #myTable td {
                 text-align: left;
-                padding: 12px;
+                padding: 5px;
             }
 
             #myTable tr {
@@ -368,10 +380,9 @@
                     </div>
                 </div>
             </nav>
-            <nav class="navbar navbar-default navbar-center">
+            <nav class="navbar navbar-default navbar-center" style="padding:2%">
                 <div class="container-fluid" style="text-align: center">
-                    <div class="container-fluid">
-                        <h3></h3>
+                    <div class="container-fluid" height="100%" width="100%">
                         <%
                         String status = (String)request.getAttribute("status");
                         if(status!=null && status.equals("Client Added")){
@@ -401,12 +412,12 @@
                         }
                         %>
                         <h2>List Of All Clients</h2>
-                        <table id="myTable">
+                        <table id="myTable" style="border: #FFFFFF" width="80%" height="80%">
                             <tr>
                                 <th>Client ID</th>
                                 <th>Company Name</th>
-                                <th>Update Client</th>
-                                <th>Delete Client</th>
+                                <th>&nbsp</th>
+                                <th>&nbsp</th>
                             </tr>
                             <%
                                 if (idList.size() == nameList.size()) {
@@ -422,14 +433,13 @@
                                 <td>
                                     <form method="post" action="UpdateClient.jsp">
                                         <input type="hidden" value="<%=idList.get(i)%>" name="id">
-                                       <input type="submit" value="Update">
+                                        <input type="submit" class="btn btn-md btn-primary btn-block btn-signin" value="Update"/>
                                     </form>
                                 </td>
                                  <td>
                                     <form method="post" action="DeleteClient">
                                         <input type="hidden" value="<%=idList.get(i)%>" name="id">
-                                        
-                                        <input type="submit" value="Delete">
+                                        <button class="btn btn-md btn-primary btn-block btn-signin" type="Delete">Delete</button>
                                     </form>
                                 </td>
                             </tr>
